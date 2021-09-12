@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -13,8 +12,11 @@ android {
         applicationId "com.mashup.lastgarden"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode versions.app.major * 1000 +
+                versions.app.feature * 100 +
+                versions.app.regular * 10 +
+                versions.app.minor
+        versionName "${versions.app.major}.${versions.app.feature}.${versions.app.regular}.${versions.app.minor}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,10 +38,4 @@ android {
 
 dependencies {
     implementation project(path: ':base')
-
-    // Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 }
