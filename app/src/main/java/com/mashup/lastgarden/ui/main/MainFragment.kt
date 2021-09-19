@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.databinding.FragmentMainBinding
-import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
-import com.mashup.lastgarden.databinding.FragmentScentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
