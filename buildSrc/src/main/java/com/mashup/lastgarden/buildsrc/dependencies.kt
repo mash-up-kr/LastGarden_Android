@@ -71,5 +71,11 @@ object Libs {
             const val reactiveStream = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$version"
             const val common = "androidx.lifecycle:lifecycle-common-java8:$version"
         }
+
+        object Navigation {
+            private const val version = "2.3.5"
+            const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
+            const val ui = "androidx.navigation:navigation-ui-ktx$version"
+        }
     }
 }

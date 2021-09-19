@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.mashup.lastgarden.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_scentFragment"
+            app:destination="@id/scentFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_perfumeDetailFragment"
+            app:destination="@id/perfumeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/perfumeDetailFragment"
+        android:name="com.mashup.lastgarden.ui.main.PerfumeDetailFragment"
+        android:label="PerfumeDetailFragment" >
+        <action
+            android:id="@+id/action_perfumeDetailFragment_to_scentFragment"
+            app:destination="@id/scentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scentFragment"
+        android:name="com.mashup.lastgarden.ui.main.ScentFragment"
+        android:label="ScentFragment" />
+</navigation>
