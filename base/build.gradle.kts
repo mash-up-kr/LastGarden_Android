@@ -78,10 +78,5 @@ dependencies {
 
     // An adaptation of the JSR-310 backport for Android.
     api("com.jakewharton.threetenabp:threetenabp:1.2.1")
-    testImplementation("org.threeten:threetenbp:1.4.0")
-
-    // Test
-    testApi(Libs.junit)
-    androidTestApi(Libs.AndroidX.Test.junit)
-    androidTestApi(Libs.AndroidX.Test.espressoCore)
+    testApi("org.threeten:threetenbp:1.4.0")
 }

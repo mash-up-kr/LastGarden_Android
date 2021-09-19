@@ -45,4 +45,9 @@ dependencies {
     kapt(Libs.Hilt.androidCompiler)
     implementation(Libs.Hilt.viewModel)
     kapt(Libs.Hilt.hiltCompiler)
+
+    // Test
+    testImplementation(Libs.junit)
+    androidTestImplementation(Libs.AndroidX.Test.junit)
+    androidTestImplementation(Libs.AndroidX.Test.espressoCore)
 }
