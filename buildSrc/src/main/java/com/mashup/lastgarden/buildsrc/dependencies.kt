@@ -71,5 +71,11 @@ object Libs {
             const val reactiveStream = "androidx.lifecycle:lifecycle-reactivestreams-ktx:$version"
             const val common = "androidx.lifecycle:lifecycle-common-java8:$version"
         }
+
+        object Room {
+            private const val version = "2.2.6"
+            const val room = "androidx.room:room-runtime:$version"
+            const val compiler = "androidx.room:room-compiler:$version"
+        }
     }
 }

@@ -18,6 +18,12 @@ android {
         viewBinding {
             isEnabled = true
         }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+            }
+        }
     }
 
     buildTypes {
@@ -75,6 +81,10 @@ dependencies {
     kapt(Libs.Glide.compiler)
     api(Libs.Glide.integration)
     api(Libs.Glide.transformation)
+
+    // Room
+    api(Libs.AndroidX.Room.room)
+    kapt(Libs.AndroidX.Room.compiler)
 
     // An adaptation of the JSR-310 backport for Android.
     api("com.jakewharton.threetenabp:threetenabp:1.2.1")
