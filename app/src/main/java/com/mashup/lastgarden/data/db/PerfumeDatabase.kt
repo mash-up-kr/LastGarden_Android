@@ -16,19 +16,14 @@ abstract class PerfumeDatabase : RoomDatabase() {
         private const val DB_NAME = "perfume-database"
 
         @Synchronized
-        fun getInstance(context: Context): PerfumeDatabase? {
-            if (instance == null) {
-                synchronized(PerfumeDatabase::class) {
-                    instance ?: Room.databaseBuilder(
-                        context.applicationContext,
-                        PerfumeDatabase::class.java,
-                        DB_NAME
-                    ).build().also {
-                        instance = it
-                    }
-                }
+        fun getInstance(context: Context): PerfumeDatabase {
+            return instance ?: synchronized(PerfumeDatabase::class) {
+                instance ?: Room.databaseBuilder(
+                    context.applicationContext,
+                    PerfumeDatabase::class.java,
+                    DB_NAME
+                ).build().also { instance = it }
             }
-            return instance
         }
     }
 }
