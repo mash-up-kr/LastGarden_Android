@@ -1,7 +1,8 @@
-package com.mashup.lastgarden
+package com.mashup.lastgarden.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.mashup.lastgarden.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
