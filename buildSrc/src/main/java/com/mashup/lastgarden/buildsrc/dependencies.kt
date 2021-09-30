@@ -50,6 +50,10 @@ object Libs {
         }
     }
 
+    object Test {
+        const val junit = "junit:junit:4.12"
+    }
+
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:1.3.1"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0"
