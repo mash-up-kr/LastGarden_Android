@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.SeeHyangComponents" parent="android:Widget" />
+
+    <style name="Widget.SeeHyangComponents.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/point</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.H1">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">35sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.H2">
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">29sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.H3">
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">26sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.H4">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">23sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.Body1">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.Body2">
+        <item name="android:textSize">13sp</item>
+        <item name="lineHeight">19sp</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.TextView.Body3">
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">17sp</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="backgroundTint">@color/primaryColor</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">0dp</item>
+    </style>
+</resources>
