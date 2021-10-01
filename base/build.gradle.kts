@@ -91,6 +91,7 @@ dependencies {
     testImplementation("org.threeten:threetenbp:1.4.0")
 
     // Test
+    testApi(Libs.Test.junit)
     androidTestApi(Libs.AndroidX.Test.junit)
     androidTestApi(Libs.AndroidX.Test.espressoCore)
 }
