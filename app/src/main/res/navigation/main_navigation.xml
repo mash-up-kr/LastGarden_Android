@@ -8,23 +8,30 @@
         android:id="@+id/mainFragment"
         android:name="com.mashup.lastgarden.ui.main.MainFragment"
         android:label="MainFragment">
+
         <action
-            android:id="@+id/action_mainFragment_to_scentFragment"
+            android:id="@+id/actionMainFragmentToScentFragment"
             app:destination="@id/scentFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_perfumeDetailFragment"
+            android:id="@+id/actionMainFragmentToPerfumeDetailFragment"
             app:destination="@id/perfumeDetailFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/perfumeDetailFragment"
         android:name="com.mashup.lastgarden.ui.main.PerfumeDetailFragment"
         android:label="PerfumeDetailFragment">
+
         <action
-            android:id="@+id/action_perfumeDetailFragment_to_scentFragment"
+            android:id="@+id/actionPerfumeDetailFragmentToScentFragment"
             app:destination="@id/scentFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/scentFragment"
         android:name="com.mashup.lastgarden.ui.main.ScentFragment"
         android:label="ScentFragment" />
+
 </navigation>
