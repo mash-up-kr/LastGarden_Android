@@ -24,4 +24,6 @@ class SignInFragment : Fragment() {
         )
         return binding.root
     }
+
+    private val test: String = ""
 }
