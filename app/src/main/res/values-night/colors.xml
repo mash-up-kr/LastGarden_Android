@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#796FFF</color>
+    <color name="primaryDisableColor">#6C6C73</color>
+    <color name="pink">#FF5A82</color>
+    <color name="point">#FFFFFF</color>
+    <color name="background">#111111</color>
+    <color name="grey1">#EEEEEE</color>
+    <color name="grey2">#D8D8D8</color>
+    <color name="grey3">#AEAEAE</color>
+    <color name="grey4">#888888</color>
+    <color name="grey5">#666666</color>
+    <color name="grey6">#333333</color>
+    <color name="colorGrey1">#F2F2F4</color>
+    <color name="colorGrey2">#DADBDE</color>
+    <color name="colorGrey3">#B0B4BC</color>
+    <color name="colorGrey4">#7F828A</color>
+    <color name="colorGrey5">#5E6168</color>
+    <color name="colorGrey6">#33343A</color>
+</resources>
