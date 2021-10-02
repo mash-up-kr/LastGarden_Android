@@ -12,4 +12,12 @@
         app:gradientColor="@color/teal_200"
         app:userName="Jaemin.Park" />
 
+    <com.mashup.lastgarden.customview.PerfumeCardView
+        android:layout_width="156dp"
+        android:layout_height="283dp"
+        app:contentCardHeight="216dp"
+        app:contentTitle="hi everyone"
+        app:showPerfumeContent="true"
+        app:count="243" />
+
 </FrameLayout>
