@@ -20,6 +20,18 @@
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/backgrounds/scenic" />
 
+    <ImageView
+        android:id="@+id/contentImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
     <com.mashup.lastgarden.customview.UserImageView
         android:id="@+id/userImage"
         android:layout_width="24dp"

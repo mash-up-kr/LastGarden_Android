@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.mashup.lastgarden.ui.onboarding.SignInFragment"
+        android:name="com.mashup.lastgarden.ui.sign.SignInFragment"
         android:label="SignInFragment" />
 </navigation>

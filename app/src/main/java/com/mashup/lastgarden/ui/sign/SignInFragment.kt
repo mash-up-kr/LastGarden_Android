@@ -1,4 +1,4 @@
-package com.mashup.lastgarden.ui.onboarding
+package com.mashup.lastgarden.ui.sign
 
 import android.os.Bundle
 import android.view.LayoutInflater
