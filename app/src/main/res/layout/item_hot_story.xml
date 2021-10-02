@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mashup.lastgarden.customview.PerfumeCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="156dp"
+    android:layout_height="283dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    app:contentCardHeight="216dp"
+    app:count="0"
+    app:perfumeGradientColor="@color/colorGrey2"
+    app:showPerfumeContent="true"
+    tools:contentTitle="Title Sample"
+    tools:perfumeUserName="Test User" />

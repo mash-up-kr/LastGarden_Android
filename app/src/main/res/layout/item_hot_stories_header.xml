@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:text="@string/main_hot_story_header"
+    android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+    android:textColor="@color/point"
+    android:textStyle="bold" />

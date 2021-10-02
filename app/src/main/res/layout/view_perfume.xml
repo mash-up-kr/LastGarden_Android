@@ -58,7 +58,7 @@
         android:drawablePadding="4dp"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body2"
         android:textColor="@color/purple_sub"
-        app:drawableStartCompat="@drawable/ic_like"
+        app:drawableStartCompat="@drawable/ic_like_16dp"
         app:drawableTint="@color/purple_sub"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/perfumeName"

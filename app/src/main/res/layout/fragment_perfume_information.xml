@@ -31,7 +31,6 @@
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_question"
-            app:tint="@color/grey4"
             app:layout_constraintBottom_toBottomOf="@+id/textViewPyramid"
             app:layout_constraintStart_toEndOf="@+id/textViewPyramid"
             app:layout_constraintTop_toTopOf="@+id/textViewPyramid" />
@@ -41,6 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="33dp"
+            android:src="@drawable/ic_pyramid_top"
             app:layout_constraintDimensionRatio="1:0.5454"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +60,7 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="8dp"
             android:text="@string/perfume_info_pyramid_top"
+            android:checked="true"
             android:textColor="@drawable/sign_information_check_box_text"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,7 +169,6 @@
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_question"
-            app:tint="@color/grey4"
             app:layout_constraintBottom_toBottomOf="@+id/textViewMainAccord"
             app:layout_constraintStart_toEndOf="@+id/textViewMainAccord"
             app:layout_constraintTop_toTopOf="@+id/textViewMainAccord" />
@@ -240,7 +240,6 @@
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_question"
-            app:tint="@color/grey4"
             app:layout_constraintBottom_toBottomOf="@+id/textViewType"
             app:layout_constraintStart_toEndOf="@+id/textViewType"
             app:layout_constraintTop_toTopOf="@+id/textViewType" />
@@ -312,13 +311,11 @@
             android:layout_height="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/progress_bar_rounded_corner"
-            android:progress="50"
+            android:progress="75"
             android:progressDrawable="@drawable/progress_bar_rounded_corner"
             app:layout_constraintEnd_toEndOf="@+id/textViewAfflictionRateMaxPercent"
             app:layout_constraintStart_toStartOf="@+id/textViewAfflictionRate"
             app:layout_constraintTop_toBottomOf="@+id/textViewAfflictionRate" />
-
-
 
         <TextView
             android:id="@+id/textViewDuration"
@@ -361,7 +358,7 @@
             android:layout_height="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/progress_bar_rounded_corner"
-            android:progress="50"
+            android:progress="83"
             android:progressDrawable="@drawable/progress_bar_rounded_corner"
             app:layout_constraintEnd_toEndOf="@+id/textViewDurationMaxHour"
             app:layout_constraintStart_toStartOf="@+id/textViewDuration"
