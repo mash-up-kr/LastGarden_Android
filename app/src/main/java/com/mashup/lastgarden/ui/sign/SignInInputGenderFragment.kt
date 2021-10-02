@@ -40,11 +40,13 @@ class SignInInputGenderFragment : BaseViewModelFragment() {
         binding.checkBoxFemale.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.checkBoxMale.isChecked = false
+                binding.checkBoxUnknown.isChecked = false
             }
         }
         binding.checkBoxMale.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.checkBoxFemale.isChecked = false
+                binding.checkBoxUnknown.isChecked = false
             }
         }
         binding.checkBoxUnknown.setOnCheckedChangeListener { _, isChecked ->
