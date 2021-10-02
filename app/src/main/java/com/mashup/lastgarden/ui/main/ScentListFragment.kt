@@ -1,14 +1,14 @@
 package com.mashup.lastgarden.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.databinding.FragmentScentListBinding
+import com.mashup.lastgarden.ui.BaseViewModelFragment
 
-class ScentListFragment : Fragment() {
+class ScentListFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentScentListBinding>()
 
