@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <FrameLayout
+        android:id="@+id/perfumeImageContainer"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/perfumeImage"
+            android:layout_width="100dp"
+            android:layout_height="134dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/todayPerfumeHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/main_today_perfume_header_title"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body2"
+        android:textColor="@color/colorGrey4"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/perfumeImageContainer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/todayPerfume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/main_today_perfume_header_content"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline3"
+        android:textColor="@color/point"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/todayPerfumeHeader"
+        app:layout_constraintTop_toBottomOf="@id/todayPerfumeHeader" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
