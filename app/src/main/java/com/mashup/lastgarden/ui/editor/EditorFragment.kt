@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -59,6 +60,9 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
         super.onSetupViews(view)
         initEditorView()
         observeViewModel()
+
+        binding.photoEditorView.source.scaleType =
+            ImageView.ScaleType.CENTER_INSIDE
 
         binding.closeBtn.setOnClickListener {
             requireActivity().finish()
