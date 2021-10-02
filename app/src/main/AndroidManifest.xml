@@ -17,11 +17,11 @@
 
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ui.onboarding.SplashActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,16 +30,15 @@
 
         <activity
             android:name=".ui.sign.SignActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ui.editor.EditorActivity"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 
