@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.use
+import androidx.core.view.isVisible
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -32,12 +33,19 @@ class BottomGradientCardView @JvmOverloads constructor(
         initializeAttributes(context, attrs)
     }
 
-    private var currentImageUrl: String? = null
+    private var currentContentImageUrl: String? = null
+    private var currentSourceImageUrl: String? = null
 
     var userName: String?
         get() = binding.userName.toString()
         set(value) {
             binding.userName.text = value
+        }
+
+    var isContentImageVisible: Boolean
+        get() = binding.contentImage.isVisible
+        set(value) {
+            binding.contentImage.isVisible = value
         }
 
     @ColorInt
@@ -46,18 +54,16 @@ class BottomGradientCardView @JvmOverloads constructor(
             if (value == null) return
             GradientDrawable(
                 GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(value, Color.TRANSPARENT)
-            ).apply {
-                cornerRadius = 8.dp.toFloat()
-            }.let { binding.sourceImage.foreground = it }
+            ).apply { cornerRadius = 8.dp.toFloat() }.let { binding.sourceImage.foreground = it }
         }
 
     private fun initializeAttributes(context: Context, attrs: AttributeSet?) {
         context.obtainStyledAttributes(attrs, R.styleable.BottomGradientCardView).use {
             if (it.hasValue(R.styleable.BottomGradientCardView_gradientColor)) {
-                gradientColor =
-                    it.getColor(R.styleable.BottomGradientCardView_gradientColor, Color.BLACK)
+                gradientColor = it.getColor(R.styleable.BottomGradientCardView_gradientColor, Color.BLACK)
             }
             userName = it.getString(R.styleable.BottomGradientCardView_userName)
+            isContentImageVisible = it.getBoolean(R.styleable.BottomGradientCardView_showContent, false)
         }
     }
 
@@ -65,8 +71,28 @@ class BottomGradientCardView @JvmOverloads constructor(
         binding.userImage.setImageUrl(glideRequests, userImageUrl)
     }
 
+    fun setContentImage(glideRequests: GlideRequests, imageUrl: String?) {
+        if (imageUrl != null && currentContentImageUrl == imageUrl) return
+
+        glideRequests.load(imageUrl)
+            .circleCrop()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                    currentContentImageUrl = null
+                    return false
+                }
+
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    currentContentImageUrl = imageUrl
+                    return false
+                }
+
+            })
+            .into(binding.contentImage)
+    }
+
     fun setSourceImage(glideRequests: GlideRequests, imageUrl: String?) {
-        if (imageUrl != null && currentImageUrl == imageUrl) return
+        if (imageUrl != null && currentSourceImageUrl == imageUrl) return
 
         glideRequests.load(imageUrl)
             .transform(CenterCrop(), RoundedCorners(8.dp))
@@ -77,7 +103,7 @@ class BottomGradientCardView @JvmOverloads constructor(
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    currentImageUrl = null
+                    currentSourceImageUrl = null
                     return false
                 }
 
@@ -88,7 +114,7 @@ class BottomGradientCardView @JvmOverloads constructor(
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    currentImageUrl = imageUrl
+                    currentSourceImageUrl = imageUrl
                     return false
                 }
             })

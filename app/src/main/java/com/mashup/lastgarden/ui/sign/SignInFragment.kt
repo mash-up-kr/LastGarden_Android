@@ -1,10 +1,11 @@
-package com.mashup.lastgarden.ui.onboarding
+package com.mashup.lastgarden.ui.sign
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,6 +14,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.showToast
 import com.mashup.base.extensions.underLine
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentSignInBinding
@@ -60,6 +62,7 @@ class SignInFragment : BaseViewModelFragment() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
         binding.unUsedSign.underLine()
+
         binding.loginGoogleButton.setOnClickListener {
             requestGoogleLogin()
         }
@@ -86,9 +89,17 @@ class SignInFragment : BaseViewModelFragment() {
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
 //                    updateUI(user)
+                    moveSignNameFragment()
                 } else {
 //                    updateUI(null)
+                    showToast("Google Login이 실패했습니다.")
                 }
             }
+    }
+
+    private fun moveSignNameFragment() {
+        findNavController().navigate(
+            R.id.actionSignInFragmentToSignInInputNameFragment
+        )
     }
 }
