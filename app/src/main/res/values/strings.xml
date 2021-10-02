@@ -47,4 +47,13 @@
     <string name="tutorial_fourth_content">궁시렁궁시렁</string>
     <string name="btn_next">"다음"</string>
 
+    <string name="main_today_perfume_header_title">오늘의 시향</string>
+    <string name="main_today_perfume_header_content">%s를 눈으로 시향해 보세요.</string>
+    <string name="refresh_another_perfume">다른 향수 보기</string>
+    <string name="banner_title">향수, 스토리로 말해봐!</string>
+    <string name="banner_description">내 맘대로 표현하고 눈으로 시향하자!</string>
+    <string name="main_hot_story_header">지금 HOT한 스토리</string>
+    <string name="main_ranking_header">주간 인기랭킹</string>
+    <string name="main_perfume_recommend_header">향수 추천</string>
+    <string name="main_see_more">더보기</string>
 </resources>

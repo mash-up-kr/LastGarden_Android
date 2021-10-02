@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/seeMoreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        android:text="@string/main_see_more"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        android:textColor="@color/colorGrey2"
+        android:textStyle="bold"
+        app:drawableEndCompat="@drawable/ic_left_arrow"
+        app:drawableTint="@color/colorGrey2" />
+
+</FrameLayout>
