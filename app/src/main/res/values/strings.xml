@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LastGarden</string>
+
+    <string name="sign_explain_label">간편하게 씨향 시작하기</string>
+    <string name="sign_google_label">Google 계정으로 로그인</string>
+    <string name="sign_un_used">로그인 없이 둘러보기</string>
 </resources>
