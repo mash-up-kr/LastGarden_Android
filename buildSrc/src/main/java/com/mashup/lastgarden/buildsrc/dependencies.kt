@@ -22,9 +22,11 @@ object Libs {
     object Firebase {
         const val google = "com.google.gms:google-services:4.3.8"
         const val crashlyticsClassPath = "com.google.firebase:firebase-crashlytics-gradle:2.7.1"
-        const val bom = "com.google.firebase:firebase-bom:28.2.0"
+        const val bom = "com.google.firebase:firebase-bom:28.4.1"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         const val crashlytics = "com.google.firebase:firebase-analytics"
+        const val auth = "com.google.firebase:firebase-auth-ktx"
+        const val playAuth = "com.google.android.gms:play-services-auth:19.2.0"
     }
 
     object Hilt {
