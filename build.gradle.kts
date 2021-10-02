@@ -7,9 +7,9 @@ buildscript {
     }
     dependencies {
         classpath(Libs.androidGradlePlugin)
+        classpath(Libs.Firebase.google)
         classpath(Libs.Kotlin.gradlePlugin)
         classpath(Libs.Hilt.gradlePlugin)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
     }
 }
 
