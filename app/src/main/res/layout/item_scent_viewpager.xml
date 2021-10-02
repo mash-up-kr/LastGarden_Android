@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgScent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_gradation_top"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75"/>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_gradation_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <com.mashup.lastgarden.customview.UserImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTag"
+        app:layout_constraintStart_toStartOf="@+id/tvTag" />
+
+    <TextView
+        android:id="@+id/tvNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgProfile"
+        app:layout_constraintStart_toEndOf="@id/imgProfile"
+        app:layout_constraintTop_toTopOf="@id/imgProfile" />
+
+    <kr.co.prnd.readmore.ReadMoreTextView
+        android:id="@+id/tvTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="13dp"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:readMoreColor="@color/white"
+        app:readMoreMaxLine="2"
+        app:readMoreText="string/tv_more"
+        app:layout_constraintBottom_toTopOf="@+id/tvCommentCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgComment"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/comment_img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCommentCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/imgComment"
+        app:layout_constraintStart_toEndOf="@+id/imgComment"
+        app:layout_constraintTop_toTopOf="@id/imgComment" />
+
+    <ImageView
+        android:id="@+id/imgLike"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/favorite_img"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCommentCount"
+        app:layout_constraintStart_toEndOf="@+id/tvCommentCount"
+        app:layout_constraintTop_toTopOf="@+id/tvCommentCount" />
+
+    <TextView
+        android:id="@+id/tvLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imgLike"
+        app:layout_constraintStart_toEndOf="@+id/imgLike"
+        app:layout_constraintTop_toTopOf="@id/imgLike" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

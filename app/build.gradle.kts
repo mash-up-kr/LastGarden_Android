@@ -66,4 +66,6 @@ dependencies {
     testImplementation(Libs.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+
+    implementation("kr.co.prnd:readmore-textview:1.0.0")
 }
