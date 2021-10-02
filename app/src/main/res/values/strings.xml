@@ -47,6 +47,8 @@
     <string name="tutorial_fourth_content">궁시렁궁시렁</string>
     <string name="btn_next">"다음"</string>
 
+    <string name="editor_upload_btn">등록하기</string>
+
     <string name="main_today_perfume_header_title">오늘의 시향</string>
     <string name="main_today_perfume_header_content">%s를 눈으로 시향해 보세요.</string>
     <string name="refresh_another_perfume">다른 향수 보기</string>

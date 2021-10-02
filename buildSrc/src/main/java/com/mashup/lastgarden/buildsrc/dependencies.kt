@@ -64,6 +64,11 @@ object Libs {
         const val junit = "junit:junit:4.12"
     }
 
+    object ThirdParty {
+        const val editor = "com.burhanrashid52:photoeditor:1.5.1"
+        const val crop = "com.theartofdev.edmodo:android-image-cropper:2.8.0"
+    }
+
     object AndroidX {
         const val appcompat = "androidx.appcompat:appcompat:1.3.1"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.0"
