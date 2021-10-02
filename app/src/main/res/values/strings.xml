@@ -46,6 +46,8 @@
     <string name="tutorial_fourth_title">궁시렁궁시렁</string>
     <string name="tutorial_fourth_content">궁시렁궁시렁</string>
     <string name="btn_next">"다음"</string>
+    <string name="btn_apply">"등록"</string>
+    <string name="tv_more">"…더보기"</string>
 
     <string name="editor_upload_btn">등록하기</string>
 
