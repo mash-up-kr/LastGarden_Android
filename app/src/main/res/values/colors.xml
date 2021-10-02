@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="dividerColor">#8A000000</color>
+
     <color name="primaryColor">#5F54F2</color>
     <color name="primaryDisableColor">#DFDDFF</color>
     <color name="pink">#FF5A82</color>

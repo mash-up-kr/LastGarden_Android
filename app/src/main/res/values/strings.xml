@@ -2,8 +2,15 @@
     <string name="app_name">LastGarden</string>
 
     <!-- Sign Information -->
-    <string name="sign_information_title">씨향 시작하기.</string>
-    <string name="sign_information_description">간단한 정보를 알려주세요.</string>
+    <string name="sign_explain_label">간편하게 씨향 시작하기</string>
+    <string name="sign_google_label">Google 계정으로 로그인</string>
+    <string name="sign_un_used">로그인 없이 둘러보기</string>
+    <string name="sign_name_description">닉네임을 만들어볼까요?</string>
+    <string name="sign_title">씨향 시작하기.</string>
+    <string name="sign_gender_description">간단한 정보를 알려주세요.</string>
+    <string name="sign_information_name">닉네임</string>
+    <string name="sign_information_name_hint">닉네임을 입력해주세요.</string>
+    <string name="sign_information_name_regex">공백, 특수문자를 제외한\n한글, 영어, 숫자로 이루어진 닉네임을 입력해주세요 :)\n이후에 언제든지 변경할 수 있습니다.</string>
     <string name="sign_information_gender">성별</string>
     <string name="sign_information_male">남성</string>
     <string name="sign_information_female">여성</string>
@@ -39,4 +46,5 @@
     <string name="tutorial_fourth_title">궁시렁궁시렁</string>
     <string name="tutorial_fourth_content">궁시렁궁시렁</string>
     <string name="btn_next">"다음"</string>
+
 </resources>

@@ -3,7 +3,6 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
-    id("kotlin-android")
 }
 
 android {
@@ -31,6 +30,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("../seeHyangKeystore")
+            storePassword = "seeHyang1234"
+            keyAlias = "seeHyangKey"
+            keyPassword = "seeHyang1234"
         }
     }
 
@@ -66,4 +74,10 @@ dependencies {
     testImplementation(Libs.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+
+    // Firebase
+    implementation(platform(Libs.Firebase.bom))
+    implementation(Libs.Firebase.analytics)
 }
+
+apply(plugin = "com.google.gms.google-services")

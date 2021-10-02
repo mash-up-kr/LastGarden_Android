@@ -1,10 +1,12 @@
 package com.mashup.lastgarden.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.lastgarden.databinding.ActivityOnBoardingBinding
+import com.mashup.lastgarden.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.max
 
@@ -43,9 +45,16 @@ class OnBoardingActivity : AppCompatActivity() {
             if (tutorialSize - 1 > binding.vpOnboarding.currentItem) {
                 binding.vpOnboarding.currentItem++
             } else {
-
+                moveSignActivity()
             }
         }
+    }
+
+    private fun moveSignActivity() {
+        startActivity(
+            Intent(this, SignActivity::class.java)
+        )
+        finish()
     }
 
     override fun onBackPressed() {
