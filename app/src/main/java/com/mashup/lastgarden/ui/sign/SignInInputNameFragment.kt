@@ -4,25 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.mashup.base.autoCleared
-import com.mashup.base.extensions.underLine
 import com.mashup.lastgarden.R
-import com.mashup.lastgarden.databinding.FragmentSignInBinding
+import com.mashup.lastgarden.databinding.FragmentSignNameBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : BaseViewModelFragment() {
+class SignInInputNameFragment : BaseViewModelFragment() {
 
-    private var binding by autoCleared<FragmentSignInBinding>()
+    private var binding by autoCleared<FragmentSignNameBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSignInBinding.inflate(
+        binding = FragmentSignNameBinding.inflate(
             inflater, container, false
         )
         return binding.root
@@ -30,16 +30,19 @@ class SignInFragment : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-        binding.unUsedSign.underLine()
+        binding.editTextName.doOnTextChanged { text, _, _, _ ->
+            binding.buttonNext.isEnabled = !text.isNullOrEmpty()
+        }
 
-        binding.loginGoogleButton.setOnClickListener {
-            moveSignInformationFragment()
+        binding.buttonNext.setOnClickListener {
+            moveSignCompleteFragment()
         }
     }
 
-    private fun moveSignInformationFragment() {
+
+    private fun moveSignCompleteFragment() {
         findNavController().navigate(
-            R.id.actionSignInFragmentToSignInInputNameFragment
+            R.id.actionSignInInputNameFragmentToSignInputGenderFragment
         )
     }
 }

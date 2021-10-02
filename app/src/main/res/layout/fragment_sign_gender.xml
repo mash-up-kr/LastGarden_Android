@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -16,8 +15,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/ic_close"
             android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="@string/sign_information_title"
+        android:text="@string/sign_title"
         android:textColor="@color/primaryColor"
         android:textFontWeight="900"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,14 +43,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/sign_information_description"
+        android:text="@string/sign_gender_description"
         android:textColor="@color/point"
         android:textFontWeight="400"
         app:layout_constraintStart_toStartOf="@+id/textViewTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <TextView
-        android:id="@+id/textViewGender"
+        android:id="@+id/textViewName"
         style="@style/TextAppearance.SeeHyangComponents.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,10 +73,10 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="12dp"
         android:text="@string/sign_information_male"
-        android:textFontWeight="400"
         android:textColor="@drawable/sign_information_check_box_text"
-        app:layout_constraintStart_toStartOf="@+id/textViewGender"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGender" />
+        android:textFontWeight="400"
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
     <CheckBox
         android:id="@+id/checkBoxFemale"
@@ -128,33 +127,35 @@
         app:layout_constraintTop_toBottomOf="@+id/checkBoxMale" />
 
     <EditText
-        android:id="@+id/editTextAge"
+        android:id="@+id/editTextName"
         style="@style/TextAppearance.SeeHyangComponents.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/sign_information_input_background"
-        android:padding="13dp"
-        android:textFontWeight="400"
-        android:textColor="@color/point"
-        android:textColorHint="@color/grey4"
         android:hint="@string/sign_information_age_hint"
         android:inputType="number"
+        android:padding="13dp"
+        android:textColor="@color/point"
+        android:textColorHint="@color/grey4"
+        android:textFontWeight="400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
+        app:layout_constraintTop_toBottomOf="@id/textViewAge" />
 
     <Button
         android:id="@+id/buttonNext"
         style="@style/Widget.SeeHyangComponents.Button"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/sign_information_next_button"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textFontWeight="700"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

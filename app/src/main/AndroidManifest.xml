@@ -17,24 +17,28 @@
 
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
 
         <activity
             android:name=".ui.onboarding.SplashActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.sign.SignActivity"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
 
         <activity
             android:name=".ui.editor.EditorActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
 
     </application>
 
