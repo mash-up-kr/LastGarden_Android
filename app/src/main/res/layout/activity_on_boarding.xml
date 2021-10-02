@@ -13,11 +13,10 @@
         android:layout_height="0dp"
         android:background="@color/colorGrey6"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-    </androidx.viewpager2.widget.ViewPager2>
+        app:layout_constraintTop_toTopOf="parent"></androidx.viewpager2.widget.ViewPager2>
 
 
     <com.google.android.material.tabs.TabLayout
@@ -26,7 +25,7 @@
         android:layout_height="54dp"
         android:scrollIndicators="none"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
         app:layout_constraintEnd_toEndOf="@+id/vpOnboarding"
         app:layout_constraintStart_toStartOf="parent"
         app:tabBackground="@drawable/selector_circle_indicator"
