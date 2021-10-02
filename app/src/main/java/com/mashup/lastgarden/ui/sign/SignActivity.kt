@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.mashup.lastgarden.ui.editor.EditorActivity
 import com.mashup.lastgarden.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,7 +41,7 @@ class SignActivity : AppCompatActivity() {
 
     private fun moveMainActivity() {
         startActivity(
-            Intent(this, MainActivity::class.java)
+            Intent(this, EditorActivity::class.java)
         )
         finish()
     }

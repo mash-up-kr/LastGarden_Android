@@ -82,6 +82,10 @@ dependencies {
     implementation(Libs.Firebase.auth)
 
     implementation("kr.co.prnd:readmore-textview:1.0.0")
+
+    implementation(Libs.ThirdParty.editor)
+    implementation(Libs.ThirdParty.crop)
+
 }
 
 apply(plugin = "com.google.gms.google-services")

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.databinding.FragmentSignCompleteBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.editor.EditorActivity
 import com.mashup.lastgarden.ui.main.MainActivity
 
 class SignCompleteFragment : BaseViewModelFragment() {
@@ -36,7 +37,7 @@ class SignCompleteFragment : BaseViewModelFragment() {
     private fun moveMainActivity() {
         requireActivity().run {
             startActivity(
-                Intent(requireContext(), MainActivity::class.java)
+                Intent(requireContext(), EditorActivity::class.java)
             )
             finish()
         }
