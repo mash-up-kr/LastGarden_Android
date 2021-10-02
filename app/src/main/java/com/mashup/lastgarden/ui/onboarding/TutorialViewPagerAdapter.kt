@@ -18,8 +18,7 @@ class TutorialViewPagerAdapter(onBoardingActivity: OnBoardingActivity) :
         return when (position) {
             0 -> TutorialFirstFragment()
             1 -> TutorialSecondFragment()
-            2 -> TutorialThirdFragment()
-            else -> TutorialFourthFragment()
+            else -> TutorialThirdFragment()
         }
     }
 
