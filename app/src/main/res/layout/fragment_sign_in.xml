@@ -32,7 +32,7 @@
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="48dp"
         android:layout_marginBottom="78dp"
         android:backgroundTint="@android:color/white"
         android:gravity="center"
