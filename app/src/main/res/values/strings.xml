@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">LastGarden</string>
+
+    <!-- Sign Information -->
+    <string name="sign_information_title">씨향 시작하기.</string>
+    <string name="sign_information_description">간단한 정보를 알려주세요.</string>
+    <string name="sign_information_gender">성별</string>
+    <string name="sign_information_male">남성</string>
+    <string name="sign_information_female">여성</string>
+    <string name="sign_information_unknown">선택안함</string>
+    <string name="sign_information_age">나이</string>
+    <string name="sign_information_age_hint">나이를 입력해주세요</string>
+    <string name="sign_information_next_button">다음</string>
+
+    <!-- Sign Complete -->
+    <string name="sign_complete_title">반갑습니다,\n김첨지님 :)</string>
+    <string name="sign_complete_description">향수에 대한 다양한 이미지를 공유하고,\n이야기하는 씨향에 온 걸 환영해요.</string>
+    <string name="sign_complete_start_button">시작하기</string>
+
 </resources>
