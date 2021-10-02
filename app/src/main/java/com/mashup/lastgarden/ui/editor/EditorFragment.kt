@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.databinding.FragmentEditorBinding
+import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import ja.burhanrashid52.photoeditor.PhotoEditor
 
 @AndroidEntryPoint
-class EditorFragment : Fragment() {
+class EditorFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentEditorBinding>()
+
+    private var editor: PhotoEditor? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,5 +26,18 @@ class EditorFragment : Fragment() {
             inflater, container, false
         )
         return binding.root
+    }
+
+    override fun onSetupViews(view: View) {
+        super.onSetupViews(view)
+
+        initEditorView()
+    }
+
+    private fun initEditorView() {
+        editor = PhotoEditor.Builder(requireContext(), binding.photoEditorView)
+            .setPinchTextScalable(true)
+            .setClipSourceImage(true)
+            .build();
     }
 }

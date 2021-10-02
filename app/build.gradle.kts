@@ -80,6 +80,8 @@ dependencies {
     implementation(Libs.Firebase.analytics)
     implementation(Libs.Firebase.playAuth)
     implementation(Libs.Firebase.auth)
+
+    implementation(Libs.ThirdParty.editor)
 }
 
 apply(plugin = "com.google.gms.google-services")
