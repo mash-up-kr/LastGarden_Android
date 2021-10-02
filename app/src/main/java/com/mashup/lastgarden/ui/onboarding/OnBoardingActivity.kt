@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.lastgarden.databinding.ActivityOnBoardingBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.max
 
 @AndroidEntryPoint
 class OnBoardingActivity : AppCompatActivity() {
@@ -34,11 +35,16 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private fun setupViewPager() {
         binding.vpOnboarding.adapter = TutorialViewPagerAdapter(this)
-        TabLayoutMediator(binding.tabLayout, binding.vpOnboarding) { tab, _ ->
+        TabLayoutMediator(binding.tabLayout, binding.vpOnboarding) { _, _ ->
         }.attach()
 
         binding.btnNext.setOnClickListener {
-            binding.vpOnboarding.currentItem++
+            val tutorialSize = binding.vpOnboarding.adapter?.itemCount ?: 0
+            if (tutorialSize - 1 > binding.vpOnboarding.currentItem) {
+                binding.vpOnboarding.currentItem++
+            } else {
+
+            }
         }
     }
 
@@ -46,7 +52,8 @@ class OnBoardingActivity : AppCompatActivity() {
         if (binding.vpOnboarding.currentItem == 0) {
             super.onBackPressed()
         } else {
-            binding.vpOnboarding.currentItem = binding.vpOnboarding.currentItem - 1
+            binding.vpOnboarding.currentItem =
+                max(binding.vpOnboarding.currentItem - 1, 0)
         }
     }
 }
