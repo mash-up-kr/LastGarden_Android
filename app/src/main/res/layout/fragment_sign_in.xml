@@ -40,7 +40,7 @@
         android:paddingTop="9dp"
         android:paddingBottom="11dp"
         android:text="@string/sign_google_label"
-        android:textColor="#505050"
+        android:textColor="@color/colorGrey2"
         android:textStyle="bold"
         app:icon="@drawable/ic_google_login"
         app:iconGravity="start"
