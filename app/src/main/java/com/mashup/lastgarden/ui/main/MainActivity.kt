@@ -20,6 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavController() {
         navController = (supportFragmentManager.findFragmentById(R.id.navHostFragment)
-                as NavHostFragment).navController
+            as NavHostFragment).navController
     }
 }

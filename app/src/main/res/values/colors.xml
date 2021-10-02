@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="dividerColor">#8A000000</color>
+
     <color name="primaryColor">#5F54F2</color>
     <color name="primaryDisableColor">#DFDDFF</color>
     <color name="pink">#FF5A82</color>
@@ -25,4 +27,5 @@
     <color name="colorGrey4">#B0B4BC</color>
     <color name="colorGrey5">#DADBDE</color>
     <color name="colorGrey6">#F7F7F8</color>
+    <color name="purple_sub">#7870DF</color>
 </resources>

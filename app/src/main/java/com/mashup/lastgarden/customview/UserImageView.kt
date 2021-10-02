@@ -19,7 +19,7 @@ class UserImageView @JvmOverloads constructor(
     private var currentImageUrl: String? = null
 
     fun setImageUrl(glideRequests: GlideRequests, imageUrl: String?) {
-        if(imageUrl != null && currentImageUrl == imageUrl) return
+        if (imageUrl != null && currentImageUrl == imageUrl) return
 
         glideRequests
             .load(imageUrl)
