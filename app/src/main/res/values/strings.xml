@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LastGarden</string>
+    <string name="tutorial_first_title">다양한 향수 이미지를 \n 통해 눈으로 시향해보세요 :)</string>
+    <string name="tutorial_first_content">직접 사용한 사람들이 올리는 \n 향수에 대한 이미지들을 통해 시향할 수 있습니다.</string>
+    <string name="tutorial_second_title">직접 써본 향수에 대해 \n이미지와 글로 표현해보세요.</string>
+    <string name="tutorial_second_content">다른 사람들에게 향수에 대한 느낌을\n 쉽고 간단하게 공유할 수 있습니다.</string>
+    <string name="tutorial_third_title">향수에 대한 느낌은 물론\n 상세정보를 간편하게 확인하세요.</string>
+    <string name="tutorial_third_content">향수의 노트와 어코드 등의 정보를\n 쉽게 확인할 수 있습니다.</string>
+    <string name="tutorial_fourth_title">궁시렁궁시렁</string>
+    <string name="tutorial_fourth_content">궁시렁궁시렁</string>
+    <string name="btn_next">"다음"</string>
 </resources>
