@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.onboarding.OnBoardingActivity">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpOnboarding"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorGrey6"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+    </androidx.viewpager2.widget.ViewPager2>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:scrollIndicators="none"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="@+id/vpOnboarding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@drawable/selector_circle_indicator"
+        app:tabIndicator="@null"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        android:theme="@style/Widget.SeeHyangComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_next"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
