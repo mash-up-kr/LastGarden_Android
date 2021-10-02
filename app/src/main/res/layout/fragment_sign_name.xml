@@ -4,116 +4,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonNext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="56dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                app:layout_constraintTop_toTopOf="parent">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/imageViewClose"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="20dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:src="@drawable/ic_close"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/black" />
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextAppearance.SeeHyangComponenets.Headline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sign_title"
+        android:textColor="@color/primaryColor"
+        android:textFontWeight="900"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textViewDescription"
+        style="@style/TextAppearance.SeeHyangComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/sign_name_description"
+        android:textColor="@color/point"
+        android:textFontWeight="400"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
-            <TextView
-                android:id="@+id/textViewTitle"
-                style="@style/TextAppearance.SeeHyangComponenets.Headline1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/sign_title"
-                android:textColor="@color/primaryColor"
-                android:textFontWeight="900"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+    <TextView
+        android:id="@+id/textViewName"
+        style="@style/TextAppearance.SeeHyangComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:text="@string/sign_information_name"
+        android:textColor="@color/grey2"
+        android:textFontWeight="700"
+        app:layout_constraintStart_toStartOf="@+id/textViewDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 
-            <TextView
-                android:id="@+id/textViewDescription"
-                style="@style/TextAppearance.SeeHyangComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/sign_name_description"
-                android:textColor="@color/point"
-                android:textFontWeight="400"
-                app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+    <EditText
+        android:id="@+id/editTextName"
+        style="@style/TextAppearance.SeeHyangComponents.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/sign_information_input_background"
+        android:hint="@string/sign_information_name_hint"
+        android:inputType="text"
+        android:padding="13dp"
+        android:textColor="@color/point"
+        android:textColorHint="@color/grey4"
+        android:textFontWeight="400"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
-            <TextView
-                android:id="@+id/textViewName"
-                style="@style/TextAppearance.SeeHyangComponents.Body1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="89dp"
-                android:text="@string/sign_information_name"
-                android:textColor="@color/grey2"
-                android:textFontWeight="700"
-                app:layout_constraintStart_toStartOf="@+id/textViewDescription"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+    <ImageView
+        android:id="@+id/infoImage"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextName" />
 
-            <EditText
-                android:id="@+id/editTextName"
-                style="@style/TextAppearance.SeeHyangComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/sign_information_input_background"
-                android:hint="@string/sign_information_name_hint"
-                android:inputType="text"
-                android:padding="13dp"
-                android:textColor="@color/point"
-                android:textColorHint="@color/grey4"
-                android:textFontWeight="400"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewName" />
-
-            <ImageView
-                android:id="@+id/infoImage"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="16dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_info"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextName" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="21dp"
-                android:text="@string/sign_information_name_regex"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/infoImage"
-                app:layout_constraintTop_toBottomOf="@id/editTextName" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="21dp"
+        android:text="@string/sign_information_name_regex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/infoImage"
+        app:layout_constraintTop_toBottomOf="@id/editTextName" />
 
     <Button
         android:id="@+id/buttonNext"
