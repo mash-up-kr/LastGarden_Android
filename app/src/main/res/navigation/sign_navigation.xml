@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/signInFragment2"
         android:name="com.mashup.lastgarden.ui.sign.SignInFragment"
-        android:label="SignInFragment" >
+        android:label="SignInFragment">
         <action
             android:id="@+id/actionSignInFragmentToSignInInputNameFragment"
             app:destination="@id/signInInputNameFragment" />
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/signInInputNameFragment"
         android:name="com.mashup.lastgarden.ui.sign.SignInInputNameFragment"
-        android:label="SignInInputNameFragment" >
+        android:label="SignInInputNameFragment">
         <action
             android:id="@+id/actionSignInInputNameFragmentToSignInputGenderFragment"
             app:destination="@id/signInformationFragment" />
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/signInformationFragment"
         android:name="com.mashup.lastgarden.ui.sign.SignInInputGenderFragment"
-        android:label="SignInformationFragment" >
+        android:label="SignInformationFragment">
         <action
             android:id="@+id/actionSignInputGenderFragmentToSignCompleteFragment"
             app:destination="@id/signCompleteFragment" />

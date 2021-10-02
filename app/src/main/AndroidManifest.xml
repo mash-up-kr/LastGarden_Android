@@ -28,9 +28,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.sign.SignActivity"
+        <activity
+            android:name=".ui.sign.SignActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ui.main.MainActivity"
