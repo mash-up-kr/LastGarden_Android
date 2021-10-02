@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomGradientCardView">
+        <attr name="gradientColor" format="color" />
+        <attr name="userName" format="string" />
+    </declare-styleable>
+</resources>

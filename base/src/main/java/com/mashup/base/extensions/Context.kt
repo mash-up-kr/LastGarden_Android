@@ -20,7 +20,7 @@ fun Context.createGalleryIntent(
     chooserTitle: String? = null,
     isMultiple: Boolean = false
 ): Intent {
-    val intent = if (Build.MANUFACTURER.toLowerCase(Locale.ENGLISH) == "samsung" && isMultiple) {
+    val intent = if (Build.MANUFACTURER.lowercase(Locale.ENGLISH) == "samsung" && isMultiple) {
         Intent(Intent.ACTION_GET_CONTENT)
     } else {
         Intent(Intent.ACTION_PICK)
