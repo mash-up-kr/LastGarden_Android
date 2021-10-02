@@ -12,5 +12,11 @@
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.Button.OutLine" parent="Widget.MaterialComponents.Button">
+        <item name="strokeColor">@color/divider_color</item>
+        <item name="strokeWidth">1dp</item>
     </style>
 </resources>

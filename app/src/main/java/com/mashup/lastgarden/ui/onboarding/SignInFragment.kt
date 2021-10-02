@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.underLine
 import com.mashup.lastgarden.databinding.FragmentSignInBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,5 +24,15 @@ class SignInFragment : Fragment() {
             inflater, container, false
         )
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUi()
+    }
+
+    private fun setUi() = with(binding) {
+        binding.unUsedSign.underLine()
     }
 }
