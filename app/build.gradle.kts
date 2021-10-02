@@ -74,4 +74,10 @@ dependencies {
     testImplementation(Libs.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+
+    // Firebase
+    implementation(platform(Libs.Firebase.bom))
+    implementation(Libs.Firebase.analytics)
 }
+
+apply(plugin = "com.google.gms.google-services")
