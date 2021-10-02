@@ -30,7 +30,7 @@
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btnNext"
         android:theme="@style/Widget.SeeHyangComponents.Button"
         android:layout_width="0dp"
