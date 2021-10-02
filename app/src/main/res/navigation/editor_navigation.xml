@@ -6,5 +6,13 @@
     <fragment
         android:id="@+id/editorFragment"
         android:name="com.mashup.lastgarden.ui.editor.EditorFragment"
-        android:label="EditorFragment" />
+        android:label="EditorFragment" >
+        <action
+            android:id="@+id/action_editorFragment_to_editorUploadFragment"
+            app:destination="@id/editorUploadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editorUploadFragment"
+        android:name="com.mashup.lastgarden.ui.editor.EditorUploadFragment"
+        android:label="EditorUploadFragment" />
 </navigation>

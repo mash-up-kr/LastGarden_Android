@@ -66,6 +66,7 @@ object Libs {
 
     object ThirdParty {
         const val editor = "com.burhanrashid52:photoeditor:1.5.1"
+        const val crop = "com.theartofdev.edmodo:android-image-cropper:2.8.0"
     }
 
     object AndroidX {
