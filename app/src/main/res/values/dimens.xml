@@ -3,4 +3,5 @@
     <dimen name="perfume_content_card_height">216dp</dimen>
     <dimen name="dot_size">5dp</dimen>
     <dimen name="dot_padding">3dp</dimen>
+    <dimen name="perfume_content_card_height">216dp</dimen>
 </resources>
