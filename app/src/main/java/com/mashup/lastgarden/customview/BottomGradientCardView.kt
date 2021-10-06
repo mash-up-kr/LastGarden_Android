@@ -22,12 +22,12 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ViewBottomGradientCardBinding
 
 class BottomGradientCardView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null
+    context: Context,
+    attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
 
     private var binding: ViewBottomGradientCardBinding =
-            ViewBottomGradientCardBinding.inflate(LayoutInflater.from(context), this)
+        ViewBottomGradientCardBinding.inflate(LayoutInflater.from(context), this)
 
     init {
         initializeAttributes(context, attrs)
@@ -53,17 +53,19 @@ class BottomGradientCardView @JvmOverloads constructor(
         set(value) {
             if (value == null) return
             GradientDrawable(
-                    GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(value, Color.TRANSPARENT)
+                GradientDrawable.Orientation.BOTTOM_TOP, intArrayOf(value, Color.TRANSPARENT)
             ).apply { cornerRadius = 8.dp.toFloat() }.let { binding.sourceImage.foreground = it }
         }
 
     private fun initializeAttributes(context: Context, attrs: AttributeSet?) {
         context.obtainStyledAttributes(attrs, R.styleable.BottomGradientCardView).use {
             if (it.hasValue(R.styleable.BottomGradientCardView_gradientColor)) {
-                gradientColor = it.getColor(R.styleable.BottomGradientCardView_gradientColor, Color.BLACK)
+                gradientColor =
+                    it.getColor(R.styleable.BottomGradientCardView_gradientColor, Color.BLACK)
             }
             userName = it.getString(R.styleable.BottomGradientCardView_userName)
-            isContentImageVisible = it.getBoolean(R.styleable.BottomGradientCardView_showContent, false)
+            isContentImageVisible =
+                it.getBoolean(R.styleable.BottomGradientCardView_showContent, false)
         }
     }
 
@@ -75,49 +77,60 @@ class BottomGradientCardView @JvmOverloads constructor(
         if (imageUrl != null && currentContentImageUrl == imageUrl) return
 
         glideRequests.load(imageUrl)
-                .circleCrop()
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        currentContentImageUrl = null
-                        return false
-                    }
+            .circleCrop()
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    currentContentImageUrl = null
+                    return false
+                }
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        currentContentImageUrl = imageUrl
-                        return false
-                    }
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    currentContentImageUrl = imageUrl
+                    return false
+                }
 
-                })
-                .into(binding.contentImage)
+            })
+            .into(binding.contentImage)
     }
 
     fun setSourceImage(glideRequests: GlideRequests, imageUrl: String?) {
         if (imageUrl != null && currentSourceImageUrl == imageUrl) return
 
         glideRequests.load(imageUrl)
-                .transform(CenterCrop(), RoundedCorners(8.dp))
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            isFirstResource: Boolean
-                    ): Boolean {
-                        currentSourceImageUrl = null
-                        return false
-                    }
+            .transform(CenterCrop(), RoundedCorners(8.dp))
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    currentSourceImageUrl = null
+                    return false
+                }
 
-                    override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                    ): Boolean {
-                        currentSourceImageUrl = imageUrl
-                        return false
-                    }
-                })
-                .into(binding.sourceImage)
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    currentSourceImageUrl = imageUrl
+                    return false
+                }
+            })
+            .into(binding.sourceImage)
     }
 }
