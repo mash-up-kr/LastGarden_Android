@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_height="196dp"
+    tools:layout_width="130dp"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <FrameLayout
+        android:id="@+id/perfumeImageContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/perfumeImage"
+            android:layout_width="78dp"
+            android:layout_height="106dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/perfume_ranking_background_shape"
+            android:paddingStart="9dp"
+            android:paddingEnd="9dp"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body2"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            tools:text="1" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+        android:textColor="@color/grey4"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/perfumeImageContainer"
+        tools:text="Channel" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+        android:textColor="@color/grey2"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/brand"
+        tools:text="샤넬 마네띠아 로데 샤넬 마네띠아 로데입니다 " />
+
+</merge>
