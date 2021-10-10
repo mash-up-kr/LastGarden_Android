@@ -12,8 +12,8 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ViewPerfumeCardBinding
 
 class PerfumeCardView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null
+    context: Context,
+    attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
 
     private var binding = ViewPerfumeCardBinding.inflate(LayoutInflater.from(context), this)
@@ -63,12 +63,13 @@ class PerfumeCardView @JvmOverloads constructor(
             }
             count = it.getInteger(R.styleable.PerfumeCardView_count, 0).toLong()
             updateGradientContentHeight(
-                    it.getDimensionPixelOffset(
-                            R.styleable.PerfumeCardView_contentCardHeight,
-                            resources.getDimensionPixelOffset(R.dimen.perfume_content_card_height)
-                    )
+                it.getDimensionPixelOffset(
+                    R.styleable.PerfumeCardView_contentCardHeight,
+                    resources.getDimensionPixelOffset(R.dimen.perfume_content_card_height)
+                )
             )
-            isContentImageVisible = it.getBoolean(R.styleable.PerfumeCardView_showPerfumeContent, false)
+            isContentImageVisible =
+                it.getBoolean(R.styleable.PerfumeCardView_showPerfumeContent, false)
         }
     }
 
