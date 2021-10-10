@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.plugin.statistics.ReportStatisticsToElasticSearch.url
+import java.net.URI
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
@@ -16,6 +19,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven { url = URI.create("https://jitpack.io") }
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
     }

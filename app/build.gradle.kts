@@ -66,4 +66,7 @@ dependencies {
     testImplementation(Libs.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
+
+    // Crop
+    implementation(Libs.ThirdParty.crop)
 }
