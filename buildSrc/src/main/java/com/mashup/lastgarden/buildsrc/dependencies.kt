@@ -89,7 +89,7 @@ object Libs {
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val ui = "androidx.navigation:navigation-ui-ktx:$version"
         }
-        
+
         object Room {
             private const val version = "2.2.6"
             const val room = "androidx.room:room-runtime:$version"

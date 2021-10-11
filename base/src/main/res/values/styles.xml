@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Widget.SeeHyangComponents" parent="android:Widget"/>
+
+    <style name="Widget.SeeHyangComponents" parent="android:Widget" />
 
     <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">8dp</item>

@@ -7,7 +7,7 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.StringRes
-import java.util.*
+import java.util.Locale
 
 fun Context.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, text, duration).show()

@@ -1,7 +1,7 @@
 package com.mashup.base.extensions
 
 import android.content.res.TypedArray
-import java.util.*
+import java.util.NoSuchElementException
 
 operator fun TypedArray.iterator(): Iterator<Int> = object : Iterator<Int> {
 
