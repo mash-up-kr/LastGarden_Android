@@ -15,9 +15,9 @@ android {
         minSdk = 23
         targetSdk = 30
         versionCode = Versions.App.major * 1000 +
-            Versions.App.feature * 100 +
-            Versions.App.regular * 10 +
-            Versions.App.minor
+                Versions.App.feature * 100 +
+                Versions.App.regular * 10 +
+                Versions.App.minor
         versionName =
             "${Versions.App.major}.${Versions.App.feature}.${Versions.App.regular}.${Versions.App.minor}"
 
