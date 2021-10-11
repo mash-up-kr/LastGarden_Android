@@ -53,7 +53,7 @@ class MainFragment : BaseViewModelFragment() {
     }
 
     private fun showEditorActivity(imageUrl: String) {
-        EditorActivity.newIntent(requireContext(), imageUrl).run {
+        EditorActivity.createIntent(requireContext(), imageUrl).run {
             startActivity(this)
         }
     }

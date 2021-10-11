@@ -13,7 +13,7 @@ class EditorActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_IMAGE_URL = "extra_image_url"
 
-        fun newIntent(
+        fun createIntent(
             context: Context,
             imageUrl: String
         ) = Intent(context, EditorActivity::class.java).apply {
