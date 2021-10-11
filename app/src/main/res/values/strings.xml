@@ -26,7 +26,7 @@
     <string name="sign_complete_description">향수에 대한 다양한 이미지를 공유하고,\n이야기하는 씨향에 온 걸 환영해요.</string>
     <string name="sign_complete_start_button">시작하기</string>
 
-    <!-- Perfume Information -->
+    <!-- Perfume Detail -->
     <string name="perfume_detail_scent_button">눈으로 시향하기</string>
     <string name="perfume_info_pyramid">Perfume Pyramid</string>
     <string name="perfume_info_pyramid_top">Top</string>
@@ -34,8 +34,8 @@
     <string name="perfume_info_pyramid_base">Base</string>
     <string name="perfume_info_accords">Main Accords</string>
     <string name="perfume_info_type">Perfume Type</string>
-    <string name="perfume_info_type_title">오 드 퍼퓸</string>
-    <string name="perfume_info_type_description">적당한 지속시간과 향을 가진 향수를 찾는 사람에게 적당하며, 향수에 꽤 가까운 완성도임에도 불구하고 향수보다 값이 저렴한 것이 큰 장점이다.</string>
+    <string name="perfume_info_type_eau_de_perfume_title">오 드 퍼퓸</string>
+    <string name="perfume_info_type_eau_de_perfume_description">적당한 지속시간과 향을 가진 향수를 찾는 사람에게 적당하며, 향수에 꽤 가까운 완성도임에도 불구하고 향수보다 값이 저렴한 것이 큰 장점이다.</string>
     <string name="perfume_info_affliction_rate">부향률</string>
     <string name="perfume_info_duration">지속 시간</string>
 
@@ -61,5 +61,4 @@
     <string name="tutorial_btn_start">"시작하기"</string>
     <string name="btn_apply">"등록"</string>
     <string name="tv_more">"…더보기"</string>
-
 </resources>
