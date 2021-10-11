@@ -1,6 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:nestedScrollingEnabled="false"
+    android:paddingBottom="190dp">
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewPyramid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="33dp"
+            android:text="@string/perfume_info_pyramid"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewPyramidQuestion"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewPyramid"
+            app:layout_constraintStart_toEndOf="@+id/textViewPyramid"
+            app:layout_constraintTop_toTopOf="@+id/textViewPyramid" />
+
+        <ImageView
+            android:id="@+id/imageViewPyramid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="33dp"
+            android:src="@drawable/ic_pyramid_top"
+            app:layout_constraintDimensionRatio="1:0.5454"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPyramid"
+            app:layout_constraintWidth_percent="0.76" />
+
+        <CheckBox
+            android:id="@+id/checkBoxTop"
+            style="@style/Widget.SeeHyangComponents.CheckBox"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:checked="true"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/perfume_info_pyramid_top"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@drawable/check_box_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewPyramid" />
+
+        <CheckBox
+            android:id="@+id/checkBoxMiddle"
+            style="@style/Widget.SeeHyangComponents.CheckBox"
+            android:layout_marginStart="8dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/perfume_info_pyramid_middle"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@drawable/check_box_text"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBoxTop"
+            app:layout_constraintStart_toEndOf="@+id/checkBoxTop"
+            app:layout_constraintTop_toTopOf="@+id/checkBoxTop" />
+
+        <CheckBox
+            android:id="@+id/checkBoxBase"
+            style="@style/Widget.SeeHyangComponents.CheckBox"
+            android:layout_marginStart="8dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/perfume_info_pyramid_base"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@drawable/check_box_text"
+            app:layout_constraintBottom_toBottomOf="@+id/checkBoxMiddle"
+            app:layout_constraintStart_toEndOf="@+id/checkBoxMiddle"
+            app:layout_constraintTop_toTopOf="@+id/checkBoxMiddle" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pyramidContentContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_grey_radius_6"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxTop">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_oval_purple"
+                app:layout_constraintEnd_toStartOf="@+id/textViewPyramidContent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewPyramidContent" />
+
+            <TextView
+                android:id="@+id/textViewPyramidContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
+                android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+                android:textColor="@color/grey1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewPyramid"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorGrey6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pyramidContentContainer" />
+
+        <TextView
+            android:id="@+id/textViewMainAccord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/perfume_info_accords"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPyramid" />
+
+        <ImageView
+            android:id="@+id/imageViewAccordQuestion"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMainAccord"
+            app:layout_constraintStart_toEndOf="@+id/textViewMainAccord"
+            app:layout_constraintTop_toTopOf="@+id/textViewMainAccord" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/accordContentContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_grey_radius_6"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMainAccord">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_oval_purple"
+                app:layout_constraintEnd_toStartOf="@+id/textViewAccordContent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewAccordContent" />
+
+            <TextView
+                android:id="@+id/textViewAccordContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="피치, 재스민, 레드프룻, 튜베로즈, 화이트플라워, 오렌지블로썸, 바닐라, 화이트머스크"
+                android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+                android:textColor="@color/grey1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewAccord"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorGrey6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accordContentContainer" />
+
+        <TextView
+            android:id="@+id/textViewType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/perfume_info_type"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewAccord" />
+
+        <ImageView
+            android:id="@+id/imageViewTypeQuestion"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewType"
+            app:layout_constraintStart_toEndOf="@+id/textViewType"
+            app:layout_constraintTop_toTopOf="@+id/textViewType" />
+
+        <TextView
+            android:id="@+id/textViewTypeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/perfume_info_type_eau_de_perfume_title"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/point"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textViewType"
+            app:layout_constraintTop_toBottomOf="@+id/textViewType" />
+
+        <TextView
+            android:id="@+id/textViewTypeDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/perfume_info_type_eau_de_perfume_description"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+            android:textColor="@color/grey2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTypeTitle" />
+
+        <TextView
+            android:id="@+id/textViewAfflictionRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/perfume_info_affliction_rate"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+            android:textColor="@color/point"
+            app:layout_constraintStart_toStartOf="@+id/textViewTypeDescription"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTypeDescription" />
+
+        <TextView
+            android:id="@+id/textViewAfflictionRatePercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="10~15%"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:textColor="@color/grey3"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewAfflictionRate"
+            app:layout_constraintStart_toEndOf="@+id/textViewAfflictionRate"
+            app:layout_constraintTop_toTopOf="@+id/textViewAfflictionRate" />
+
+        <TextView
+            android:id="@+id/textViewAfflictionRateMaxPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20%"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:textColor="@color/grey5"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewAfflictionRatePercent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTypeDescription"
+            app:layout_constraintTop_toTopOf="@+id/textViewAfflictionRatePercent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarAfflictionRate"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/progress_bar_rounded_corner"
+            android:progress="75"
+            android:progressDrawable="@drawable/progress_bar_rounded_corner"
+            app:layout_constraintEnd_toEndOf="@+id/textViewAfflictionRateMaxPercent"
+            app:layout_constraintStart_toStartOf="@+id/textViewAfflictionRate"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAfflictionRate" />
+
+        <TextView
+            android:id="@+id/textViewDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/perfume_info_duration"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+            android:textColor="@color/point"
+            app:layout_constraintStart_toStartOf="@+id/textViewTypeDescription"
+            app:layout_constraintTop_toBottomOf="@+id/progressBarAfflictionRate" />
+
+        <TextView
+            android:id="@+id/textViewDurationHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="5~6시간"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:textColor="@color/grey3"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDuration"
+            app:layout_constraintStart_toEndOf="@+id/textViewDuration"
+            app:layout_constraintTop_toTopOf="@+id/textViewDuration" />
+
+        <TextView
+            android:id="@+id/textViewDurationMaxHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6시간"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:textColor="@color/grey5"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDurationHour"
+            app:layout_constraintEnd_toEndOf="@+id/progressBarAfflictionRate"
+            app:layout_constraintTop_toTopOf="@+id/textViewDurationHour" />
+
+        <ProgressBar
+            android:id="@+id/progressBarDuration"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/progress_bar_rounded_corner"
+            android:progress="83"
+            android:progressDrawable="@drawable/progress_bar_rounded_corner"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDurationMaxHour"
+            app:layout_constraintStart_toStartOf="@+id/textViewDuration"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDuration" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
