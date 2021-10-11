@@ -82,4 +82,7 @@ dependencies {
     // Firebase
     implementation(platform(Libs.Firebase.bom))
     implementation(Libs.Firebase.analytics)
+
+    // Editor
+    implementation(Libs.ThirdParty.editor)
 }

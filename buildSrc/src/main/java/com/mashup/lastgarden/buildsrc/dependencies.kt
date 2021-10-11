@@ -64,6 +64,7 @@ object Libs {
 
     object ThirdParty {
         const val crop = "com.github.CanHub:Android-Image-Cropper:3.3.5"
+        const val editor = "com.burhanrashid52:photoeditor:1.5.1"
     }
 
     object AndroidX {

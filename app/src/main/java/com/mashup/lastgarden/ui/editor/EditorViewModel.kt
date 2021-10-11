@@ -10,6 +10,6 @@ import javax.inject.Inject
 class EditorViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val url
+    val imageUrl
         get() = savedStateHandle.getLiveData<String>(EXTRA_IMAGE_URL)
 }

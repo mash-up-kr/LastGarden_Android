@@ -56,4 +56,6 @@
     <string name="main_ranking_header">주간 인기랭킹</string>
     <string name="main_perfume_recommend_header">향수 추천</string>
     <string name="main_see_more">더보기</string>
+
+    <string name="editor_upload_btn">등록하기</string>
 </resources>
