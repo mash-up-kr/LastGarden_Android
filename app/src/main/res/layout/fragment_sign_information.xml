@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/sign_information_title"
+        android:textStyle="bold"
+        android:textColor="@color/primaryColor"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponenets.Headline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/sign_information_description"
+        android:textColor="@color/point"
+        android:textStyle="normal"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+    <TextView
+        android:id="@+id/textViewGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:text="@string/sign_information_gender"
+        android:textColor="@color/grey2"
+        android:textStyle="normal"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+        app:layout_constraintStart_toStartOf="@+id/textViewDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMale"
+        style="@style/Widget.SeeHyangComponents.CheckBox"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="12dp"
+        android:text="@string/sign_information_male"
+        android:textStyle="normal"
+        android:textColor="@drawable/check_box_text"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        app:layout_constraintStart_toStartOf="@+id/textViewGender"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGender" />
+
+    <CheckBox
+        android:id="@+id/checkBoxFemale"
+        style="@style/Widget.SeeHyangComponents.CheckBox"
+        android:layout_marginStart="8dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="12dp"
+        android:text="@string/sign_information_female"
+        android:textStyle="normal"
+        android:textColor="@drawable/check_box_text"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxMale"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxMale"
+        app:layout_constraintTop_toTopOf="@+id/checkBoxMale" />
+
+    <CheckBox
+        android:id="@+id/checkBoxUnknown"
+        style="@style/Widget.SeeHyangComponents.CheckBox"
+        android:layout_marginStart="8dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="12dp"
+        android:text="@string/sign_information_unknown"
+        android:textStyle="normal"
+        android:textColor="@drawable/check_box_text"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        app:layout_constraintBottom_toBottomOf="@+id/checkBoxFemale"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxFemale"
+        app:layout_constraintTop_toTopOf="@+id/checkBoxFemale" />
+
+    <TextView
+        android:id="@+id/textViewAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/sign_information_age"
+        android:textColor="@color/grey2"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+        app:layout_constraintStart_toStartOf="@+id/checkBoxMale"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxMale" />
+
+    <EditText
+        android:id="@+id/editTextAge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/sign_information_age_hint"
+        android:inputType="number"
+        android:padding="13dp"
+        android:textStyle="normal"
+        android:textColor="@color/point"
+        android:textColorHint="@color/grey4"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+        android:background="@drawable/sign_information_input_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        style="@style/Widget.SeeHyangComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/sign_information_next_button"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

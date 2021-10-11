@@ -63,4 +63,13 @@
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">18sp</item>
     </style>
+
+    <!--Widget-->
+    <style name="Widget.SeeHyangComponents.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/check_box_background</item>
+    </style>
 </resources>
