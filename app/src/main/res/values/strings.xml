@@ -39,16 +39,6 @@
     <string name="perfume_info_affliction_rate">부향률</string>
     <string name="perfume_info_duration">지속 시간</string>
 
-    <string name="tutorial_first_title">다양한 향수 이미지를\n통해 눈으로 시향해보세요 :)</string>
-    <string name="tutorial_first_content">직접 사용한 사람들이 올리는\n향수에 대한 이미지들을 통해 시향할 수 있습니다.</string>
-    <string name="tutorial_second_title">직접 써본 향수에 대해 \n이미지와 글로 표현해보세요.</string>
-    <string name="tutorial_second_content">다른 사람들에게 향수에 대한 느낌을\n 쉽고 간단하게 공유할 수 있습니다.</string>
-    <string name="tutorial_third_title">향수에 대한 느낌은 물론\n 상세정보를 간편하게 확인하세요.</string>
-    <string name="tutorial_third_content">향수의 노트와 어코드 등의 정보를\n 쉽게 확인할 수 있습니다.</string>
-    <string name="tutorial_fourth_title">궁시렁궁시렁</string>
-    <string name="tutorial_fourth_content">궁시렁궁시렁</string>
-    <string name="btn_next">"다음"</string>
-
     <string name="main_today_perfume_header_title">오늘의 시향</string>
     <string name="main_today_perfume_header_content">%s를 눈으로 시향해 보세요.</string>
     <string name="refresh_another_perfume">다른 향수 보기</string>
@@ -60,4 +50,16 @@
     <string name="main_see_more">더보기</string>
 
     <string name="editor_upload_btn">등록하기</string>
+
+    <string name="tutorial_first_title">다양한 향수 이미지를\n통해 눈으로 시향해보세요 :)</string>
+    <string name="tutorial_first_description">직접 사용한 사람들이 올리는\n향수에 대한 이미지들을 통해 시향할 수 있습니다.</string>
+    <string name="tutorial_second_title">직접 써본 향수에 대해 \n이미지와 글로 표현해보세요.</string>
+    <string name="tutorial_second_description">다른 사람들에게 향수에 대한 느낌을\n 쉽고 간단하게 공유할 수 있습니다.</string>
+    <string name="tutorial_third_title">향수에 대한 느낌은 물론\n 상세정보를 간편하게 확인하세요.</string>
+    <string name="tutorial_third_description">향수의 노트와 어코드 등의 정보를\n 쉽게 확인할 수 있습니다.</string>
+    <string name="tutorial_btn_next">"다음"</string>
+    <string name="tutorial_btn_start">"시작하기"</string>
+    <string name="btn_apply">"등록"</string>
+    <string name="tv_more">"…더보기"</string>
+
 </resources>
