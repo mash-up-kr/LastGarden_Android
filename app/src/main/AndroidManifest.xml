@@ -20,6 +20,10 @@
         tools:ignore="AllowBackup">
 
         <activity
+            android:name=".ui.scent.ScentActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity
             android:name=".ui.onboarding.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

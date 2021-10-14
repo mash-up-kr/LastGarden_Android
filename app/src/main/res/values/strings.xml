@@ -65,7 +65,6 @@
     <string name="tutorial_btn_next">"다음"</string>
     <string name="tutorial_btn_start">"시작하기"</string>
     <string name="btn_apply">"등록"</string>
-    <string name="tv_more">"…더보기"</string>
 
     <string name="tag_label">태그 추가</string>
     <string name="tag_edit_hint">#태그 입력하기</string>
@@ -77,4 +76,11 @@
     <string name="upload_tag_section_title">태그 추가</string>
     <string name="upload_title">씨향지 만들기</string>
     <string name="editor_failed_save_edited_image">이미지 저장에 실패했습니다..</string>
+
+    <string name="tv_more">" …더보기"</string>
+    <string name="tv_sort">정렬</string>
+    <string name="radio_btn_top">인기순</string>
+    <string name="radio_btn_middle">최신 등록순</string>
+    <string name="radio_btn_bottom">최다 댓글순</string>
+    <string name="btn_finish">완료</string>
 </resources>
