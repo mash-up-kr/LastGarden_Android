@@ -50,5 +50,6 @@ class UploadFragment : BaseViewModelFragment() {
                 uri.toString()
             )
         }
+
     }
 }
