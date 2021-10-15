@@ -43,7 +43,7 @@ class EditorFragment : BaseViewModelFragment() {
         initEditorView()
         observeViewModel()
 
-        binding.closeBtn.setOnClickListener {
+        binding.closeButton.setOnClickListener {
             requireActivity().finish()
         }
         binding.floatingButton.setOnClickListener {
@@ -68,8 +68,8 @@ class EditorFragment : BaseViewModelFragment() {
 
     private fun setImageUsingFileUrl(url: String) {
         binding.photoEditorView.source.loadImage(
-            glideRequests,
-            url
+            glideRequests = glideRequests,
+            imageUrl = url
         )
     }
 }

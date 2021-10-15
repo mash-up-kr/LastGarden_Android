@@ -35,16 +35,17 @@ class UploadFragment : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-        observeViewModel()
 
         binding.uploadButton.setOnClickListener {
             //TODO: upload 로직 추가
         }
     }
 
-    private fun observeViewModel() {
-        editorViewModel.imageUrl.observe(this) { uri ->
-            binding.imageView.loadImage(
+    override fun onBindViewModelsOnCreate() {
+        super.onBindViewModelsOnCreate()
+
+        editorViewModel.imageUrl.observe(viewLifecycleOwner) { uri ->
+            binding.editedImageView.loadImage(
                 glideRequests,
                 uri.toString()
             )

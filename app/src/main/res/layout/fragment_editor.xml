@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/closeBtn"
+        android:id="@+id/closeButton"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
@@ -26,7 +26,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/textBtn"
+        android:id="@+id/textButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
