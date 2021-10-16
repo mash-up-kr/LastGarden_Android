@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mashup.lastgarden.customview.BottomGradientCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="156dp"
+    android:layout_height="134dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    app:gradientColor="@color/colorGrey2"
+    app:showContent="false" />

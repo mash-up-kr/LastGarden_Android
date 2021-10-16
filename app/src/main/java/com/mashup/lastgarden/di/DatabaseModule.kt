@@ -2,6 +2,7 @@ package com.mashup.lastgarden.di
 
 import android.content.Context
 import com.mashup.lastgarden.data.db.PerfumeDatabase
+import com.mashup.lastgarden.data.db.dao.PerfumeDao
 import com.mashup.lastgarden.data.db.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -19,4 +20,8 @@ object DatabaseModule {
 
     @Provides
     fun provideUserDao(perfumeDatabase: PerfumeDatabase): UserDao = perfumeDatabase.userDao()
+
+    @Provides
+    fun providePerfumeDao(perfumeDatabase: PerfumeDatabase): PerfumeDao =
+        perfumeDatabase.perfumeDao()
 }

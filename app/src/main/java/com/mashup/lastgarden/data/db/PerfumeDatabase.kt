@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mashup.lastgarden.data.db.converters.PerfumeDatabaseConverters
+import com.mashup.lastgarden.data.db.dao.PerfumeDao
 import com.mashup.lastgarden.data.db.dao.UserDao
 import com.mashup.lastgarden.data.vo.User
 
@@ -34,4 +35,5 @@ abstract class PerfumeDatabase : RoomDatabase() {
     }
 
     abstract fun userDao(): UserDao
+    abstract fun perfumeDao(): PerfumeDao
 }
