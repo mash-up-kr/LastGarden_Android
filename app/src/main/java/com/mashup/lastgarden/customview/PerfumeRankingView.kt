@@ -3,27 +3,45 @@ package com.mashup.lastgarden.customview
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatImageView
+import android.view.LayoutInflater
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.mashup.base.image.GlideRequests
-import com.mashup.lastgarden.R
+import com.mashup.lastgarden.databinding.ViewPerfumeRankingBinding
 
-class UserImageView @JvmOverloads constructor(
+class PerfumeRankingView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
-) : AppCompatImageView(context, attrs) {
+) : ConstraintLayout(context, attrs) {
+
+    private val binding = ViewPerfumeRankingBinding.inflate(LayoutInflater.from(context), this)
 
     private var currentImageUrl: String? = null
 
+    var ranking: Int?
+        get() = binding.ranking.text.toString().toIntOrNull()
+        set(value) {
+            binding.ranking.text = value.toString()
+        }
+
+    var brand: String?
+        get() = binding.brand.text.toString()
+        set(value) {
+            binding.brand.text = value
+        }
+
+    var name: String?
+        get() = binding.name.text.toString()
+        set(value) {
+            binding.name.text = value
+        }
+
     fun setImageUrl(glideRequests: GlideRequests, imageUrl: String?) {
         if (imageUrl != null && currentImageUrl == imageUrl) return
-
-        glideRequests
-            .load(imageUrl)
-            .userImage(context.resources.getColor(R.color.white, null))
+        glideRequests.load(imageUrl)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -45,8 +63,9 @@ class UserImageView @JvmOverloads constructor(
                     currentImageUrl = imageUrl
                     return false
                 }
+
             })
-            .into(this)
+            .into(binding.perfumeImage)
     }
 
 }

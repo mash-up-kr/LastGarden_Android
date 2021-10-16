@@ -19,6 +19,14 @@ object Libs {
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
+    object Firebase {
+        const val google = "com.google.gms:google-services:4.3.8"
+        const val crashlyticsClassPath = "com.google.firebase:firebase-crashlytics-gradle:2.7.1"
+        const val bom = "com.google.firebase:firebase-bom:28.2.0"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val crashlytics = "com.google.firebase:firebase-analytics"
+    }
+
     object Hilt {
         private const val version = "2.38.1"
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
@@ -85,7 +93,7 @@ object Libs {
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val ui = "androidx.navigation:navigation-ui-ktx:$version"
         }
-        
+
         object Room {
             private const val version = "2.2.6"
             const val room = "androidx.room:room-runtime:$version"
