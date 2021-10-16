@@ -76,6 +76,9 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.junit)
     androidTestImplementation(Libs.AndroidX.Test.espressoCore)
 
+    // Crop
+    implementation(Libs.ThirdParty.crop)
+
     // Firebase
     implementation(platform(Libs.Firebase.bom))
     implementation(Libs.Firebase.analytics)
