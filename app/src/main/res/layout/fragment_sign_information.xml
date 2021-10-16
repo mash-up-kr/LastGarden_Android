@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageViewClose"
+            android:id="@+id/closeImageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="20dp"
@@ -28,7 +28,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -38,10 +38,10 @@
         android:textColor="@color/primaryColor"
         android:textAppearance="@style/TextAppearance.SeeHyangComponenets.Headline1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
-        android:id="@+id/textViewDescription"
+        android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -49,11 +49,11 @@
         android:textColor="@color/point"
         android:textStyle="normal"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-        app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
     <TextView
-        android:id="@+id/textViewGender"
+        android:id="@+id/genderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="89dp"
@@ -61,11 +61,11 @@
         android:textColor="@color/grey2"
         android:textStyle="normal"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-        app:layout_constraintStart_toStartOf="@+id/textViewDescription"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
+        app:layout_constraintStart_toStartOf="@id/descriptionTextView"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
 
     <CheckBox
-        android:id="@+id/checkBoxMale"
+        android:id="@+id/maleCheckBox"
         style="@style/Widget.SeeHyangComponents.CheckBox"
         android:layout_marginTop="8dp"
         android:paddingHorizontal="20dp"
@@ -74,11 +74,11 @@
         android:textStyle="normal"
         android:textColor="@drawable/check_box_text"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        app:layout_constraintStart_toStartOf="@+id/textViewGender"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGender" />
+        app:layout_constraintStart_toStartOf="@id/genderTextView"
+        app:layout_constraintTop_toBottomOf="@id/genderTextView" />
 
     <CheckBox
-        android:id="@+id/checkBoxFemale"
+        android:id="@+id/femaleCheckBox"
         style="@style/Widget.SeeHyangComponents.CheckBox"
         android:layout_marginStart="8dp"
         android:paddingHorizontal="20dp"
@@ -87,12 +87,12 @@
         android:textStyle="normal"
         android:textColor="@drawable/check_box_text"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBoxMale"
-        app:layout_constraintStart_toEndOf="@+id/checkBoxMale"
-        app:layout_constraintTop_toTopOf="@+id/checkBoxMale" />
+        app:layout_constraintBottom_toBottomOf="@id/maleCheckBox"
+        app:layout_constraintStart_toEndOf="@id/maleCheckBox"
+        app:layout_constraintTop_toTopOf="@id/maleCheckBox" />
 
     <CheckBox
-        android:id="@+id/checkBoxUnknown"
+        android:id="@+id/unknownCheckBox"
         style="@style/Widget.SeeHyangComponents.CheckBox"
         android:layout_marginStart="8dp"
         android:paddingHorizontal="20dp"
@@ -101,12 +101,12 @@
         android:textStyle="normal"
         android:textColor="@drawable/check_box_text"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBoxFemale"
-        app:layout_constraintStart_toEndOf="@+id/checkBoxFemale"
-        app:layout_constraintTop_toTopOf="@+id/checkBoxFemale" />
+        app:layout_constraintBottom_toBottomOf="@id/femaleCheckBox"
+        app:layout_constraintStart_toEndOf="@id/femaleCheckBox"
+        app:layout_constraintTop_toTopOf="@id/femaleCheckBox" />
 
     <TextView
-        android:id="@+id/textViewAge"
+        android:id="@+id/ageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -114,11 +114,11 @@
         android:textColor="@color/grey2"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-        app:layout_constraintStart_toStartOf="@+id/checkBoxMale"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxMale" />
+        app:layout_constraintStart_toStartOf="@id/maleCheckBox"
+        app:layout_constraintTop_toBottomOf="@id/maleCheckBox" />
 
     <EditText
-        android:id="@+id/editTextAge"
+        android:id="@+id/ageEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -133,10 +133,10 @@
         android:background="@drawable/sign_information_input_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
+        app:layout_constraintTop_toBottomOf="@id/ageTextView" />
 
     <Button
-        android:id="@+id/buttonNext"
+        android:id="@+id/nextButton"
         style="@style/Widget.SeeHyangComponents.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
