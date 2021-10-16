@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textViewPyramid"
+            android:id="@+id/pyramidTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -27,17 +27,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageViewPyramidQuestion"
+            android:id="@+id/pyramidQuestionImageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_info"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewPyramid"
-            app:layout_constraintStart_toEndOf="@+id/textViewPyramid"
-            app:layout_constraintTop_toTopOf="@+id/textViewPyramid" />
+            app:layout_constraintBottom_toBottomOf="@id/pyramidTextView"
+            app:layout_constraintStart_toEndOf="@id/pyramidTextView"
+            app:layout_constraintTop_toTopOf="@id/pyramidTextView" />
 
         <ImageView
-            android:id="@+id/imageViewPyramid"
+            android:id="@+id/pyramidImageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="33dp"
@@ -45,11 +45,11 @@
             app:layout_constraintDimensionRatio="1:0.5454"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPyramid"
+            app:layout_constraintTop_toBottomOf="@id/pyramidTextView"
             app:layout_constraintWidth_percent="0.76" />
 
         <CheckBox
-            android:id="@+id/checkBoxTop"
+            android:id="@+id/topCheckBox"
             style="@style/Widget.SeeHyangComponents.CheckBox"
             android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
@@ -60,10 +60,10 @@
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@drawable/check_box_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewPyramid" />
+            app:layout_constraintTop_toBottomOf="@id/pyramidImageView" />
 
         <CheckBox
-            android:id="@+id/checkBoxMiddle"
+            android:id="@+id/middleCheckBox"
             style="@style/Widget.SeeHyangComponents.CheckBox"
             android:layout_marginStart="8dp"
             android:paddingHorizontal="20dp"
@@ -71,12 +71,12 @@
             android:text="@string/perfume_info_pyramid_middle"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@drawable/check_box_text"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxTop"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxTop"
-            app:layout_constraintTop_toTopOf="@+id/checkBoxTop" />
+            app:layout_constraintBottom_toBottomOf="@id/topCheckBox"
+            app:layout_constraintStart_toEndOf="@id/topCheckBox"
+            app:layout_constraintTop_toTopOf="@id/topCheckBox" />
 
         <CheckBox
-            android:id="@+id/checkBoxBase"
+            android:id="@+id/baseCheckBox"
             style="@style/Widget.SeeHyangComponents.CheckBox"
             android:layout_marginStart="8dp"
             android:paddingHorizontal="20dp"
@@ -84,59 +84,54 @@
             android:text="@string/perfume_info_pyramid_base"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@drawable/check_box_text"
-            app:layout_constraintBottom_toBottomOf="@+id/checkBoxMiddle"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxMiddle"
-            app:layout_constraintTop_toTopOf="@+id/checkBoxMiddle" />
+            app:layout_constraintBottom_toBottomOf="@id/middleCheckBox"
+            app:layout_constraintStart_toEndOf="@id/middleCheckBox"
+            app:layout_constraintTop_toTopOf="@id/middleCheckBox" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/pyramidContentContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_grey_radius_6"
+            android:orientation="horizontal"
             android:paddingVertical="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxTop">
+            app:layout_constraintTop_toBottomOf="@id/topCheckBox">
 
             <View
                 android:layout_width="4dp"
                 android:layout_height="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/shape_oval_purple"
-                app:layout_constraintEnd_toStartOf="@+id/textViewPyramidContent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewPyramidContent" />
+                android:background="@drawable/shape_oval_purple" />
 
             <TextView
-                android:id="@+id/textViewPyramidContent"
-                android:layout_width="0dp"
+                android:id="@+id/pyramidContentTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="20dp"
                 android:text="시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
                 android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-                android:textColor="@color/grey1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="@color/grey1" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <View
-            android:id="@+id/viewPyramid"
+            android:id="@+id/pyramidView"
             android:layout_width="0dp"
             android:layout_height="8dp"
             android:layout_marginTop="40dp"
             android:background="@color/colorGrey6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pyramidContentContainer" />
+            app:layout_constraintTop_toBottomOf="@id/pyramidContentContainer" />
 
         <TextView
-            android:id="@+id/textViewMainAccord"
+            android:id="@+id/mainAccordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -147,67 +142,62 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewPyramid" />
+            app:layout_constraintTop_toBottomOf="@id/pyramidView" />
 
         <ImageView
-            android:id="@+id/imageViewAccordQuestion"
+            android:id="@+id/accordQuestionImageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_info"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewMainAccord"
-            app:layout_constraintStart_toEndOf="@+id/textViewMainAccord"
-            app:layout_constraintTop_toTopOf="@+id/textViewMainAccord" />
+            app:layout_constraintBottom_toBottomOf="@id/mainAccordTextView"
+            app:layout_constraintStart_toEndOf="@id/mainAccordTextView"
+            app:layout_constraintTop_toTopOf="@id/mainAccordTextView" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/accordContentContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/shape_grey_radius_6"
+            android:orientation="horizontal"
             android:paddingVertical="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMainAccord">
+            app:layout_constraintTop_toBottomOf="@id/mainAccordTextView">
 
             <View
                 android:layout_width="4dp"
                 android:layout_height="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/shape_oval_purple"
-                app:layout_constraintEnd_toStartOf="@+id/textViewAccordContent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewAccordContent" />
+                android:background="@drawable/shape_oval_purple" />
 
             <TextView
-                android:id="@+id/textViewAccordContent"
-                android:layout_width="0dp"
+                android:id="@+id/accordContentTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="20dp"
                 android:text="피치, 재스민, 레드프룻, 튜베로즈, 화이트플라워, 오렌지블로썸, 바닐라, 화이트머스크"
                 android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-                android:textColor="@color/grey1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="@color/grey1" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <View
-            android:id="@+id/viewAccord"
+            android:id="@+id/accordView"
             android:layout_width="0dp"
             android:layout_height="8dp"
             android:layout_marginTop="40dp"
             android:background="@color/colorGrey6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/accordContentContainer" />
+            app:layout_constraintTop_toBottomOf="@id/accordContentContainer" />
 
         <TextView
-            android:id="@+id/textViewType"
+            android:id="@+id/typeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -218,20 +208,20 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewAccord" />
+            app:layout_constraintTop_toBottomOf="@id/accordView" />
 
         <ImageView
-            android:id="@+id/imageViewTypeQuestion"
+            android:id="@+id/typeQuestionImageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_info"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewType"
-            app:layout_constraintStart_toEndOf="@+id/textViewType"
-            app:layout_constraintTop_toTopOf="@+id/textViewType" />
+            app:layout_constraintBottom_toBottomOf="@id/typeTextView"
+            app:layout_constraintStart_toEndOf="@id/typeTextView"
+            app:layout_constraintTop_toTopOf="@id/typeTextView" />
 
         <TextView
-            android:id="@+id/textViewTypeTitle"
+            android:id="@+id/typeTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -240,11 +230,11 @@
             android:textColor="@color/point"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textViewType"
-            app:layout_constraintTop_toBottomOf="@+id/textViewType" />
+            app:layout_constraintStart_toStartOf="@id/typeTextView"
+            app:layout_constraintTop_toBottomOf="@id/typeTextView" />
 
         <TextView
-            android:id="@+id/textViewTypeDescription"
+            android:id="@+id/typeDescriptionTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -254,44 +244,44 @@
             android:textColor="@color/grey2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewTypeTitle" />
+            app:layout_constraintTop_toBottomOf="@id/typeTitleTextView" />
 
         <TextView
-            android:id="@+id/textViewAfflictionRate"
+            android:id="@+id/afflictionRateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/perfume_info_affliction_rate"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
             android:textColor="@color/point"
-            app:layout_constraintStart_toStartOf="@+id/textViewTypeDescription"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTypeDescription" />
+            app:layout_constraintStart_toStartOf="@id/typeDescriptionTextView"
+            app:layout_constraintTop_toBottomOf="@id/typeDescriptionTextView" />
 
         <TextView
-            android:id="@+id/textViewAfflictionRatePercent"
+            android:id="@+id/afflictionRatePercentTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="10~15%"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
             android:textColor="@color/grey3"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewAfflictionRate"
-            app:layout_constraintStart_toEndOf="@+id/textViewAfflictionRate"
-            app:layout_constraintTop_toTopOf="@+id/textViewAfflictionRate" />
+            app:layout_constraintBottom_toBottomOf="@id/afflictionRateTextView"
+            app:layout_constraintStart_toEndOf="@id/afflictionRateTextView"
+            app:layout_constraintTop_toTopOf="@id/afflictionRateTextView" />
 
         <TextView
-            android:id="@+id/textViewAfflictionRateMaxPercent"
+            android:id="@+id/afflictionRateMaxPercentTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20%"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
             android:textColor="@color/grey5"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewAfflictionRatePercent"
-            app:layout_constraintEnd_toEndOf="@+id/textViewTypeDescription"
-            app:layout_constraintTop_toTopOf="@+id/textViewAfflictionRatePercent" />
+            app:layout_constraintBottom_toBottomOf="@id/afflictionRatePercentTextView"
+            app:layout_constraintEnd_toEndOf="@id/typeDescriptionTextView"
+            app:layout_constraintTop_toTopOf="@id/afflictionRatePercentTextView" />
 
         <ProgressBar
-            android:id="@+id/progressBarAfflictionRate"
+            android:id="@+id/afflictionRateProgressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="0dp"
             android:layout_height="10dp"
@@ -299,46 +289,46 @@
             android:background="@drawable/progress_bar_rounded_corner"
             android:progress="75"
             android:progressDrawable="@drawable/progress_bar_rounded_corner"
-            app:layout_constraintEnd_toEndOf="@+id/textViewAfflictionRateMaxPercent"
-            app:layout_constraintStart_toStartOf="@+id/textViewAfflictionRate"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAfflictionRate" />
+            app:layout_constraintEnd_toEndOf="@id/afflictionRateMaxPercentTextView"
+            app:layout_constraintStart_toStartOf="@id/afflictionRateTextView"
+            app:layout_constraintTop_toBottomOf="@id/afflictionRateTextView" />
 
         <TextView
-            android:id="@+id/textViewDuration"
+            android:id="@+id/durationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/perfume_info_duration"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
             android:textColor="@color/point"
-            app:layout_constraintStart_toStartOf="@+id/textViewTypeDescription"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarAfflictionRate" />
+            app:layout_constraintStart_toStartOf="@id/typeDescriptionTextView"
+            app:layout_constraintTop_toBottomOf="@id/afflictionRateProgressBar" />
 
         <TextView
-            android:id="@+id/textViewDurationHour"
+            android:id="@+id/durationHourTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="5~6시간"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
             android:textColor="@color/grey3"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewDuration"
-            app:layout_constraintStart_toEndOf="@+id/textViewDuration"
-            app:layout_constraintTop_toTopOf="@+id/textViewDuration" />
+            app:layout_constraintBottom_toBottomOf="@id/durationTextView"
+            app:layout_constraintStart_toEndOf="@id/durationTextView"
+            app:layout_constraintTop_toTopOf="@id/durationTextView" />
 
         <TextView
-            android:id="@+id/textViewDurationMaxHour"
+            android:id="@+id/durationMaxHourTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="6시간"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
             android:textColor="@color/grey5"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewDurationHour"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarAfflictionRate"
-            app:layout_constraintTop_toTopOf="@+id/textViewDurationHour" />
+            app:layout_constraintBottom_toBottomOf="@id/durationHourTextView"
+            app:layout_constraintEnd_toEndOf="@id/afflictionRateProgressBar"
+            app:layout_constraintTop_toTopOf="@id/durationHourTextView" />
 
         <ProgressBar
-            android:id="@+id/progressBarDuration"
+            android:id="@+id/durationProgressBar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="0dp"
             android:layout_height="10dp"
@@ -346,9 +336,9 @@
             android:background="@drawable/progress_bar_rounded_corner"
             android:progress="83"
             android:progressDrawable="@drawable/progress_bar_rounded_corner"
-            app:layout_constraintEnd_toEndOf="@+id/textViewDurationMaxHour"
-            app:layout_constraintStart_toStartOf="@+id/textViewDuration"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDuration" />
+            app:layout_constraintEnd_toEndOf="@id/durationMaxHourTextView"
+            app:layout_constraintStart_toStartOf="@id/durationTextView"
+            app:layout_constraintTop_toBottomOf="@id/durationTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

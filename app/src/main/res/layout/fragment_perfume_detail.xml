@@ -7,9 +7,13 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -62,16 +66,16 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/imageViewPhoto"
+                android:id="@+id/photoImageView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
             <TextView
-                android:id="@+id/textViewTitle"
+                android:id="@+id/titleTextView"
                 style="@style/TextAppearance.SeeHyangComponents.Headline3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -82,11 +86,11 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/imageViewPhoto"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewPhoto" />
+                app:layout_constraintStart_toStartOf="@id/photoImageView"
+                app:layout_constraintTop_toBottomOf="@id/photoImageView" />
 
             <TextView
-                android:id="@+id/textViewTitleEng"
+                android:id="@+id/titleEngTextView"
                 style="@style/TextAppearance.SeeHyangComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -94,9 +98,9 @@
                 android:text="Gabrielle Essence Chanel for women"
                 android:textColor="#797979"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
-                app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+                app:layout_constraintEnd_toEndOf="@id/titleTextView"
+                app:layout_constraintStart_toStartOf="@id/titleTextView"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -106,7 +110,7 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewTitleEng"
+                app:layout_constraintTop_toBottomOf="@id/titleEngTextView"
                 app:tabIconTint="@color/tab_icon_selector"
                 app:tabIndicatorColor="@color/point"
                 app:tabPaddingStart="0dp"
@@ -120,7 +124,7 @@
                 android:elevation="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/viewPager" />
+                app:layout_constraintTop_toTopOf="@id/viewPager" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
@@ -128,36 +132,32 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+                app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintBottom_toBottomOf="@id/nestedScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/buttonNext"
+            android:id="@+id/nextButton"
             style="@style/Widget.SeeHyangComponents.Button"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="16dp"
             android:text="@string/perfume_detail_scent_button"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,37 +25,37 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
     }
 
     private fun setNoteButtonChecked() {
-        binding.checkBoxTop.setOnClickListener {
+        binding.topCheckBox.setOnClickListener {
             allButtonUnchecked()
             binding.apply {
-                checkBoxTop.isChecked = true
-                imageViewPyramid.setImageResource(R.drawable.ic_pyramid_top)
-                textViewPyramidContent.text = "시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
+                topCheckBox.isChecked = true
+                pyramidImageView.setImageResource(R.drawable.ic_pyramid_top)
+                pyramidContentTextView.text = "시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
             }
         }
-        binding.checkBoxMiddle.setOnClickListener {
+        binding.middleCheckBox.setOnClickListener {
             allButtonUnchecked()
             binding.apply {
-                checkBoxMiddle.isChecked = true
-                imageViewPyramid.setImageResource(R.drawable.ic_pyramid_middle)
-                textViewPyramidContent.text = "화이트플라워, 튜베로즈, 재스민, 일랑일랑, 오렌지블로썸, 코코넛"
+                middleCheckBox.isChecked = true
+                pyramidImageView.setImageResource(R.drawable.ic_pyramid_middle)
+                pyramidContentTextView.text = "화이트플라워, 튜베로즈, 재스민, 일랑일랑, 오렌지블로썸, 코코넛"
             }
         }
-        binding.checkBoxBase.setOnClickListener {
+        binding.baseCheckBox.setOnClickListener {
             allButtonUnchecked()
             binding.apply {
-                checkBoxBase.isChecked = true
-                imageViewPyramid.setImageResource(R.drawable.ic_pyramid_base)
-                textViewPyramidContent.text = "샌달우드, 바닐라, 화이트머스크"
+                baseCheckBox.isChecked = true
+                pyramidImageView.setImageResource(R.drawable.ic_pyramid_base)
+                pyramidContentTextView.text = "샌달우드, 바닐라, 화이트머스크"
             }
         }
     }
 
     private fun allButtonUnchecked() {
         binding.apply {
-            checkBoxTop.isChecked = false
-            checkBoxMiddle.isChecked = false
-            checkBoxBase.isChecked = false
+            topCheckBox.isChecked = false
+            middleCheckBox.isChecked = false
+            baseCheckBox.isChecked = false
         }
     }
 }
