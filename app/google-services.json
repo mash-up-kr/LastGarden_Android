@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "699873321076",
+    "project_id": "seehyang-c5990",
+    "storage_bucket": "seehyang-c5990.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699873321076:android:9bf5860dc4100821aa3121",
+        "android_client_info": {
+          "package_name": "com.mashup.lastgarden"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699873321076-d2e3ol7s9vehc4ejfa679tn0ebmou55n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mashup.lastgarden",
+            "certificate_hash": "a8d1ba77201b1d23f70daeb68c4449ad1c63a57a"
+          }
+        },
+        {
+          "client_id": "699873321076-esmnn4upjpv8u8unicegs2blkhc9vg1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Sc0p3SgkLGiiWAO38E-hjP4AEhk8t2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699873321076-esmnn4upjpv8u8unicegs2blkhc9vg1l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
