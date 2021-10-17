@@ -1,9 +1,11 @@
 package com.mashup.lastgarden.ui.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
@@ -25,8 +27,20 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         binding = FragmentPerfumeDetailBinding.inflate(
             inflater, container, false
         )
-        initTabLayout()
         return binding.root
+    }
+
+    override fun onSetupViews(view: View) {
+        super.onSetupViews(view)
+        initToolbar()
+        initTabLayout()
+    }
+
+    private fun initToolbar() {
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbar.navigationIcon?.setTint(Color.BLACK)
     }
 
     private fun initTabLayout() {
