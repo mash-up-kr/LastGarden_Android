@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">LastGarden</string>
+    <string name="common_cancel">취소</string>
+    <string name="common_confirm">확인</string>
+    <string name="common_add">추가</string>
+    <string name="common_upload">등록하기</string>
 
     <!-- Sign Information -->
     <string name="sign_explain_label">간편하게 씨향 시작하기</string>
@@ -49,8 +53,6 @@
     <string name="main_perfume_recommend_header">향수 추천</string>
     <string name="main_see_more">더보기</string>
 
-    <string name="editor_upload_btn">등록하기</string>
-
     <string name="tutorial_seehyang_title">다양한 향수 이미지를\n통해 눈으로 시향해보세요 :)</string>
     <string name="tutorial_seehyang_description">직접 사용한 사람들이 올리는\n향수에 대한 이미지들을 통해 시향할 수 있습니다.</string>
     <string name="tutorial_editor_title">직접 써본 향수에 대해 \n이미지와 글로 표현해보세요.</string>
@@ -61,4 +63,10 @@
     <string name="tutorial_btn_start">"시작하기"</string>
     <string name="btn_apply">"등록"</string>
     <string name="tv_more">"…더보기"</string>
+
+    <string name="tag_edit_hint">#태그 입력하기</string>
+    <string name="tag_max_count">#최대 10개까지 등록</string>
+    <string name="tag_regex">#%1$s</string>
+    <string name="upload_only_show_to_me">나만 보기</string>
+    <string name="upload_title">씨향지 만들기</string>
 </resources>

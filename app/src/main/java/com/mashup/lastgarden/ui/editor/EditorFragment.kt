@@ -40,7 +40,7 @@ class EditorFragment : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-        initEditorView()
+        setUiOfEditorView()
         observeViewModel()
 
         binding.closeButton.setOnClickListener {
@@ -48,12 +48,12 @@ class EditorFragment : BaseViewModelFragment() {
         }
         binding.floatingButton.setOnClickListener {
             findNavController().navigate(
-                R.id.actionEditorFragmentToEditorUploadFragment
+                R.id.actionEditorFragmentToUploadFragment
             )
         }
     }
 
-    private fun initEditorView() {
+    private fun setUiOfEditorView() {
         editor = PhotoEditor.Builder(requireContext(), binding.photoEditorView)
             .setPinchTextScalable(true)
             .setClipSourceImage(true)
