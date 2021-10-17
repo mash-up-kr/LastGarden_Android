@@ -22,9 +22,20 @@
             app:destination="@id/tagInputFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+
+        <action
+            android:id="@+id/actionUploadFragmentToPerfumeSelectFragment"
+            app:destination="@id/perfumeSelectFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/tagInputFragment"
         android:name="com.mashup.lastgarden.ui.upload.TagFragment"
         android:label="@string/tag_label" />
+
+    <fragment
+        android:id="@+id/perfumeSelectFragment"
+        android:name="com.mashup.lastgarden.ui.upload.perfume.PerfumeSelectFragment"
+        android:label="@string/perfume_select_label" />
 </navigation>

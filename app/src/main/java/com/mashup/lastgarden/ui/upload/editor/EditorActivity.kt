@@ -10,12 +10,13 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.ui.upload.UploadViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditorActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private val viewModel: EditorViewModel by viewModels()
+    private val viewModel: UploadViewModel by viewModels()
 
     private val cropImageLauncher = registerForActivityResult(
         CropImageContract()

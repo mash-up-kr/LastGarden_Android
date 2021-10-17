@@ -15,6 +15,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentEditorBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.upload.UploadViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.OnSaveBitmap
@@ -27,7 +28,7 @@ import javax.inject.Inject
 class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
 
     private var binding by autoCleared<FragmentEditorBinding>()
-    private val editorViewModel by activityViewModels<EditorViewModel>()
+    private val viewModel by activityViewModels<UploadViewModel>()
 
     private var editor: PhotoEditor? = null
 
@@ -81,7 +82,7 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
         editor?.saveAsBitmap(object : OnSaveBitmap {
             override fun onBitmapReady(saveBitmap: Bitmap?) {
                 saveBitmap?.let {
-                    editorViewModel.setEditedImage(saveBitmap)
+                    viewModel.setEditedImage(saveBitmap)
                     findNavController().navigate(
                         R.id.actionEditorFragmentToUploadFragment
                     )
@@ -117,7 +118,7 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
     }
 
     override fun onBindViewModelsOnViewCreated() {
-        editorViewModel.editedImage.observe(this) { imageBitmap ->
+        viewModel.editedImage.observe(this) { imageBitmap ->
             binding.photoEditorView.source.setImageBitmap(imageBitmap)
         }
     }

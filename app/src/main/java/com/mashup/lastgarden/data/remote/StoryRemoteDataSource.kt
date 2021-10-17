@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.data.remote
 
+import com.mashup.base.extensions.toJsonRequestBody
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.LikeResponse
 import com.mashup.lastgarden.network.response.onErrorReturnData
@@ -22,4 +23,13 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
 
     suspend fun getStoryLike(storyId: Int): LikeResponse? =
         service.getStoryLike(storyId).onErrorReturnDataNull()
+
+    suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
+        service.uploadStory(
+            mapOf(
+                "perfumeId" to perfumeId,
+                "imageId" to imageId,
+                "tags" to tags
+            ).toJsonRequestBody(true)
+        ).onErrorReturnDataNull()
 }

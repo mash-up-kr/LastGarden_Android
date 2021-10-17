@@ -3,9 +3,10 @@ package com.mashup.lastgarden.network.services
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.LikeResponse
 import com.mashup.lastgarden.network.response.NetworkDataResponse
-import retrofit2.http.GET
-import retrofit2.http.Header
+import okhttp3.RequestBody
+import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface StoryService {
@@ -27,4 +28,9 @@ interface StoryService {
     suspend fun getStoryLike(
         @Path("id") storyId: Int
     ): NetworkDataResponse<LikeResponse>
+
+    @POST("story")
+    suspend fun uploadStory(
+        @Body body: RequestBody
+    ): NetworkDataResponse<Story>
 }
