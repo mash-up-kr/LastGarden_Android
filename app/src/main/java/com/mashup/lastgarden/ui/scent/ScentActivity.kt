@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ActivityScentBinding
+import com.mashup.lastgarden.ui.scent.comment.ScentCommentBottomSheetFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -27,7 +28,7 @@ class ScentActivity : AppCompatActivity(), ScentViewPagerAdapter.OnClickListener
         setupBottomSheet()
         viewModel.getScentList(0)
         viewModel.scentList.observe(this, {
-            binding.scentViewPager.adapter = ScentViewPagerAdapter(it, glideRequests)
+            binding.scentViewPager.adapter = ScentViewPagerAdapter(it, glideRequests, this)
         })
 
         viewModel.position.observe(this, {
@@ -53,6 +54,8 @@ class ScentActivity : AppCompatActivity(), ScentViewPagerAdapter.OnClickListener
 
     override fun onCommentClick(scentId: Int) {
         //TODO id 해당하는 Comment Bottom Sheet 띄우기
+        val bottomSheetDialog = ScentCommentBottomSheetFragment()
+        bottomSheetDialog.show(supportFragmentManager, "")
     }
 
     override fun onLikeClick(scentId: Int) {

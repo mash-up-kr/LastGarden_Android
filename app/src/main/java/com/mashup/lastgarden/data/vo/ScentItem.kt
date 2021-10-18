@@ -5,6 +5,7 @@ data class ScentItem(
     val imgUrl: String? = null,
     val imgProfile: String? = null,
     val nickname: String = "",
+    val date: String = "",
     val tagList: List<String>,
     val commentCount: Int,
     val likeCount: Int,

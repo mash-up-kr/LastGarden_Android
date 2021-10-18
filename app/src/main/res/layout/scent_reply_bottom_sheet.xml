@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/commentBottomSheet"
+    style="@style/AppModalStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/colorGrey6"
+    app:behavior_draggable="false"
+    app:behavior_hideable="false"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <TextView
+        android:id="@+id/commentTextView"
+        style="@style/TextAppearance.SeeHyangComponents.Headline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/reply"
+        android:textColor="@color/point"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/ic_close_bottomsheet"
+        app:layout_constraintBottom_toBottomOf="@id/commentTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/commentTextView" />
+
+    <include
+        android:id="@+id/include_detail_layout"
+        layout="@layout/item_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/commentTextView" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/replyScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/editCommentView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_detail_layout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/replyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_reply" />
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editCommentView"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/addCommentEditText"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/et_add_comment_background_round"
+            android:hint="@string/write_comment"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/editCommentView"
+            app:layout_constraintEnd_toStartOf="@id/applyButton"
+            app:layout_constraintStart_toStartOf="@id/editCommentView"
+            app:layout_constraintTop_toTopOf="@id/editCommentView" />
+
+        <Button
+            android:id="@+id/applyButton"
+            style="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/btn_apply_background_round"
+            android:text="@string/btn_apply"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/addCommentEditText"
+            app:layout_constraintEnd_toEndOf="@id/editCommentView"
+            app:layout_constraintTop_toTopOf="@id/addCommentEditText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/commentFilterView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ic_comment_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/editCommentView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

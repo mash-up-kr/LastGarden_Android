@@ -34,18 +34,21 @@ class ScentViewPagerAdapter(
     private fun ScentViewHolder.bind(item: ScentItem) {
         Glide.with(binding.root).load(item.imgUrl).into(binding.scentImageView)
         val pageCount = (bindingAdapterPosition + 1).toString() + "/" + list.size
-        binding.pageCountTextView.text = pageCount
-        binding.profileImageView.setImageUrl(glideRequests, item.imgProfile)
-        binding.nicknameTextView.text = item.nickname
-        binding.tagListTextView.text = TextUtils.join(" ", item.tagList)
-        binding.commentCountTextView.text = item.commentCount.toString()
-        binding.likeCountTextView.text = item.likeCount.toString()
-        when (item.likeState) {
-            true -> binding.likeImageView.loadImage(glideRequests, R.drawable.ic_like)
-            else -> binding.likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
+        binding.apply {
+            pageCountTextView.text = pageCount
+            profileImageView.setImageUrl(glideRequests, item.imgProfile)
+            nicknameTextView.text = item.nickname
+            dateTextView.text = item.date
+            tagListTextView.text = TextUtils.join(" ", item.tagList)
+            commentCountTextView.text = item.commentCount.toString()
+            likeCountTextView.text = item.likeCount.toString()
+            commentImageView.setOnClickListener { listener?.onCommentClick(item.scentId) }
+            likeImageView.setOnClickListener { listener?.onLikeClick(item.scentId) }
+            when (item.likeState) {
+                true -> likeImageView.loadImage(glideRequests, R.drawable.ic_like)
+                else -> likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
+            }
         }
-        binding.commentImageView.setOnClickListener { listener?.onCommentClick(item.scentId) }
-        binding.likeImageView.setOnClickListener { listener?.onLikeClick(item.scentId) }
     }
 
     class ScentViewHolder(val binding: ItemScentBinding) :
@@ -57,6 +60,3 @@ class ScentViewPagerAdapter(
         fun onLikeClick(scentId: Int)
     }
 }
-
-
-

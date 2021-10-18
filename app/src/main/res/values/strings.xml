@@ -83,4 +83,7 @@
     <string name="radio_btn_middle">최신 등록순</string>
     <string name="radio_btn_bottom">최다 댓글순</string>
     <string name="btn_finish">완료</string>
+    <string name="comment">댓글</string>
+    <string name="reply">답글</string>
+    <string name="write_comment">댓글쓰기</string>
 </resources>

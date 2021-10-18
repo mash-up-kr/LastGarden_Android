@@ -54,7 +54,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/tagListTextView"
+        app:layout_constraintBottom_toTopOf="@id/dateTextView"
         app:layout_constraintStart_toStartOf="@id/tagListTextView" />
 
     <TextView
@@ -69,18 +69,30 @@
         app:layout_constraintStart_toEndOf="@id/profileImageView"
         app:layout_constraintTop_toTopOf="@id/profileImageView" />
 
+    <TextView
+        android:id="@+id/dateTextView"
+        style="@style/TextAppearance.SeeHyangComponents.Body3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/tagListTextView"
+        app:layout_constraintStart_toStartOf="@id/profileImageView" />
+
     <kr.co.prnd.readmore.ReadMoreTextView
         android:id="@+id/tagListTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="13dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/commentCountTextView"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@id/commentImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/commentImageView"
         app:readMoreColor="@color/white"
         app:readMoreMaxLine="2"
         app:readMoreText="@string/tv_more" />
@@ -113,6 +125,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textColor="@color/white"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@id/commentImageView"
         app:layout_constraintStart_toEndOf="@id/commentImageView"
         app:layout_constraintTop_toTopOf="@id/commentImageView" />
@@ -136,6 +149,5 @@
         app:layout_constraintBottom_toBottomOf="@id/likeImageView"
         app:layout_constraintStart_toEndOf="@id/likeImageView"
         app:layout_constraintTop_toTopOf="@id/likeImageView" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
