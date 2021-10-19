@@ -8,10 +8,12 @@
     tools:context=".ui.onboarding.SplashActivity">
 
     <ImageView
-        android:layout_width="159dp"
+        android:id="@+id/splashImageView"
+        android:layout_width="173dp"
         android:layout_height="36dp"
-        android:layout_marginTop="174dp"
-        android:background="@drawable/splash_logo"
+        android:layout_marginStart="93dp"
+        android:layout_marginTop="224dp"
+        android:layout_marginEnd="94dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
