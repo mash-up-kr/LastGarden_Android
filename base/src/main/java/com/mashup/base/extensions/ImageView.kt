@@ -15,3 +15,15 @@ fun ImageView.loadImage(
         .error(errorImage)
         .into(this)
 }
+
+fun ImageView.loadImage(
+    glideRequests: GlideRequests,
+    @DrawableRes drawableResId: Int,
+    @DrawableRes placeholder: Int = 0,
+    @DrawableRes errorImage: Int = 0,
+) {
+    glideRequests.load(drawableResId)
+        .placeholder(placeholder)
+        .error(errorImage)
+        .into(this)
+}
