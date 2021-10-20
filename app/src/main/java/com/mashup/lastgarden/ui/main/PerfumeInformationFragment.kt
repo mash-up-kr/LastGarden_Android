@@ -20,8 +20,12 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
         binding = FragmentPerfumeInformationBinding.inflate(
             inflater, container, false
         )
-        setNoteButtonChecked()
         return binding.root
+    }
+
+    override fun onSetupViews(view: View) {
+        super.onSetupViews(view)
+        setNoteButtonChecked()
     }
 
     private fun setNoteButtonChecked() {

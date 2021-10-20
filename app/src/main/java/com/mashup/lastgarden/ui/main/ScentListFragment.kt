@@ -29,8 +29,12 @@ class ScentListFragment : BaseViewModelFragment() {
         binding = FragmentScentListBinding.inflate(
             inflater, container, false
         )
-        initRecyclerView()
         return binding.root
+    }
+
+    override fun onSetupViews(view: View) {
+        super.onSetupViews(view)
+        initRecyclerView()
     }
 
     private fun initRecyclerView() {

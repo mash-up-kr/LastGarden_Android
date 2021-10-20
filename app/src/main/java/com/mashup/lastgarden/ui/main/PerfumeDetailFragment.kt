@@ -44,17 +44,17 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     }
 
     private fun initTabLayout() {
-        val tabIconList = listOf(
-            R.drawable.ic_perfume, R.drawable.ic_grid
-        )
-        viewPagerAdapter = PerfumeDetailPagerAdapter(requireActivity())
+        viewPagerAdapter = PerfumeDetailPagerAdapter(this)
         viewPagerAdapter.fragments = listOf(
             PerfumeInformationFragment(),
             ScentListFragment()
         )
         binding.viewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.setIcon(tabIconList[position])
+            when (position) {
+                0 -> tab.setIcon(R.drawable.ic_perfume)
+                1 -> tab.setIcon(R.drawable.ic_grid)
+            }
         }.attach()
     }
 }
