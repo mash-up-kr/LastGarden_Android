@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.mashup.base.autoCleared
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
@@ -14,7 +16,38 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TutorialFragment(private val page: Int) : BaseViewModelFragment() {
+class TutorialFragment : BaseViewModelFragment() {
+
+    companion object {
+        private const val PAGE_TYPE = "page_type"
+        fun createInstance(page: Int) = TutorialFragment().apply {
+            arguments = Bundle().apply {
+                putInt(PAGE_TYPE, page)
+            }
+        }
+    }
+
+    enum class OnBoardingType(
+        @StringRes val titleRes: Int,
+        @StringRes val descRes: Int,
+        @DrawableRes val imageRes: Int
+    ) {
+        SEE_HYANG(
+            R.string.tutorial_seehyang_title,
+            R.string.tutorial_seehyang_description,
+            R.drawable.img_tutorial_seehyang
+        ),
+        EDITOR(
+            R.string.tutorial_editor_title,
+            R.string.tutorial_editor_description,
+            R.drawable.img_tutorial_editor
+        ),
+        DETAIL(
+            R.string.tutorial_detail_title,
+            R.string.tutorial_detail_description,
+            R.drawable.img_tutorial_detail
+        )
+    }
 
     private var binding by autoCleared<FragmentTutorialBinding>()
 
@@ -34,43 +67,13 @@ class TutorialFragment(private val page: Int) : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-        setupTutorialImage(page)
-        setupTutorialTitle(page)
-        setupTutorialDescription(page)
 
-    }
-
-    private fun setupTutorialImage(page: Int) {
-        when (page) {
-            0 -> binding.tutorialImage.loadImage(
-                glideRequests,
-                R.drawable.img_tutorial_first
-            )
-            1 -> binding.tutorialImage.loadImage(
-                glideRequests,
-                R.drawable.img_tutorial_second
-            )
-            2 -> binding.tutorialImage.loadImage(
-                glideRequests,
-                R.drawable.img_tutorial_third
-            )
-        }
-
-    }
-
-    private fun setupTutorialTitle(page: Int) {
-        when (page) {
-            0 -> binding.title.text = getString(R.string.tutorial_first_title)
-            1 -> binding.title.text = getString(R.string.tutorial_second_title)
-            else -> binding.title.text = getString(R.string.tutorial_third_title)
-        }
-    }
-
-    private fun setupTutorialDescription(page: Int) {
-        when (page) {
-            0 -> binding.description.text = getString(R.string.tutorial_first_description)
-            1 -> binding.description.text = getString(R.string.tutorial_second_description)
-            else -> binding.description.text = getString(R.string.tutorial_third_description)
-        }
+        val page = requireArguments().getInt(PAGE_TYPE)
+        binding.tutorialImage.loadImage(
+            glideRequests,
+            OnBoardingType.values()[page].imageRes
+        )
+        binding.title.text = getString(OnBoardingType.values()[page].titleRes)
+        binding.description.text = getString(OnBoardingType.values()[page].descRes)
     }
 }

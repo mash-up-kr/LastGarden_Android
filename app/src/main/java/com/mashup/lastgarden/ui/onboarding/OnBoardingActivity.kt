@@ -20,38 +20,31 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViewPager()
 
-        binding.vpOnboarding.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                when (binding.vpOnboarding.currentItem) {
-                    2 -> binding.btnNext.text = getString(R.string.tutorial_btn_start)
-                    else -> binding.btnNext.text = getString(R.string.tutorial_btn_next)
-
+        binding.onBoardingViewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    when (binding.onBoardingViewPager.currentItem) {
+                        2 -> binding.nextButton.text = getString(R.string.tutorial_btn_start)
+                        else -> binding.nextButton.text = getString(R.string.tutorial_btn_next)
+                    }
                 }
-            }
-        })
+            })
     }
 
     private fun setupViewPager() {
         val fragmentList: MutableList<Fragment> = arrayListOf()
-        for (i in 0 until 3) {
-            fragmentList.add(
-                TutorialFragment(
-                    page = i
-                )
-            )
+        for (page in 0 until 3) {
+            fragmentList.add(TutorialFragment.createInstance(page))
         }
 
-        binding.vpOnboarding.adapter = TutorialViewPagerAdapter(this, fragmentList)
-        TabLayoutMediator(binding.tabLayout, binding.vpOnboarding) { _, _ ->
-        }.attach()
+        binding.onBoardingViewPager.adapter = TutorialViewPagerAdapter(this, fragmentList)
+        TabLayoutMediator(binding.tabLayout, binding.onBoardingViewPager) { _, _ -> }.attach()
 
-        binding.btnNext.setOnClickListener {
-            val tutorialSize = binding.vpOnboarding.adapter?.itemCount ?: 0
-            if (tutorialSize - 1 > binding.vpOnboarding.currentItem) {
-                binding.vpOnboarding.currentItem++
+        binding.nextButton.setOnClickListener {
+            val tutorialSize = binding.onBoardingViewPager.adapter?.itemCount ?: 0
+            if (tutorialSize - 1 > binding.onBoardingViewPager.currentItem) {
+                binding.onBoardingViewPager.currentItem++
             } else {
                 moveSignActivity()
             }
@@ -60,18 +53,15 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private fun moveSignActivity() {
         //TODO SignActivity 연결
-//        startActivity(
-//            //Intent(this, SignActivity::class.java)
-//        )
         finish()
     }
 
     override fun onBackPressed() {
-        if (binding.vpOnboarding.currentItem <= 0) {
+        if (binding.onBoardingViewPager.currentItem <= 0) {
             super.onBackPressed()
         } else {
-            binding.vpOnboarding.currentItem =
-                max(binding.vpOnboarding.currentItem - 1, 0)
+            binding.onBoardingViewPager.currentItem =
+                max(binding.onBoardingViewPager.currentItem - 1, 0)
         }
     }
 }
