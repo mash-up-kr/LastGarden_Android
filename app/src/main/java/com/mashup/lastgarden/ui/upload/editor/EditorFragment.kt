@@ -18,7 +18,6 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentEditorBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
-import com.mashup.lastgarden.ui.upload.TextEditorDialog
 import dagger.hilt.android.AndroidEntryPoint
 import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.OnSaveBitmap
