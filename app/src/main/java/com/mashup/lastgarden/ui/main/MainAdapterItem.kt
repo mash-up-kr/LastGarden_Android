@@ -1,5 +1,10 @@
 package com.mashup.lastgarden.ui.main
 
+import com.mashup.lastgarden.Constant.PREFIX_PERFUME_ID
+import com.mashup.lastgarden.Constant.PREFIX_STORY_ID
+import com.mashup.lastgarden.data.vo.Perfume
+import com.mashup.lastgarden.data.vo.Story
+
 sealed class MainAdapterItem(val id: String) {
     override fun equals(other: Any?): Boolean = false
     override fun hashCode(): Int = id.hashCode()
@@ -72,3 +77,22 @@ sealed class MainAdapterItem(val id: String) {
 
     object SeeMore : MainAdapterItem("SeeMore")
 }
+
+fun Perfume.toMainAdapterItem(): MainAdapterItem = MainAdapterItem.TodayPerfume(
+    perfumeId = PREFIX_PERFUME_ID + perfumeId,
+    name = name,
+    perfumeImage = thumbnailUrl
+)
+
+fun List<Story>.toTodayPerfumeStoryItems(): List<MainAdapterItem.TodayPerfumeStories.TodayPerfumeStoryItem> =
+    map { story ->
+        MainAdapterItem.TodayPerfumeStories.TodayPerfumeStoryItem(
+            id = PREFIX_STORY_ID + story.storyId,
+            authorName = story.userNickname,
+            authorProfileImage = story.userProfileImage,
+            storyImageUrl = story.thumbnailUrl
+        )
+    }
+
+fun List<MainAdapterItem.TodayPerfumeStories.TodayPerfumeStoryItem>.toMainAdapterItem(): MainAdapterItem =
+    MainAdapterItem.TodayPerfumeStories(this)

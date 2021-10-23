@@ -9,5 +9,6 @@ import javax.inject.Singleton
 @Singleton
 class PerfumeRemoteDataSource @Inject constructor(private val service: PerfumeService) {
 
-    suspend fun getTodayPerfume(): PerfumeAndStories? = service.getTodayPerfume().onErrorReturnDataNull()
+    suspend fun getTodayPerfume(): PerfumeAndStories? =
+        service.getTodayPerfume().onErrorReturnDataNull()
 }

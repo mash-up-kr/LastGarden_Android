@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : BaseViewModelFragment() {
+class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListener {
 
     private var binding by autoCleared<FragmentMainBinding>()
 
@@ -56,7 +56,8 @@ class MainFragment : BaseViewModelFragment() {
             todayPerfumeStoryAdapter = todayPerfumeStoryAdapter,
             hotStoryAdapter = hotStoryAdapter,
             rankingAdapter = rankingAdapter,
-            recommendAdapter = recommendAdapter
+            recommendAdapter = recommendAdapter,
+            mainItemClickListener = this
         )
     }
 
@@ -96,10 +97,10 @@ class MainFragment : BaseViewModelFragment() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.todayPerfumeStoriesItem
+            viewModel.todayPerfumeStories
                 .filterNotNull()
                 .collectLatest {
-                    todayPerfumeStoryAdapter.submitList(it.storyItems)
+                    todayPerfumeStoryAdapter.submitList(it)
                 }
         }
 
@@ -126,5 +127,9 @@ class MainFragment : BaseViewModelFragment() {
                     recommendAdapter.submitList(it.perfumeItems)
                 }
         }
+    }
+
+    override fun onRefreshPerfumeClick() {
+        viewModel.refreshTodayPerfume()
     }
 }

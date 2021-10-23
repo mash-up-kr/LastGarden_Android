@@ -13,14 +13,25 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
-import com.mashup.lastgarden.databinding.*
+import com.mashup.lastgarden.databinding.ItemHotStoriesHeaderBinding
+import com.mashup.lastgarden.databinding.ItemMainBannerBinding
+import com.mashup.lastgarden.databinding.ItemMainHotStoriesBinding
+import com.mashup.lastgarden.databinding.ItemMainPerfumeRankingsBinding
+import com.mashup.lastgarden.databinding.ItemMainPerfumeRecommendsBinding
+import com.mashup.lastgarden.databinding.ItemMainSeeMoreBinding
+import com.mashup.lastgarden.databinding.ItemMainTodayPerfumeBinding
+import com.mashup.lastgarden.databinding.ItemMainTodayPerfumeStoriesBinding
+import com.mashup.lastgarden.databinding.ItemPerfumeRankingHeaderBinding
+import com.mashup.lastgarden.databinding.ItemPerfumeRecommendHeaderBinding
+import com.mashup.lastgarden.databinding.ItemRefreshAnotherPerfumeBinding
 
 class MainAdapter(
     private val glideRequests: GlideRequests,
     private val todayPerfumeStoryAdapter: TodayPerfumeStoryAdapter,
     private val hotStoryAdapter: HotStoryAdapter,
     private val rankingAdapter: PerfumeRankingAdapter,
-    private val recommendAdapter: PerfumeRecommendAdapter
+    private val recommendAdapter: PerfumeRecommendAdapter,
+    private val mainItemClickListener: OnMainItemClickListener
 ) : ListAdapter<MainAdapterItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -35,6 +46,10 @@ class MainAdapter(
                 newItem: MainAdapterItem
             ): Boolean = oldItem == newItem
         }
+    }
+
+    interface OnMainItemClickListener {
+        fun onRefreshPerfumeClick()
     }
 
     private class TodayPerfumeHeaderViewHolder(
@@ -260,7 +275,7 @@ class MainAdapter(
     private fun RefreshAnotherPerfumeViewHolder.bind(item: MainAdapterItem) {
         if (item !is MainAdapterItem.RefreshAnotherPerfume) return
 
-        refreshView.setOnClickListener { }
+        refreshView.setOnClickListener { mainItemClickListener.onRefreshPerfumeClick() }
     }
 
     private fun BannerViewHolder.bind(item: MainAdapterItem) {
