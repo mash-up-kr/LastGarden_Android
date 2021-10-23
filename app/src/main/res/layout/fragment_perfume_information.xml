@@ -58,7 +58,7 @@
             android:paddingVertical="8dp"
             android:text="@string/perfume_info_pyramid_top"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-            android:textColor="@drawable/check_box_text"
+            android:textColor="@drawable/check_box_text_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pyramidImageView" />
 
@@ -70,7 +70,7 @@
             android:paddingVertical="8dp"
             android:text="@string/perfume_info_pyramid_middle"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-            android:textColor="@drawable/check_box_text"
+            android:textColor="@drawable/check_box_text_background"
             app:layout_constraintBottom_toBottomOf="@id/topCheckBox"
             app:layout_constraintStart_toEndOf="@id/topCheckBox"
             app:layout_constraintTop_toTopOf="@id/topCheckBox" />
@@ -83,7 +83,7 @@
             android:paddingVertical="8dp"
             android:text="@string/perfume_info_pyramid_base"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-            android:textColor="@drawable/check_box_text"
+            android:textColor="@drawable/check_box_text_background"
             app:layout_constraintBottom_toBottomOf="@id/middleCheckBox"
             app:layout_constraintStart_toEndOf="@id/middleCheckBox"
             app:layout_constraintTop_toTopOf="@id/middleCheckBox" />
