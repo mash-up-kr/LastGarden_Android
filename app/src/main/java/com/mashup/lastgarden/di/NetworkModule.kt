@@ -1,7 +1,7 @@
 package com.mashup.lastgarden.di
 
 import com.mashup.lastgarden.BuildConfig
-import com.mashup.lastgarden.network.AuthorizationInterceptor
+import com.mashup.lastgarden.network.interceptors.AuthorizationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
