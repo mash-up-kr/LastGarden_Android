@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/shape_grey_radius_6"
+            android:background="@drawable/grey_radius_6_shape"
             android:orientation="horizontal"
             android:paddingVertical="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
                 android:layout_height="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/shape_oval_purple" />
+                android:background="@drawable/oval_purple_shape" />
 
             <TextView
                 android:id="@+id/pyramidContentTextView"
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/shape_grey_radius_6"
+            android:background="@drawable/grey_radius_6_shape"
             android:orientation="horizontal"
             android:paddingVertical="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
                 android:layout_height="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/shape_oval_purple" />
+                android:background="@drawable/oval_purple_shape" />
 
             <TextView
                 android:id="@+id/accordContentTextView"
