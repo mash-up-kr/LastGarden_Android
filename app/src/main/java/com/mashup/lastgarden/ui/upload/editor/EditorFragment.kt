@@ -1,21 +1,18 @@
 package com.mashup.lastgarden.ui.upload.editor
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageView
+import com.canhub.cropper.options
 import com.mashup.base.autoCleared
-import com.mashup.base.extensions.loadImage
 import com.mashup.base.extensions.showToast
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
@@ -28,7 +25,6 @@ import ja.burhanrashid52.photoeditor.OnSaveBitmap
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.TextStyleBuilder
 import ja.burhanrashid52.photoeditor.ViewType
-import java.lang.Exception
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,8 +39,23 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
 
     private var editor: PhotoEditor? = null
 
+    private val cropImageLauncher = registerForActivityResult(
+        CropImageContract()
+    ) { result ->
+        if (result.isSuccessful) {
+            result.getBitmap(requireContext())?.let { bitmap ->
+                editorViewModel.setEditedImage(bitmap)
+            }
+        }
+    }
+
     @Inject
     lateinit var glideRequests: GlideRequests
+
+    override fun onCreated(savedInstanceState: Bundle?) {
+        super.onCreated(savedInstanceState)
+        showImagePicker()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,6 +99,11 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
                 defaultColor = ContextCompat.getColor(requireContext(), DEFAULT_TEXT_COLOR)
             )
         }
+    }
+
+
+    private fun showImagePicker() {
+        cropImageLauncher.launch(options { setGuidelines(CropImageView.Guidelines.ON) })
     }
 
     private fun saveEditedImage() {

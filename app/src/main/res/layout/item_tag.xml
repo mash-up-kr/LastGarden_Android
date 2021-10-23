@@ -9,5 +9,6 @@
     app:chipCornerRadius="4dp"
     app:closeIcon="@drawable/ic_remove"
     app:closeIconEndPadding="8dp"
+    app:closeIconSize="16dp"
     app:closeIconTint="@color/grey5"
     app:closeIconVisible="true" />

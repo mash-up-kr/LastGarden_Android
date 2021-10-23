@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.chip.Chip
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
@@ -45,6 +47,7 @@ class TagFragment : BaseViewModelFragment() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
 
+        setUiOfToolBar()
         setUiOfButton()
         setUiOfEditText()
     }
@@ -58,6 +61,11 @@ class TagFragment : BaseViewModelFragment() {
                 addTagIntoChipGroup(tag)
             }
         }
+    }
+
+    private fun setUiOfToolBar() {
+        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 
     private fun setUiOfButton() {

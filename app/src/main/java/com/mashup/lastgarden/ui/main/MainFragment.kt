@@ -1,6 +1,5 @@
 package com.mashup.lastgarden.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
-import com.mashup.lastgarden.ui.upload.editor.EditorActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -60,9 +58,6 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
     ): View {
         binding = FragmentMainBinding.inflate(
             inflater, container, false
-        )
-        startActivity(
-            Intent(requireContext(), EditorActivity::class.java)
         )
         return binding.root
     }

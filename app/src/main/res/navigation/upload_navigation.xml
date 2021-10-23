@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.mashup.lastgarden.ui.upload.UploadFragment"
-        android:label="EditorUploadFragment">
+        android:label="@string/upload_label">
         <action
             android:id="@+id/actionUploadFragmentToTagInputFragment"
             app:destination="@id/tagInputFragment"
@@ -26,5 +26,5 @@
     <fragment
         android:id="@+id/tagInputFragment"
         android:name="com.mashup.lastgarden.ui.upload.TagFragment"
-        android:label="TagInputFragment" />
+        android:label="@string/tag_label" />
 </navigation>

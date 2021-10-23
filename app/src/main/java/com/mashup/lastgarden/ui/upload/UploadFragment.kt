@@ -1,17 +1,14 @@
 package com.mashup.lastgarden.ui.upload
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.mashup.base.autoCleared
-import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentUploadBinding
@@ -43,7 +40,8 @@ class UploadFragment : BaseViewModelFragment() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
 
-        setListenerOfSection()
+        setUiOfToolBar()
+        setUiOfSection()
         setUiOfButton()
     }
 
@@ -63,22 +61,30 @@ class UploadFragment : BaseViewModelFragment() {
         }
     }
 
-    private fun setUiOfButton() {
-        binding.uploadButton.setOnClickListener {
-            //TODO: upload 로직 추가
+    private fun setUiOfToolBar() {
+        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+    }
+
+    private fun setUiOfSection() {
+        binding.perfumeSection.apply {
+            title = getString(R.string.upload_perfume_section_title)
+            setOnClickListener {
+                //TODO: 향수 검색
+            }
         }
-        binding.backButton.setOnClickListener {
-            findNavController().popBackStack()
+
+        binding.tagSection.apply {
+            title = getString(R.string.upload_tag_section_title)
+            setOnClickListener {
+                findNavController().navigate(R.id.actionUploadFragmentToTagInputFragment)
+            }
         }
     }
 
-    private fun setListenerOfSection() {
-        binding.perfumeSection.setOnClickListener {
-            //TODO: 향수 검색
-        }
-
-        binding.tagSection.setOnClickListener {
-            findNavController().navigate(R.id.actionUploadFragmentToTagInputFragment)
+    private fun setUiOfButton() {
+        binding.uploadButton.setOnClickListener {
+            //TODO: upload 로직 추가
         }
     }
 

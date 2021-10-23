@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -43,7 +44,7 @@
 
         <activity
             android:name=".ui.upload.editor.EditorActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
