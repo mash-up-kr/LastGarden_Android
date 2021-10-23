@@ -1,12 +1,12 @@
 package com.mashup.lastgarden.ui.main
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
-import com.mashup.lastgarden.data.vo.PerfumeDetailData
 import com.mashup.lastgarden.databinding.ItemPerfumeDetailBinding
 
 private typealias PerfumeDetailItem = PerfumeDetailData.PerfumeDetailItem
@@ -20,13 +20,17 @@ class PerfumeDetailAdapter(private val glideRequests: GlideRequests) :
                 override fun areItemsTheSame(
                     oldItem: PerfumeDetailItem,
                     newItem: PerfumeDetailItem
-                ): Boolean = oldItem == newItem
+                ): Boolean = oldItem.storyId == newItem.storyId
 
                 override fun areContentsTheSame(
                     oldItem: PerfumeDetailItem,
                     newItem: PerfumeDetailItem
                 ): Boolean = oldItem == newItem
             }
+    }
+
+    init {
+        setHasStableIds(true)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScentListViewHolder {
@@ -46,10 +50,12 @@ class ScentListViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: PerfumeDetailItem) {
-        binding.perfumeCardView.setUserImage(glideRequests, data.profileImage)
-        binding.perfumeCardView.setSourceImage(glideRequests, data.photo)
-        binding.perfumeCardView.userName = data.name
-        binding.perfumeCardView.title = data.tags
+        binding.perfumeCardView.setUserImage(glideRequests, data.userProfileImage)
+        binding.perfumeCardView.setSourceImage(glideRequests, data.thumbnailUrl)
+        binding.perfumeCardView.userName = data.userNickname
         binding.perfumeCardView.count = data.likeCount
+        if (data.tags != null)
+            binding.perfumeCardView.title =
+                TextUtils.join(" ", data.tags.map { tag -> "#${tag.contents}" })
     }
 }
