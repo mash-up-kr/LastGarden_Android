@@ -29,13 +29,9 @@ class MainFragment : BaseViewModelFragment() {
     @Inject
     lateinit var glideRequests: GlideRequests
 
-    private val cropImageLauncher = registerForActivityResult(
-        CropImageContract()
-    ) { result ->
+    private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
-            result.getUriFilePath(requireContext())?.let { imageUrl ->
-                showEditorActivity(imageUrl)
-            }
+            result.getUriFilePath(requireContext())?.let(::showEditorActivity)
         }
     }
 

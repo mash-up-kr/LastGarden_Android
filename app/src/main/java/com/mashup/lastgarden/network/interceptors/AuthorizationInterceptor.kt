@@ -1,4 +1,4 @@
-package com.mashup.lastgarden.network
+package com.mashup.lastgarden.network.interceptors
 
 import com.mashup.lastgarden.data.PerfumeSharedPreferences
 import kotlinx.coroutines.Dispatchers

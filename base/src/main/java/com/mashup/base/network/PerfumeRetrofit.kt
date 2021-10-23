@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object PerfumeRetrofit {
 
-    const val BASE_URL = "127.0.0.1"
+    const val BASE_URL = "http://seehyang-env.eba-sxhpxp66.ap-northeast-2.elasticbeanstalk.com/"
 
     fun <T> create(
         service: Class<T>,
