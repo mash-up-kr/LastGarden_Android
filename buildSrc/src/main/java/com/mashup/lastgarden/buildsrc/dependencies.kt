@@ -65,6 +65,7 @@ object Libs {
     object ThirdParty {
         const val crop = "com.github.CanHub:Android-Image-Cropper:3.3.5"
         const val editor = "com.burhanrashid52:photoeditor:1.5.1"
+        const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:4.1.0"
     }
 
     object AndroidX {
@@ -96,9 +97,10 @@ object Libs {
         }
 
         object Room {
-            private const val version = "2.2.6"
+            private const val version = "2.3.0"
             const val room = "androidx.room:room-runtime:$version"
             const val compiler = "androidx.room:room-compiler:$version"
+            const val ktx = "androidx.room:room-ktx:$version"
         }
     }
 }

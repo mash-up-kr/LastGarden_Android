@@ -22,6 +22,12 @@ android {
             "${Versions.App.major}.${Versions.App.feature}.${Versions.App.regular}.${Versions.App.minor}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+            }
+        }
     }
 
     buildTypes {
@@ -85,4 +91,9 @@ dependencies {
 
     // Editor
     implementation(Libs.ThirdParty.editor)
+
+    // Room
+    implementation(Libs.AndroidX.Room.room)
+    kapt(Libs.AndroidX.Room.compiler)
+    implementation(Libs.AndroidX.Room.ktx)
 }
