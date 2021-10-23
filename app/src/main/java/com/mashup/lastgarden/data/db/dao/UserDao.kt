@@ -7,6 +7,6 @@ import com.mashup.lastgarden.data.vo.User
 @Dao
 abstract class UserDao : BaseDao<User>() {
 
-    @Query("SELECT * FROM users WHERE id = :userId")
+    @Query("SELECT * FROM users WHERE user_id = :userId")
     abstract fun getUser(userId: String): User
 }

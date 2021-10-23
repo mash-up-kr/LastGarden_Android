@@ -18,4 +18,21 @@ data class Story(
     @ColumnInfo(name = "story_user_nickname") val userNickname: String,
     @ColumnInfo(name = "story_like_count") val likeCount: Long? = 0L,
     @Ignore val tags: List<Tag>? = emptyList()
-)
+) {
+    constructor(
+        storyId: Int,
+        perfumeImageUrl: String?,
+        thumbnailUrl: String?,
+        userProfileImage: String?,
+        userNickname: String,
+        likeCount: Long?
+    ) : this(
+        storyId = storyId,
+        perfumeImageUrl = perfumeImageUrl,
+        thumbnailUrl = thumbnailUrl,
+        userProfileImage = userProfileImage,
+        userNickname = userNickname,
+        likeCount = likeCount,
+        tags = emptyList()
+    )
+}

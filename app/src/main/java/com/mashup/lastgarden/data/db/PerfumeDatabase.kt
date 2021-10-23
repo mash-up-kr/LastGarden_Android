@@ -7,12 +7,21 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mashup.lastgarden.data.db.converters.PerfumeDatabaseConverters
 import com.mashup.lastgarden.data.db.dao.PerfumeDao
+import com.mashup.lastgarden.data.db.dao.StoryDao
 import com.mashup.lastgarden.data.db.dao.UserDao
+import com.mashup.lastgarden.data.vo.Note
+import com.mashup.lastgarden.data.vo.Perfume
+import com.mashup.lastgarden.data.vo.Story
+import com.mashup.lastgarden.data.vo.Tag
 import com.mashup.lastgarden.data.vo.User
 
 @Database(
     entities = [
-        User::class
+        User::class,
+        Perfume::class,
+        Story::class,
+        Note::class,
+        Tag::class
     ],
     version = 1
 )
@@ -36,4 +45,5 @@ abstract class PerfumeDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun perfumeDao(): PerfumeDao
+    abstract fun storyDao(): StoryDao
 }
