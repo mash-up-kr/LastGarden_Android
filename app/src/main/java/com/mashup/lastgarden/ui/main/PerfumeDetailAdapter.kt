@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.databinding.ItemPerfumeDetailBinding
 
-private typealias PerfumeDetailItem = PerfumeDetailData.PerfumeDetailItem
-
 class PerfumeDetailAdapter(private val glideRequests: GlideRequests) :
     ListAdapter<PerfumeDetailItem, ScentListViewHolder>(DIFF_CALLBACK) {
 

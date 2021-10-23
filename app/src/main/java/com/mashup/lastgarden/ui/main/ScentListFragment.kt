@@ -53,7 +53,7 @@ class ScentListFragment : BaseViewModelFragment() {
             viewModel.perfumeDetailItems
                 .filterNotNull()
                 .collectLatest {
-                    perfumeDetailAdapter.submitList(it.perfumeDetailItems)
+                    perfumeDetailAdapter.submitList(it)
                 }
         }
     }
