@@ -1,26 +1,28 @@
-package com.mashup.lastgarden.ui.editor
+package com.mashup.lastgarden.ui.upload.editor
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageView
+import com.canhub.cropper.options
 import com.mashup.lastgarden.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditorActivity : AppCompatActivity() {
     private lateinit var navController: NavController
+    private val viewModel: EditorViewModel by viewModels()
 
-    companion object {
-        const val EXTRA_IMAGE_URL = "extra_image_url"
-
-        fun createIntent(
-            context: Context,
-            imageUrl: String
-        ) = Intent(context, EditorActivity::class.java).apply {
-            putExtra(EXTRA_IMAGE_URL, imageUrl)
+    private val cropImageLauncher = registerForActivityResult(
+        CropImageContract()
+    ) { result ->
+        if (result.isSuccessful) {
+            result.getBitmap(this)?.let { bitmap ->
+                viewModel.setEditedImage(bitmap)
+            }
         }
     }
 
@@ -28,10 +30,15 @@ class EditorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editor)
         setupNavController()
+        showImagePicker()
     }
 
     private fun setupNavController() {
         navController = (supportFragmentManager.findFragmentById(R.id.navHostFragment)
                 as NavHostFragment).navController
+    }
+
+    private fun showImagePicker() {
+        cropImageLauncher.launch(options { setGuidelines(CropImageView.Guidelines.ON) })
     }
 }

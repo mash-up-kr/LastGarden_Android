@@ -5,6 +5,8 @@
     <string name="common_add">추가</string>
     <string name="common_upload">등록하기</string>
 
+    <string name="need_permisson_storage">사진을 저장하기 위해서는 저장소 권한이 필요합니다.</string>
+
     <!-- Sign Information -->
     <string name="sign_explain_label">간편하게 씨향 시작하기</string>
     <string name="sign_google_label">Google 계정으로 로그인</string>
@@ -69,4 +71,5 @@
     <string name="tag_regex">#%1$s</string>
     <string name="upload_only_show_to_me">나만 보기</string>
     <string name="upload_title">씨향지 만들기</string>
+    <string name="editor_failed_save_edited_image">이미지 저장에 실패했습니다..</string>
 </resources>

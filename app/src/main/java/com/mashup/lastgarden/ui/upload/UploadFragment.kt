@@ -1,9 +1,13 @@
-package com.mashup.lastgarden.ui.editor
+package com.mashup.lastgarden.ui.upload
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.mashup.base.autoCleared
@@ -12,6 +16,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentUploadBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.upload.editor.EditorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,11 +50,8 @@ class UploadFragment : BaseViewModelFragment() {
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
 
-        editorViewModel.imageUrl.observe(viewLifecycleOwner) { uri ->
-            binding.editedImageView.loadImage(
-                glideRequests,
-                uri.toString()
-            )
+        editorViewModel.editedImage.observe(viewLifecycleOwner) { imageBitmap ->
+            binding.editedImageView.setImageBitmap(imageBitmap)
         }
 
         editorViewModel.isEnabledUploadButton.observe(viewLifecycleOwner) { isEnabled ->
@@ -79,4 +81,5 @@ class UploadFragment : BaseViewModelFragment() {
             findNavController().navigate(R.id.actionUploadFragmentToTagInputFragment)
         }
     }
+
 }

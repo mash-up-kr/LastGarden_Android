@@ -1,28 +1,25 @@
-package com.mashup.lastgarden.ui.editor
+package com.mashup.lastgarden.ui.upload
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipDrawable
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
-import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentTagBinding
+import com.mashup.lastgarden.databinding.ItemTagBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.upload.editor.EditorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TagInputFragment : BaseViewModelFragment() {
+class TagFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentTagBinding>()
     private val editorViewModel by activityViewModels<EditorViewModel>()
@@ -56,6 +53,7 @@ class TagInputFragment : BaseViewModelFragment() {
         super.onBindViewModelsOnViewCreated()
 
         editorViewModel.tagList.observe(viewLifecycleOwner) { tagList ->
+            binding.confirmButton.isEnabled = tagList.isNotEmpty()
             tagList.onEach { tag ->
                 addTagIntoChipGroup(tag)
             }
@@ -63,9 +61,6 @@ class TagInputFragment : BaseViewModelFragment() {
     }
 
     private fun setUiOfButton() {
-        binding.cancelButton.setOnClickListener {
-            findNavController().popBackStack()
-        }
         binding.confirmButton.setOnClickListener {
             saveTagWithChipIds(binding.tagGroup.checkedChipIds)
             findNavController().popBackStack()
@@ -94,24 +89,17 @@ class TagInputFragment : BaseViewModelFragment() {
 
     private fun addTagIntoChipGroup(tag: String) {
         binding.confirmButton.isEnabled = true
-        binding.tagGroup.addView(createTagAsChip(tag))
+        createTagAsChip(tag)
     }
 
-    private fun createTagAsChip(tag: String) = Chip(requireContext()).apply {
-        setTag(tag)
-        text = getString(R.string.tag_regex, tag)
-        shapeAppearanceModel = ShapeAppearanceModel().apply {
-            withCornerSize(4.dp.toFloat())
-        }
-        isCloseIconVisible = true
-        closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_chip_closed, null)
-        closeIconStartPadding = 10.dp.toFloat()
-
-        chipBackgroundColor = ContextCompat.getColorStateList(requireContext(), R.color.colorGrey6)
-        setTextColor(ResourcesCompat.getColor(resources, R.color.point, null))
-        setOnCloseIconClickListener { closedChip ->
-            binding.tagGroup.removeView(closedChip)
-            binding.confirmButton.isEnabled = binding.tagGroup.checkedChipIds.isNotEmpty()
+    private fun createTagAsChip(tag: String) {
+        with(ItemTagBinding.inflate(layoutInflater, binding.tagGroup, true).root) {
+            this.tag = tag
+            text = getString(R.string.tag_regex, tag)
+            setOnCloseIconClickListener { closedChip ->
+                binding.tagGroup.removeView(closedChip)
+                binding.confirmButton.isEnabled = binding.tagGroup.checkedChipIds.isNotEmpty()
+            }
         }
     }
 }

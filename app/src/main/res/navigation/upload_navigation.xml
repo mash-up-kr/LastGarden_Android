@@ -5,7 +5,7 @@
     app:startDestination="@id/editorFragment">
     <fragment
         android:id="@+id/editorFragment"
-        android:name="com.mashup.lastgarden.ui.editor.EditorFragment"
+        android:name="com.mashup.lastgarden.ui.upload.editor.EditorFragment"
         android:label="EditorFragment">
         <action
             android:id="@+id/actionEditorFragmentToUploadFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/uploadFragment"
-        android:name="com.mashup.lastgarden.ui.editor.UploadFragment"
+        android:name="com.mashup.lastgarden.ui.upload.UploadFragment"
         android:label="EditorUploadFragment">
         <action
             android:id="@+id/actionUploadFragmentToTagInputFragment"
@@ -25,6 +25,6 @@
     </fragment>
     <fragment
         android:id="@+id/tagInputFragment"
-        android:name="com.mashup.lastgarden.ui.editor.TagInputFragment"
+        android:name="com.mashup.lastgarden.ui.upload.TagFragment"
         android:label="TagInputFragment" />
 </navigation>

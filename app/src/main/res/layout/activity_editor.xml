@@ -16,6 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/editor_navigation" />
+        app:navGraph="@navigation/upload_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
