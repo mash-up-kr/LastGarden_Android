@@ -76,22 +76,18 @@ dependencies {
     api(Libs.Network.Retrofit.retrofit)
     api(Libs.Network.Retrofit.gsonConverter)
 
-    // Retrofit - Coroutine network response adapter
-    //api "com.github.haroldadmin:NetworkResponseAdapter:4.1.0"
-
     // Glide
     api(Libs.Glide.glide)
     kapt(Libs.Glide.compiler)
     api(Libs.Glide.integration)
     api(Libs.Glide.transformation)
 
-    // Room
-    api(Libs.AndroidX.Room.room)
-    kapt(Libs.AndroidX.Room.compiler)
-
     // An adaptation of the JSR-310 backport for Android.
     api("com.jakewharton.threetenabp:threetenabp:1.2.1")
     testImplementation("org.threeten:threetenbp:1.4.0")
+
+    // Retrofit - Coroutine network response adapter
+    api(Libs.ThirdParty.networkResponseAdapter)
 
     // Test
     testApi(Libs.Test.junit)

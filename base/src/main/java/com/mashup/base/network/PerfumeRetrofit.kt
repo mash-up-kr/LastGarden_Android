@@ -1,12 +1,14 @@
 package com.mashup.base.network
 
+import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object PerfumeRetrofit {
 
-    const val BASE_URL = "http://seehyang-env.eba-sxhpxp66.ap-northeast-2.elasticbeanstalk.com/"
+    const val BASE_URL =
+        "http://seehyang-env.eba-sxhpxp66.ap-northeast-2.elasticbeanstalk.com/api/v1/"
 
     fun <T> create(
         service: Class<T>,
@@ -16,6 +18,7 @@ object PerfumeRetrofit {
         .baseUrl(httpUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(NetworkResponseAdapterFactory())
         .build()
         .create(service)
 

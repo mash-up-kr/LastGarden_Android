@@ -15,8 +15,27 @@ data class Perfume(
     @ColumnInfo(name = "perfume_brand_id") val brandId: String,
     @ColumnInfo(name = "perfume_brand_name") val brandName: String,
     @ColumnInfo(name = "perfume_like_count") val likeCount: Long? = 0L,
-    @Ignore val notes: NoteContainer
+    @Ignore val notes: NoteContainer? = null
 ) {
+    constructor(
+        perfumeId: String,
+        name: String,
+        thumbnailUrl: String? = null,
+        koreanName: String,
+        brandId: String,
+        brandName: String,
+        likeCount: Long? = 0L
+    ) : this(
+        perfumeId = perfumeId,
+        name = name,
+        thumbnailUrl = thumbnailUrl,
+        koreanName = koreanName,
+        brandId = brandId,
+        brandName = brandName,
+        likeCount = likeCount,
+        notes = null
+    )
+
     data class NoteContainer(
         val top: List<Note>? = emptyList(),
         val middle: List<Note>? = emptyList(),
