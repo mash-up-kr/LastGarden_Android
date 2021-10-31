@@ -29,10 +29,6 @@ class TagFragment : BaseViewModelFragment() {
     @Inject
     lateinit var glideRequests: GlideRequests
 
-    companion object {
-        private const val tagPrefix = "#"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,7 +86,7 @@ class TagFragment : BaseViewModelFragment() {
         editorViewModel.setTagList(
             ids.map { chipId ->
                 val chip = binding.tagGroup.findViewById<Chip>(chipId)
-                return@map (chip.tag as? String) ?: chip.text.removePrefix(tagPrefix).toString()
+                return@map chip.tag.toString()
             }
         )
     }

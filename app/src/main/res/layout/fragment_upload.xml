@@ -41,7 +41,7 @@
 
     <com.mashup.lastgarden.customview.SectionSelectedLabel
         android:id="@+id/perfumeSection"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         app:layout_constraintBottom_toTopOf="@id/tagSection"
@@ -50,7 +50,7 @@
 
     <com.mashup.lastgarden.customview.SectionSelectedLabel
         android:id="@+id/tagSection"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"

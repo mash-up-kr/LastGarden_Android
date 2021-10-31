@@ -29,10 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
 
-    companion object {
-        const val DEFAULT_TEXT_COLOR = R.color.white
-    }
-
     private var binding by autoCleared<FragmentEditorBinding>()
     private val editorViewModel by activityViewModels<EditorViewModel>()
 
@@ -71,7 +67,6 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
         super.onSetupViews(view)
         setUiOfEditorView()
         setUiOfAddTextButton()
-        observeViewModel()
 
         binding.closeButton.setOnClickListener {
             findNavController().popBackStack()
@@ -95,7 +90,7 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
             showAddTextDialog(
                 targetView = null,
                 defaultText = "",
-                defaultColor = ContextCompat.getColor(requireContext(), DEFAULT_TEXT_COLOR)
+                defaultColor = ContextCompat.getColor(requireContext(), R.color.point)
             )
         }
     }
@@ -123,10 +118,10 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
     }
 
     private fun showAddTextDialog(targetView: View?, defaultText: String?, defaultColor: Int?) {
-        TextEditorDialog().apply {
+        TextEditorDialogFragment().apply {
             arguments = Bundle().apply {
-                putString(TextEditorDialog.EXTRA_INPUT_TEXT, defaultText)
-                putInt(TextEditorDialog.EXTRA_COLOR, defaultColor ?: 0)
+                putString(TextEditorDialogFragment.EXTRA_INPUT_TEXT, defaultText)
+                putInt(TextEditorDialogFragment.EXTRA_COLOR, defaultColor ?: 0)
             }
             setOnTextEditorListener { text, color ->
                 val styleBuilder = TextStyleBuilder().apply {
@@ -140,11 +135,11 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
                 }
             }
         }.also { dialog ->
-            dialog.show(childFragmentManager, TextEditorDialog::class.java.simpleName)
+            dialog.show(childFragmentManager, TextEditorDialogFragment::class.java.simpleName)
         }
     }
 
-    private fun observeViewModel() {
+    override fun onBindViewModelsOnViewCreated() {
         editorViewModel.editedImage.observe(this) { imageBitmap ->
             setImageUsingBitmap(imageBitmap)
         }

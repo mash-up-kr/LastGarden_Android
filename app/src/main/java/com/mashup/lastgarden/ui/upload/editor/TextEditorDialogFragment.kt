@@ -15,10 +15,10 @@ import com.mashup.lastgarden.databinding.DialogAddTextBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TextEditorDialog : DialogFragment() {
+class TextEditorDialogFragment : DialogFragment() {
 
     companion object {
-        private val TAG = TextEditorDialog::class.java.simpleName
+        private val TAG = TextEditorDialogFragment::class.java.simpleName
         const val EXTRA_INPUT_TEXT = "extra_input_text"
         const val EXTRA_COLOR = "extra_color"
     }
@@ -57,7 +57,7 @@ class TextEditorDialog : DialogFragment() {
             hideSoftInput()
             val textColor = arguments?.getInt(EXTRA_COLOR)
             val editedText = binding.addEditText.text.toString()
-            if (!TextUtils.isEmpty(editedText)) {
+            if (editedText.isNotBlank()) {
                 onCompleteEditText?.invoke(editedText, textColor)
             }
             dismiss()
