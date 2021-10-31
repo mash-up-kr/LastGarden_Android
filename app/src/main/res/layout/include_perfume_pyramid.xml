@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/perfumePyramidContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/pyramidTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/perfume_info_pyramid"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pyramidQuestionImageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@id/pyramidTextView"
+            app:layout_constraintStart_toEndOf="@id/pyramidTextView"
+            app:layout_constraintTop_toTopOf="@id/pyramidTextView" />
+
+        <ImageView
+            android:id="@+id/pyramidImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="33dp"
+            android:src="@drawable/ic_pyramid_top"
+            app:layout_constraintDimensionRatio="1:0.5454"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pyramidTextView"
+            app:layout_constraintWidth_percent="0.76" />
+
+        <CheckBox
+            android:id="@+id/topCheckBox"
+            style="@style/Widget.SeeHyangComponents.CheckBox"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:checked="true"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/perfume_info_pyramid_top"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@drawable/check_box_text_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pyramidImageView" />
+
+        <CheckBox
+            android:id="@+id/middleCheckBox"
+            style="@style/Widget.SeeHyangComponents.CheckBox"
+            android:layout_marginStart="8dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/perfume_info_pyramid_middle"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@drawable/check_box_text_background"
+            app:layout_constraintBottom_toBottomOf="@id/topCheckBox"
+            app:layout_constraintStart_toEndOf="@id/topCheckBox"
+            app:layout_constraintTop_toTopOf="@id/topCheckBox" />
+
+        <CheckBox
+            android:id="@+id/baseCheckBox"
+            style="@style/Widget.SeeHyangComponents.CheckBox"
+            android:layout_marginStart="8dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/perfume_info_pyramid_base"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@drawable/check_box_text_background"
+            app:layout_constraintBottom_toBottomOf="@id/middleCheckBox"
+            app:layout_constraintStart_toEndOf="@id/middleCheckBox"
+            app:layout_constraintTop_toTopOf="@id/middleCheckBox" />
+
+        <LinearLayout
+            android:id="@+id/pyramidContentContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/grey_radius_6_shape"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topCheckBox">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/oval_purple_shape" />
+
+            <TextView
+                android:id="@+id/pyramidContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
+                android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+                android:textColor="@color/grey1" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/noteContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/noteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/perfume_info_note"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/noteQuestionImageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@id/noteTextView"
+            app:layout_constraintStart_toEndOf="@id/noteTextView"
+            app:layout_constraintTop_toTopOf="@id/noteTextView" />
+
+        <LinearLayout
+            android:id="@+id/noteContentContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/grey_radius_6_shape"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noteTextView">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/oval_purple_shape" />
+
+            <TextView
+                android:id="@+id/noteContentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치, 화이트플라워, 튜베로즈, 재스민, 일랑일랑, 오렌지블로썸, 코코넛, 샌달우드, 바닐라, 화이트머스크"
+                android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+                android:textColor="@color/grey1" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
