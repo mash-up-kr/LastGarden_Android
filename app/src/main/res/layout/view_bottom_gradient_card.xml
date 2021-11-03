@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/card_radius_background_shape"
-        android:foreground="@drawable/bottom_gradient_card_foreground_shape"
+        android:foreground="@drawable/top_bottom_gradient_card_foreground_shape"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -25,6 +25,8 @@
     <color name="colorGrey4">#B0B4BC</color>
     <color name="colorGrey5">#DADBDE</color>
     <color name="colorGrey6">#F7F7F8</color>
+    <color name="gradient_edge">#80000000</color>
+    <color name="gradient_grey">#00C4C4C4</color>
     <color name="purple_sub">#8D84FF</color>
     <color name="purple">#5F54F2</color>
 </resources>

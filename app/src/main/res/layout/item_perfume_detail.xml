@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="12dp"
-        app:perfumeGradientColor="@color/colorGrey2"
         app:showPerfumeContent="false" />
 
 </FrameLayout>

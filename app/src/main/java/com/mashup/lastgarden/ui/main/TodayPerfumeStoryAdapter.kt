@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
-import com.mashup.lastgarden.customview.BottomGradientCardView
+import com.mashup.lastgarden.R
+import com.mashup.lastgarden.customview.TopBottomGradientCardView
 import com.mashup.lastgarden.databinding.ItemTodayPerfumeStoryBinding
 
 private typealias TodayPerfumeStoryItem = MainAdapterItem.TodayPerfumeStories.TodayPerfumeStoryItem
@@ -53,12 +54,12 @@ class TodayPerfumeStoryAdapter(
     }
 
     private fun ViewHolder.bind(item: TodayPerfumeStoryItem) {
-        if (itemView !is BottomGradientCardView) return
+        if (itemView !is TopBottomGradientCardView) return
 
         itemView.apply {
             userName = item.authorName
             setUserImage(glideRequests, item.authorProfileImage)
-            setSourceImage(glideRequests, item.storyImageUrl)
+            setSourceImage(glideRequests, item.storyImageUrl, R.drawable.ic_story_empty_horizontal)
         }
     }
 }

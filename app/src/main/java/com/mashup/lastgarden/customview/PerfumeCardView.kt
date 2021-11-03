@@ -1,7 +1,6 @@
 package com.mashup.lastgarden.customview
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -34,12 +33,6 @@ class PerfumeCardView @JvmOverloads constructor(
             binding.gradientCardView.userName = value
         }
 
-    var gradientColor: Int?
-        get() = binding.gradientCardView.gradientColor
-        set(value) {
-            binding.gradientCardView.gradientColor = value
-        }
-
     var count: Long?
         get() = binding.likeCount.text.toString().toLongOrNull()
         set(value) {
@@ -56,11 +49,6 @@ class PerfumeCardView @JvmOverloads constructor(
         context.obtainStyledAttributes(attrs, R.styleable.PerfumeCardView).use {
             title = it.getString(R.styleable.PerfumeCardView_contentTitle)
             userName = it.getString(R.styleable.PerfumeCardView_perfumeUserName)
-            gradientColor = if (it.hasValue(R.styleable.PerfumeCardView_perfumeGradientColor)) {
-                it.getColor(R.styleable.PerfumeCardView_perfumeGradientColor, Color.BLACK)
-            } else {
-                null
-            }
             count = it.getInteger(R.styleable.PerfumeCardView_count, 0).toLong()
             updateGradientContentHeight(
                 it.getDimensionPixelOffset(
@@ -77,8 +65,12 @@ class PerfumeCardView @JvmOverloads constructor(
         binding.gradientCardView.setContentImage(glideRequests, imageUrl)
     }
 
-    fun setSourceImage(glideRequests: GlideRequests, imageUrl: String? = null) {
-        binding.gradientCardView.setSourceImage(glideRequests, imageUrl)
+    fun setSourceImage(
+        glideRequests: GlideRequests,
+        imageUrl: String? = null,
+        errorDrawableId: Int? = null
+    ) {
+        binding.gradientCardView.setSourceImage(glideRequests, imageUrl, errorDrawableId)
     }
 
     fun setUserImage(glideRequests: GlideRequests, imageUrl: String? = null) {
