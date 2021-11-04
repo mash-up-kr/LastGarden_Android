@@ -246,10 +246,14 @@ class MainAdapter(
     }
 
     private fun TodayPerfumeHeaderViewHolder.bind(item: MainAdapterItem) {
-        if (item !is MainAdapterItem.TodayPerfume) return
+        if (item !is MainAdapterItem.TodayPerfume || item.name.isNullOrBlank()) return
 
         glideRequests.load(item.perfumeImage)
+            .placeholder(R.drawable.ic_empty_perfume)
+            .error(R.drawable.ic_empty_perfume)
+            .centerCrop()
             .into(perfumeImageView)
+
         val perfumeName = item.name
         val text = itemView.context.getString(
             R.string.main_today_perfume_header_content,

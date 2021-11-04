@@ -11,7 +11,7 @@ sealed class MainAdapterItem(val id: String) {
 
     data class TodayPerfume(
         val perfumeId: String,
-        val name: String,
+        val name: String? = "",
         val perfumeImage: String? = null
     ) : MainAdapterItem(perfumeId)
 
@@ -35,7 +35,7 @@ sealed class MainAdapterItem(val id: String) {
 
     data class HotStories(
         val stories: List<HotStoryItem>
-    ) : MainAdapterItem("HotStory") {
+    ) : MainAdapterItem("HotStories") {
         data class HotStoryItem(
             val id: String,
             val perfumeContentImageUrl: String?,
@@ -56,8 +56,8 @@ sealed class MainAdapterItem(val id: String) {
             val id: String,
             val rank: Int,
             val imageUrl: String?,
-            val brandName: String,
-            val name: String
+            val brandName: String?,
+            val name: String?
         )
     }
 
@@ -69,8 +69,8 @@ sealed class MainAdapterItem(val id: String) {
         data class PerfumeRecommendItem(
             val id: String,
             val imageUrl: String? = null,
-            val brandName: String,
-            val name: String,
+            val brandName: String?,
+            val name: String?,
             val likeCount: Long
         )
     }
@@ -78,11 +78,55 @@ sealed class MainAdapterItem(val id: String) {
     object SeeMore : MainAdapterItem("SeeMore")
 }
 
+fun List<Story>.toHotStoryItems(): List<MainAdapterItem.HotStories.HotStoryItem> =
+    map { it.toHotStoryItem() }
+
+fun Story.toHotStoryItem(): MainAdapterItem.HotStories.HotStoryItem =
+    MainAdapterItem.HotStories.HotStoryItem(
+        id = PREFIX_STORY_ID + storyId,
+        perfumeContentImageUrl = perfumeImageUrl,
+        storyImageUrl = thumbnailUrl,
+        authorName = userNickname,
+        authorProfileImage = userProfileImage,
+        title = "Dummy",
+        likeCount = likeCount ?: 0L
+    )
+
+fun List<Perfume>.toPerfumeRankingItems(): List<MainAdapterItem.PerfumeRankings.PerfumeRankingItem> =
+    mapNotNull { perfume ->
+        if (perfume.rank != null) {
+            perfume.toPerfumeRankingItem()
+        } else {
+            null
+        }
+    }
+
+fun List<Perfume>.toRecommendPerfumeItems(): List<MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem> =
+    mapNotNull { perfume -> perfume.toRecommendPerfumeItem() }
+
+fun Perfume.toPerfumeRankingItem(): MainAdapterItem.PerfumeRankings.PerfumeRankingItem =
+    MainAdapterItem.PerfumeRankings.PerfumeRankingItem(
+        id = PREFIX_PERFUME_ID + perfumeId,
+        rank = rank ?: 0,
+        imageUrl = thumbnailUrl,
+        brandName = brandName,
+        name = name ?: perfumeName ?: koreanName
+    )
+
 fun Perfume.toMainAdapterItem(): MainAdapterItem = MainAdapterItem.TodayPerfume(
     perfumeId = PREFIX_PERFUME_ID + perfumeId,
-    name = name,
+    name = name ?: perfumeName ?: koreanName,
     perfumeImage = thumbnailUrl
 )
+
+fun Perfume.toRecommendPerfumeItem(): MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem =
+    MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem(
+        id = PREFIX_PERFUME_ID + perfumeId,
+        imageUrl = thumbnailUrl,
+        brandName = brandName,
+        name = name ?: perfumeName ?: koreanName,
+        likeCount = likeCount ?: 0L
+    )
 
 fun List<Story>.toTodayPerfumeStoryItems(): List<MainAdapterItem.TodayPerfumeStories.TodayPerfumeStoryItem> =
     map { story ->

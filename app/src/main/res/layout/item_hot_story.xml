@@ -8,7 +8,6 @@
     android:layout_marginEnd="4dp"
     app:contentCardHeight="216dp"
     app:count="0"
-    app:perfumeGradientColor="@color/colorGrey2"
     app:showPerfumeContent="true"
     tools:contentTitle="Title Sample"
     tools:perfumeUserName="Test User" />
