@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/scentFragment"
-        android:name="com.mashup.lastgarden.ui.main.ScentFragment"
+        android:name="com.mashup.lastgarden.ui.scent.ScentFragment"
         android:label="ScentFragment" />
 
 </navigation>
