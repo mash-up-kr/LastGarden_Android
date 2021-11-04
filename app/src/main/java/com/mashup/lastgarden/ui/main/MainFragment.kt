@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -125,5 +126,10 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onRefreshPerfumeClick() {
         viewModel.refreshTodayPerfume()
+    }
+
+    override fun onBannerClick() {
+        startActivity(Intent(requireActivity(), EditorActivity::class.java))
+        viewModel.setIsShowBanner(false)
     }
 }

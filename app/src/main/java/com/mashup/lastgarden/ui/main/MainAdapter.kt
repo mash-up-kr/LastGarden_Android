@@ -1,8 +1,10 @@
 package com.mashup.lastgarden.ui.main
 
+import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -50,6 +52,7 @@ class MainAdapter(
 
     interface OnMainItemClickListener {
         fun onRefreshPerfumeClick()
+        fun onBannerClick()
     }
 
     private class TodayPerfumeHeaderViewHolder(
@@ -131,7 +134,10 @@ class MainAdapter(
         setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int): Long = getItem(position).hashCode().toLong()
+    override fun getItemId(position: Int): Long {
+        if (position !in 0 until itemCount) return RecyclerView.NO_ID
+        return getItem(position)?.id?.hashCode()?.toLong() ?: RecyclerView.NO_ID
+    }
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is MainAdapterItem.TodayPerfume -> ViewType.TODAY_PERFUME_HEADER
@@ -267,6 +273,12 @@ class MainAdapter(
                 perfumeIndex + perfumeName.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
+            setSpan(
+                StyleSpan(Typeface.BOLD),
+                perfumeIndex,
+                perfumeIndex + perfumeName.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
         }.let { todayPerfumeTextView.setText(it, TextView.BufferType.SPANNABLE) }
     }
 
@@ -285,7 +297,7 @@ class MainAdapter(
     private fun BannerViewHolder.bind(item: MainAdapterItem) {
         if (item !is MainAdapterItem.Banner) return
 
-        bannerView.setOnClickListener { }
+        bannerView.setOnClickListener { mainItemClickListener.onBannerClick() }
     }
 
     private fun HotStoriesViewHolder.bind(item: MainAdapterItem) {

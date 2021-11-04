@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="20dp"
     android:layout_marginTop="24dp"
     android:layout_marginEnd="20dp"
-    android:layout_marginBottom="24dp">
+    android:layout_marginBottom="24dp"
+    android:background="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/main_banner_background_shape">
 
+        <ImageView
+            android:id="@+id/bannerImage"
+            android:layout_width="76dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/banner_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/bannerTitle"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
         <TextView
             android:id="@+id/bannerTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="18dp"
-            android:text="@string/banner_title"
-            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+            android:text="@string/banner_description"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/bannerNextButton"
+            app:layout_constraintStart_toEndOf="@id/bannerImage"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -32,20 +50,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="15dp"
-            android:text="@string/banner_description"
-            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:text="@string/banner_title"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/bannerTitle"
             app:layout_constraintTop_toBottomOf="@id/bannerTitle" />
 
         <ImageView
-            android:layout_width="76dp"
-            android:layout_height="66dp"
-            android:layout_marginEnd="9dp"
-            android:src="@drawable/banner_icon"
+            android:id="@+id/bannerNextButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/oval"
+            android:foreground="@drawable/ic_arrow_right_28dp"
+            android:foregroundTint="@color/purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/bannerTitle"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
