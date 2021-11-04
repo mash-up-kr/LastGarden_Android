@@ -2,6 +2,7 @@ package com.mashup.lastgarden.di
 
 import com.mashup.base.network.PerfumeRetrofit
 import com.mashup.lastgarden.network.services.PerfumeService
+import com.mashup.lastgarden.network.services.StoryService
 import com.mashup.lastgarden.network.services.UserService
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,9 @@ object ServiceModule {
 
     @Provides
     fun providePerfumeService(okHttpClient: OkHttpClient): PerfumeService =
+        PerfumeRetrofit.create(okHttpClient)
+
+    @Provides
+    fun provideStoryService(okHttpClient: OkHttpClient): StoryService =
         PerfumeRetrofit.create(okHttpClient)
 }
