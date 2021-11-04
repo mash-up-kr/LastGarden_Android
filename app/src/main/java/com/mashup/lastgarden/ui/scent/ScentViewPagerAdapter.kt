@@ -4,7 +4,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
@@ -18,9 +17,13 @@ class ScentViewPagerAdapter(
 ) : RecyclerView.Adapter<ScentViewPagerAdapter.ScentViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ScentViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_scent, viewGroup, false)
-        return ScentViewHolder(ItemScentBinding.bind(view))
+        return ScentViewHolder(
+            ItemScentBinding.inflate(
+                LayoutInflater.from(viewGroup.context),
+                viewGroup,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(viewHolder: ScentViewHolder, position: Int) {
@@ -32,9 +35,9 @@ class ScentViewPagerAdapter(
     }
 
     private fun ScentViewHolder.bind(item: ScentItem) {
-        Glide.with(binding.root).load(item.imgUrl).into(binding.scentImageView)
+        glideRequests.load(item.imgUrl).into(binding.scentImageView)
         val pageCount = (bindingAdapterPosition + 1).toString() + "/" + list.size
-        binding.apply {
+        binding.run {
             pageCountTextView.text = pageCount
             profileImageView.setImageUrl(glideRequests, item.imgProfile)
             nicknameTextView.text = item.nickname

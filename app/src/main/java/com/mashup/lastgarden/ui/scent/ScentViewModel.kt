@@ -11,15 +11,15 @@ class ScentViewModel : ViewModel() {
     val scentList: LiveData<List<ScentItem>>
         get() = _scentList
 
-    var _position = MutableLiveData<Int>()
-    val position: LiveData<Int>
-        get() = _position
+    private var _sortOrder = MutableLiveData(Sort.POPULARITY)
+    val sortOrder: LiveData<Sort>
+        get() = _sortOrder
 
-    init {
-        _position.value = 0
+    fun setSortOrder(sort: Sort) {
+        _sortOrder.value = sort
     }
 
-    fun getScentList(idx: Int) {
+    fun getScentList(index: Int) {
         val tagList1 = listOf(
             "#노을",
             "#해질녘",

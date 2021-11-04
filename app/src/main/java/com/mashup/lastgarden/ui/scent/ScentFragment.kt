@@ -55,10 +55,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             binding.scentViewPager.adapter = ScentViewPagerAdapter(it, glideRequests, this)
         }
 
-        viewModel.position.observe(viewLifecycleOwner) {
+        viewModel.sortOrder.observe(viewLifecycleOwner) {
             when (it) {
-                0 -> binding.sortButton.text = getString(R.string.radio_btn_top)
-                1 -> binding.sortButton.text = getString(R.string.radio_btn_middle)
+                Sort.POPULARITY -> binding.sortButton.text = getString(R.string.radio_btn_top)
+                Sort.LATEST -> binding.sortButton.text = getString(R.string.radio_btn_middle)
                 else -> binding.sortButton.text = getString(R.string.radio_btn_bottom)
             }
             //TODO it 번째로 정렬 함수 호출
