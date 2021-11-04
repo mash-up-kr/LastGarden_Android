@@ -42,11 +42,13 @@
         app:layout_constraintStart_toStartOf="@id/nicknameTextView"
         app:layout_constraintTop_toBottomOf="@id/nicknameTextView" />
 
-    <Button
+    <TextView
         android:id="@+id/replyCountTextView"
         style="@style/TextAppearance.SeeHyangComponents.Body3"
-        android:layout_width="57dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp"
         android:layout_marginTop="11dp"
         android:background="@drawable/btn_comment_unchecked_background"
         android:textColor="@color/colorGrey2"
@@ -54,38 +56,36 @@
         app:layout_constraintStart_toStartOf="@id/contentTextView"
         app:layout_constraintTop_toBottomOf="@id/contentTextView" />
 
-    <Button
+    <TextView
         android:id="@+id/commentLikeButton"
         style="@style/TextAppearance.SeeHyangComponents.Body3"
-        android:layout_width="57dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@drawable/btn_comment_unchecked_background"
-        android:drawableStart="@drawable/ic_thumbs_up"
-        android:drawablePadding="0dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="0dp"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp"
         android:textColor="@color/colorGrey4"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/replyCountTextView"
         app:layout_constraintEnd_toStartOf="@id/commentDislikeButton"
+        app:drawableStartCompat="@drawable/ic_thumbs_up"
         app:layout_constraintTop_toTopOf="@id/replyCountTextView" />
 
-    <Button
+    <TextView
         android:id="@+id/commentDislikeButton"
         style="@style/TextAppearance.SeeHyangComponents.Body3"
-        android:layout_width="57dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/btn_comment_unchecked_background"
-        android:drawableStart="@drawable/ic_thumbs_down"
-        android:drawablePadding="0dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="0dp"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp"
         android:textColor="@color/colorGrey4"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/commentLikeButton"
         app:layout_constraintEnd_toEndOf="@id/contentTextView"
+        app:drawableStartCompat="@drawable/ic_thumbs_down"
         app:layout_constraintTop_toTopOf="@id/commentLikeButton" />
 
     <View

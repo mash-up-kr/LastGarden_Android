@@ -36,7 +36,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/commentScrollView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@id/editCommentView"
@@ -57,12 +57,13 @@
             tools:listitem="@layout/item_comment" />
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/editCommentView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="68dp"
         android:background="@color/background"
         android:focusable="true"
+        android:orientation="horizontal"
         android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,14 +72,18 @@
         <EditText
             android:id="@+id/addCommentEditText"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            style="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
             android:layout_gravity="center"
             android:layout_marginVertical="16dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="8dp"
             android:background="@drawable/et_add_comment_background_round"
             android:hint="@string/write_comment"
             android:textSize="14sp"
+            android:paddingVertical="9dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
             app:layout_constraintBottom_toBottomOf="@id/editCommentView"
             app:layout_constraintEnd_toStartOf="@id/applyButton"
             app:layout_constraintStart_toStartOf="@id/editCommentView"
@@ -88,8 +93,9 @@
             android:id="@+id/applyButton"
             style="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/btn_apply_background_round"
             android:text="@string/btn_apply"
@@ -100,8 +106,7 @@
             app:layout_constraintEnd_toEndOf="@id/editCommentView"
             app:layout_constraintTop_toTopOf="@id/addCommentEditText" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <View
         android:id="@+id/commentFilterView"

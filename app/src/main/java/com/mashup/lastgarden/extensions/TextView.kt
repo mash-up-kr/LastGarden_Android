@@ -1,13 +1,14 @@
 package com.mashup.lastgarden.extensions
 
 import android.content.Context
-import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mashup.lastgarden.R
 
+//TODO custom view로 변경
 fun btnThumbsUpDownSelector(
-    upButton: Button,
-    downButton: Button,
+    upButton: TextView,
+    downButton: TextView,
     likeState: Boolean,
     context: Context
 ) {
