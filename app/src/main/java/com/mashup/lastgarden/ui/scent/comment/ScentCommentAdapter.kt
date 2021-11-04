@@ -17,9 +17,13 @@ class ScentCommentAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ScentCommentViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_comment, parent, false)
-        return ScentCommentViewHolder(ItemCommentBinding.bind(view))
+        return ScentCommentViewHolder(
+            ItemCommentBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(
@@ -34,7 +38,7 @@ class ScentCommentAdapter(
     }
 
     private fun ScentCommentViewHolder.bind(item: Comment) {
-        binding.apply {
+        binding.run {
             nicknameTextView.text = item.nickName
             dateTextView.text = item.date
             contentTextView.text = item.content
@@ -51,8 +55,9 @@ class ScentCommentAdapter(
         binding.replyCountTextView.setOnClickListener { listener?.onReplyClick(item) }
     }
 
-    class ScentCommentViewHolder(val binding: ItemCommentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ScentCommentViewHolder(
+        val binding: ItemCommentBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
     }
 
     interface OnClickListener {

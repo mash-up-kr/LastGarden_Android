@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mashup.base.autoCleared
+import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.databinding.ScentCommentBottomSheetBinding
@@ -30,9 +33,9 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ScentCommentBottomSheetBinding.inflate(inflater, container, false)
-        resizeViewHeight(binding.commentScrollView, 510f)
+        binding.commentScrollView.updateLayoutParams { height = 510.dp }
         setupResizeScrollView()
 
         viewModel.getCommentList()
@@ -52,29 +55,22 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
     private fun setupResizeScrollView() {
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
             onShowKeyboard = {
-                resizeViewHeight(binding.commentScrollView, 260f)
-                binding.commentFilterView.visibility = View.GONE
+                binding.commentScrollView.updateLayoutParams { height = 260.dp }
+                binding.commentFilterView.isVisible = false
             },
             onHideKeyboard = {
-                resizeViewHeight(binding.commentScrollView, 510f)
+                binding.commentScrollView.updateLayoutParams { height = 510.dp }
                 binding.addCommentEditText.clearFocus()
-                binding.commentFilterView.visibility = View.VISIBLE
+                binding.commentFilterView.isVisible = true
             })
-    }
-
-    //FIXME 한개로 빼기
-    private fun resizeViewHeight(view: View, height: Float) {
-        val deviceHeight = requireActivity().resources.displayMetrics.density
-        val layoutParams = view.layoutParams
-        layoutParams.height = (deviceHeight * height).toInt()
-        view.layoutParams = layoutParams
     }
 
     override fun onStart() {
         super.onStart()
-        val behavior = BottomSheetBehavior.from(requireView().parent as View)
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        behavior.isDraggable = false
+        (requireView().parent as? View)?.let { BottomSheetBehavior.from(it) }?.apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            isDraggable = false
+        }
     }
 
     override fun onReplyClick(comment: Comment) {
@@ -83,8 +79,8 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         bottomSheetDialog.show(parentFragmentManager, "")
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
         keyboardVisibilityUtils.detachKeyboardListeners()
-        super.onDestroy()
     }
 }

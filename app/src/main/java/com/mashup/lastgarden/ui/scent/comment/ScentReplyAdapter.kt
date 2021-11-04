@@ -4,37 +4,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Reply
 import com.mashup.lastgarden.databinding.ItemReplyBinding
 import com.mashup.lastgarden.extensions.btnThumbsUpDownSelector
 
 class ScentReplyAdapter(
-    private val list: List<Reply>
+    private val replyItems: List<Reply>
 ) : RecyclerView.Adapter<ScentReplyAdapter.ScentReplyViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ScentReplyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_reply, parent, false)
-        return ScentReplyViewHolder(ItemReplyBinding.bind(view))
+        return ScentReplyViewHolder(
+            ItemReplyBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(
         holder: ScentReplyViewHolder,
         position: Int
     ) {
-        holder.bind(list[position])
+        holder.bind(replyItems[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return replyItems.size
     }
 
     private fun ScentReplyViewHolder.bind(item: Reply) {
-        binding.apply {
+        binding.run {
             includeDetailLayout.nicknameTextView.text = item.nickName
             includeDetailLayout.dateTextView.text = item.date
             includeDetailLayout.contentTextView.text = item.content

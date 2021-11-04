@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mashup.base.autoCleared
+import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ScentReplyBottomSheetBinding
 import com.mashup.lastgarden.extensions.btnThumbsUpDownSelector
@@ -29,17 +32,17 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ScentReplyBottomSheetBinding.inflate(inflater, container, false)
-        resizeViewHeight(binding.replyScrollView, 380f)
+        binding.replyScrollView.updateLayoutParams { height = 380.dp }
         setupResizeScrollView()
 
         viewModel.getReplyList()
-        viewModel.replyList.observe(this, {
+        viewModel.replyList.observe(viewLifecycleOwner, {
             binding.replyRecyclerView.adapter = ScentReplyAdapter(it)
         })
 
-        viewModel.commentDetail.observe(this, {
+        viewModel.commentDetail.observe(viewLifecycleOwner, {
             binding.includeDetailLayout.nicknameTextView.text = it.nickName
             binding.includeDetailLayout.dateTextView.text = it.date
             binding.includeDetailLayout.contentTextView.text = it.content
@@ -63,28 +66,22 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
     private fun setupResizeScrollView() {
         keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
             onShowKeyboard = {
-                resizeViewHeight(binding.replyScrollView, 130f)
-                binding.commentFilterView.visibility = View.GONE
+                binding.replyScrollView.updateLayoutParams { height = 130.dp }
+                binding.commentFilterView.isVisible = false
             },
             onHideKeyboard = {
-                resizeViewHeight(binding.replyScrollView, 380f)
+                binding.replyScrollView.updateLayoutParams { height = 380.dp }
                 binding.addCommentEditText.clearFocus()
-                binding.commentFilterView.visibility = View.VISIBLE
+                binding.commentFilterView.isVisible = true
             })
-    }
-
-    private fun resizeViewHeight(view: View, height: Float) {
-        val deviceHeight = requireActivity().resources.displayMetrics.density
-        val layoutParams = view.layoutParams
-        layoutParams.height = (deviceHeight * height).toInt()
-        view.layoutParams = layoutParams
     }
 
     override fun onStart() {
         super.onStart()
-        val behavior = BottomSheetBehavior.from(requireView().parent as View)
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        behavior.isDraggable = false
+        (requireView().parent as? View)?.let { BottomSheetBehavior.from(it) }?.apply {
+            state = BottomSheetBehavior.STATE_EXPANDED
+            isDraggable = false
+        }
     }
 
     override fun onDestroy() {
