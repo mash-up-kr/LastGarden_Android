@@ -107,25 +107,19 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
         lifecycleScope.launchWhenCreated {
             viewModel.hotStories
                 .filterNotNull()
-                .collectLatest {
-                    hotStoryAdapter.submitList(it.stories)
-                }
+                .collectLatest { hotStoryAdapter.submitList(it) }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.rankingsItem
                 .filterNotNull()
-                .collectLatest {
-                    rankingAdapter.submitList(it.perfumeItems)
-                }
+                .collectLatest { rankingAdapter.submitList(it) }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.recommendsItem
                 .filterNotNull()
-                .collectLatest {
-                    recommendAdapter.submitList(it.perfumeItems)
-                }
+                .collectLatest { recommendAdapter.submitList(it) }
         }
     }
 

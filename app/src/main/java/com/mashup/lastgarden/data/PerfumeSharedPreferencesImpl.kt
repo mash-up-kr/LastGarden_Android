@@ -9,6 +9,7 @@ object PerfumeSharedPreferencesImpl : PerfumeSharedPreferences {
     private lateinit var sharedPreferences: SharedPreferences
 
     private const val KEY_ACCESS_TOKEN = "key_access_token"
+    private const val KEY_IS_SHOW_BANNER = "key_is_show_banner"
 
     fun init(applicationContext: Context) {
         sharedPreferences =
@@ -23,6 +24,19 @@ object PerfumeSharedPreferencesImpl : PerfumeSharedPreferences {
                 remove(KEY_ACCESS_TOKEN)
             } else {
                 putString(KEY_ACCESS_TOKEN, token)
+            }
+        }
+    }
+
+    override fun getIsShowBanner(): Boolean =
+        sharedPreferences.getBoolean(KEY_IS_SHOW_BANNER, true)
+
+    override fun saveIsShowBanner(isShow: Boolean?) {
+        sharedPreferences.edit {
+            if (isShow == null) {
+                remove(KEY_IS_SHOW_BANNER)
+            } else {
+                putBoolean(KEY_IS_SHOW_BANNER, isShow)
             }
         }
     }
