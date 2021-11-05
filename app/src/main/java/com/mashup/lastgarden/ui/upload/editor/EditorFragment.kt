@@ -9,9 +9,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.CropImageView
-import com.canhub.cropper.options
 import com.mashup.base.autoCleared
 import com.mashup.base.extensions.showToast
 import com.mashup.base.image.GlideRequests
@@ -34,23 +31,8 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
 
     private var editor: PhotoEditor? = null
 
-    private val cropImageLauncher = registerForActivityResult(
-        CropImageContract()
-    ) { result ->
-        if (result.isSuccessful) {
-            result.getBitmap(requireContext())?.let { bitmap ->
-                editorViewModel.setEditedImage(bitmap)
-            }
-        }
-    }
-
     @Inject
     lateinit var glideRequests: GlideRequests
-
-    override fun onCreated(savedInstanceState: Bundle?) {
-        super.onCreated(savedInstanceState)
-        showImagePicker()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,11 +77,6 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
         }
     }
 
-
-    private fun showImagePicker() {
-        cropImageLauncher.launch(options { setGuidelines(CropImageView.Guidelines.ON) })
-    }
-
     private fun saveEditedImage() {
         editor?.saveAsBitmap(object : OnSaveBitmap {
             override fun onBitmapReady(saveBitmap: Bitmap?) {
@@ -141,12 +118,8 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
 
     override fun onBindViewModelsOnViewCreated() {
         editorViewModel.editedImage.observe(this) { imageBitmap ->
-            setImageUsingBitmap(imageBitmap)
+            binding.photoEditorView.source.setImageBitmap(imageBitmap)
         }
-    }
-
-    private fun setImageUsingBitmap(image: Bitmap) {
-        binding.photoEditorView.source.setImageBitmap(image)
     }
 
     override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {

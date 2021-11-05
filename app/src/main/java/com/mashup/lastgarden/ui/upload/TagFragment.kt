@@ -53,9 +53,7 @@ class TagFragment : BaseViewModelFragment() {
 
         editorViewModel.tagList.observe(viewLifecycleOwner) { tagList ->
             binding.confirmButton.isEnabled = tagList.isNotEmpty()
-            tagList.onEach { tag ->
-                addTagIntoChipGroup(tag)
-            }
+            drawChipGroup(tagList)
         }
     }
 
@@ -66,13 +64,12 @@ class TagFragment : BaseViewModelFragment() {
 
     private fun setUiOfButton() {
         binding.confirmButton.setOnClickListener {
-            saveTagWithChipIds(binding.tagGroup.checkedChipIds)
             findNavController().popBackStack()
         }
         binding.addTagButton.setOnClickListener {
             val tag = binding.tagEditText.text.toString()
+            editorViewModel.addTag(tag)
             binding.tagEditText.setText("")
-            addTagIntoChipGroup(tag)
         }
     }
 
@@ -82,28 +79,23 @@ class TagFragment : BaseViewModelFragment() {
         }
     }
 
-    private fun saveTagWithChipIds(ids: List<Int>) {
-        editorViewModel.setTagList(
-            ids.map { chipId ->
-                val chip = binding.tagGroup.findViewById<Chip>(chipId)
-                return@map chip.tag.toString()
-            }
-        )
+    private fun drawChipGroup(tagList: Set<String>) = binding.tagGroup.apply {
+        removeAllViews()
+        tagList.forEach { tag ->
+            addView(
+                bindTagAsChip(
+                    chip = ItemTagBinding.inflate(LayoutInflater.from(requireContext())).root,
+                    tag = tag
+                )
+            )
+        }
     }
 
-    private fun addTagIntoChipGroup(tag: String) {
-        binding.confirmButton.isEnabled = true
-        createTagAsChip(tag)
-    }
-
-    private fun createTagAsChip(tag: String) {
-        with(ItemTagBinding.inflate(layoutInflater, binding.tagGroup, true).root) {
-            this.tag = tag
-            text = getString(R.string.tag_regex, tag)
-            setOnCloseIconClickListener { closedChip ->
-                binding.tagGroup.removeView(closedChip)
-                binding.confirmButton.isEnabled = binding.tagGroup.checkedChipIds.isNotEmpty()
-            }
+    private fun bindTagAsChip(chip: Chip, tag: String) = chip.apply {
+        this.tag = tag
+        text = getString(R.string.tag_regex, tag)
+        setOnCloseIconClickListener {
+            editorViewModel.removeTag(tag)
         }
     }
 }
