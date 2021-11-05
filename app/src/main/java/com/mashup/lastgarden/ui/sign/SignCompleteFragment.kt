@@ -34,7 +34,7 @@ class SignCompleteFragment : BaseViewModelFragment() {
     }
 
     private fun initToolbar() {
-        (activity as? AppCompatActivity)?.apply {
+        (requireActivity() as? AppCompatActivity)?.apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
         }

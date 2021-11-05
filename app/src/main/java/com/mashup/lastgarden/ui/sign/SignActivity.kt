@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.mashup.lastgarden.R
 import com.mashup.lastgarden.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +19,7 @@ class SignActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.mashup.lastgarden.R.layout.activity_sign)
+        setContentView(R.layout.activity_sign)
         setupNavController()
         initFirebaseAuth()
     }
@@ -31,7 +32,7 @@ class SignActivity : AppCompatActivity() {
 
     private fun setupNavController() {
         navController =
-            (supportFragmentManager.findFragmentById(com.mashup.lastgarden.R.id.navHostFragment)
+            (supportFragmentManager.findFragmentById(R.id.navHostFragment)
                     as NavHostFragment).navController
     }
 

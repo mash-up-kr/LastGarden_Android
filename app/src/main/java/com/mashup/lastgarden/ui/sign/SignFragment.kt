@@ -1,6 +1,7 @@
 package com.mashup.lastgarden.ui.sign
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -23,20 +25,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignBinding>()
-    private val firebaseAuth by lazy { Firebase.auth }
-    private val googleSignInClient by lazy { getGoogleClient() }
+    private val firebaseAuth: FirebaseAuth by lazy { Firebase.auth }
+    private val googleSignInClient: GoogleSignInClient by lazy { getGoogleClient() }
 
-    private val googleAuthLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account.idToken)
-            } catch (e: ApiException) {
-            }
+    private val googleAuthLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account.idToken)
+        } catch (exception: ApiException) {
+            Log.e(SignInFragment::class.java.simpleName, exception.stackTraceToString())
         }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
