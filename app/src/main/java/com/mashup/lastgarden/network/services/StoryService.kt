@@ -7,7 +7,5 @@ import retrofit2.http.GET
 interface StoryService {
 
     @GET("home/hot-story")
-    suspend fun getHotStories(): NetworkDataResponse<HotStoryResponse>
+    suspend fun getHotStories(): NetworkDataResponse<List<Story>>
 }
-
-data class HotStoryResponse(val stories: List<Story>)
