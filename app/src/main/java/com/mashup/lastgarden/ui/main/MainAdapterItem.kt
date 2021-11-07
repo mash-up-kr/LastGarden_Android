@@ -93,13 +93,7 @@ fun Story.toHotStoryItem(): MainAdapterItem.HotStories.HotStoryItem =
     )
 
 fun List<Perfume>.toPerfumeRankingItems(): List<MainAdapterItem.PerfumeRankings.PerfumeRankingItem> =
-    mapNotNull { perfume ->
-        if (perfume.rank != null) {
-            perfume.toPerfumeRankingItem()
-        } else {
-            null
-        }
-    }
+    mapIndexedNotNull { index, perfume -> perfume.copy(rank = index + 1).toPerfumeRankingItem() }
 
 fun List<Perfume>.toRecommendPerfumeItems(): List<MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem> =
     mapNotNull { perfume -> perfume.toRecommendPerfumeItem() }
