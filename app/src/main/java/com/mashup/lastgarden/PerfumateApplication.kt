@@ -1,6 +1,7 @@
 package com.mashup.lastgarden
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.mashup.base.utils.DimensionToPixels
 import com.mashup.lastgarden.data.PerfumeSharedPreferencesImpl
 import dagger.hilt.android.HiltAndroidApp
@@ -12,6 +13,7 @@ class PerfumateApplication : Application() {
         super.onCreate()
         initDimensionToPixels()
         initSharedPreferences()
+        initStetho()
     }
 
     private fun initDimensionToPixels() {
@@ -20,5 +22,9 @@ class PerfumateApplication : Application() {
 
     private fun initSharedPreferences() {
         PerfumeSharedPreferencesImpl.init(applicationContext)
+    }
+
+    private fun initStetho() {
+        Stetho.initializeWithDefaults(this)
     }
 }
