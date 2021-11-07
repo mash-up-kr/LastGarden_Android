@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ViewPerfumeRankingBinding
 
 class PerfumeRankingView @JvmOverloads constructor(
@@ -42,6 +43,9 @@ class PerfumeRankingView @JvmOverloads constructor(
     fun setImageUrl(glideRequests: GlideRequests, imageUrl: String?) {
         if (imageUrl != null && currentImageUrl == imageUrl) return
         glideRequests.load(imageUrl)
+            .placeholder(R.drawable.ic_empty_perfume)
+            .error(R.drawable.ic_empty_perfume)
+            .centerCrop()
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
