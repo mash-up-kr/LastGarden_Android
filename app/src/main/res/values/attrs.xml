@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="BottomGradientCardView">
-        <attr name="gradientColor" format="color" />
+    <declare-styleable name="TopBottomGradientCardView">
         <attr name="userName" format="string" />
         <attr name="showContent" format="boolean" />
     </declare-styleable>
     <declare-styleable name="PerfumeCardView">
         <attr name="contentTitle" format="string" />
         <attr name="perfumeUserName" format="string" />
-        <attr name="perfumeGradientColor" format="color" />
         <attr name="count" format="integer" />
         <attr name="contentCardHeight" format="dimension" />
         <attr name="showPerfumeContent" format="boolean" />

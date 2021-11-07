@@ -6,7 +6,7 @@
     tools:layout_width="253dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <com.mashup.lastgarden.customview.BottomGradientCardView
+    <com.mashup.lastgarden.customview.TopBottomGradientCardView
         android:id="@+id/gradientCardView"
         android:layout_width="0dp"
         android:layout_height="@dimen/perfume_content_card_height"

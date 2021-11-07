@@ -20,7 +20,7 @@
             android:layout_width="100dp"
             android:layout_height="134dp"
             android:layout_gravity="center"
-            android:scaleType="centerCrop"
+            android:scaleType="centerInside"
             tools:ignore="ContentDescription"
             tools:src="@tools:sample/backgrounds/scenic" />
 

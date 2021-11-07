@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.R
 import com.mashup.lastgarden.customview.PerfumeCardView
 import com.mashup.lastgarden.databinding.ItemHotStoryBinding
 
@@ -61,7 +62,7 @@ class HotStoryAdapter(
             count = item.likeCount
             isContentImageVisible = true
             setContentImage(glideRequests, item.perfumeContentImageUrl)
-            setSourceImage(glideRequests, item.storyImageUrl)
+            setSourceImage(glideRequests, item.storyImageUrl, R.drawable.ic_story_empty_vertical)
             setUserImage(glideRequests, item.authorProfileImage)
         }
     }

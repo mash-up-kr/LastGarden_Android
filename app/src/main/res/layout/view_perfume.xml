@@ -21,6 +21,7 @@
             android:layout_height="134dp"
             android:layout_gravity="center"
             android:background="@drawable/card_radius_background_shape"
+            android:scaleType="centerInside"
             tools:ignore="ContentDescription" />
 
     </FrameLayout>

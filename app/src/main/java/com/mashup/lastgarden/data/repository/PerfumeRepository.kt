@@ -5,6 +5,7 @@ import com.mashup.lastgarden.data.db.PerfumeDatabase
 import com.mashup.lastgarden.data.db.dao.PerfumeDao
 import com.mashup.lastgarden.data.db.dao.StoryDao
 import com.mashup.lastgarden.data.remote.PerfumeRemoteDataSource
+import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.data.vo.PerfumeAndStories
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,4 +28,8 @@ class PerfumeRepository @Inject constructor(
         }
         return todayPerfumeAndStories
     }
+
+    suspend fun fetchWeeklyRanking(): List<Perfume> = remote.getWeeklyRanking()
+
+    suspend fun fetchSteadyPerfumes(): List<Perfume> = remote.getSteadyPerfumes()
 }

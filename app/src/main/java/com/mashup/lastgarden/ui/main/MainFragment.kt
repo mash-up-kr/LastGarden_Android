@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -107,29 +108,28 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
         lifecycleScope.launchWhenCreated {
             viewModel.hotStories
                 .filterNotNull()
-                .collectLatest {
-                    hotStoryAdapter.submitList(it.stories)
-                }
+                .collectLatest { hotStoryAdapter.submitList(it) }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.rankingsItem
                 .filterNotNull()
-                .collectLatest {
-                    rankingAdapter.submitList(it.perfumeItems)
-                }
+                .collectLatest { rankingAdapter.submitList(it) }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.recommendsItem
                 .filterNotNull()
-                .collectLatest {
-                    recommendAdapter.submitList(it.perfumeItems)
-                }
+                .collectLatest { recommendAdapter.submitList(it) }
         }
     }
 
     override fun onRefreshPerfumeClick() {
         viewModel.refreshTodayPerfume()
+    }
+
+    override fun onBannerClick() {
+        startActivity(Intent(requireActivity(), EditorActivity::class.java))
+        viewModel.setIsShowBanner(false)
     }
 }

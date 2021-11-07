@@ -9,13 +9,16 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "perfumes")
 data class Perfume(
     @PrimaryKey @ColumnInfo(name = "perfume_id") @SerializedName("id") val perfumeId: String,
-    @ColumnInfo(name = "perfume_name") val name: String,
+    @ColumnInfo(name = "perfume_name") val name: String? = null,
     @ColumnInfo(name = "perfume_thumbnail_url") val thumbnailUrl: String? = null,
-    @ColumnInfo(name = "perfume_korean_name") val koreanName: String,
+    @ColumnInfo(name = "perfume_korean_name") val koreanName: String? = null,
     @ColumnInfo(name = "perfume_brand_id") val brandId: String,
-    @ColumnInfo(name = "perfume_brand_name") val brandName: String,
+    @ColumnInfo(name = "perfume_brand_name") val brandName: String? = null,
     @ColumnInfo(name = "perfume_like_count") val likeCount: Long? = 0L,
-    @Ignore val notes: NoteContainer? = null
+    @ColumnInfo(name = "perfume_second_name") @SerializedName("perfume_name") val perfumeName: String? = null,
+    @ColumnInfo(name = "perfume_is_liked") val isLiked: Boolean = false,
+    @Ignore val notes: NoteContainer? = null,
+    @Ignore val rank: Int? = null
 ) {
     constructor(
         perfumeId: String,
@@ -24,6 +27,8 @@ data class Perfume(
         koreanName: String,
         brandId: String,
         brandName: String,
+        perfumeName: String?,
+        isLiked: Boolean = false,
         likeCount: Long? = 0L
     ) : this(
         perfumeId = perfumeId,
@@ -33,7 +38,10 @@ data class Perfume(
         brandId = brandId,
         brandName = brandName,
         likeCount = likeCount,
-        notes = null
+        perfumeName = perfumeName,
+        isLiked = isLiked,
+        notes = null,
+        rank = null
     )
 
     data class NoteContainer(
