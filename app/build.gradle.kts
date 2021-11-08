@@ -85,6 +85,9 @@ dependencies {
     // Crop
     implementation(Libs.ThirdParty.crop)
 
+    implementation(Libs.ThirdParty.Stetho.stetho)
+    implementation(Libs.ThirdParty.Stetho.okhttp)
+
     // Firebase
     implementation(platform(Libs.Firebase.bom))
     implementation(Libs.Firebase.analytics)

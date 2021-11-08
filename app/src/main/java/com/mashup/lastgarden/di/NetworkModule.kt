@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.di
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.mashup.lastgarden.BuildConfig
 import com.mashup.lastgarden.network.interceptors.AuthorizationInterceptor
 import dagger.Module
@@ -32,5 +33,6 @@ object NetworkModule {
             .writeTimeout(TIMEOUT_DURATION, TimeUnit.SECONDS)
             .addInterceptor(createLoggingInterceptor())
             .addInterceptor(authorizationInterceptor)
+            .addNetworkInterceptor(StethoInterceptor())
             .build()
 }

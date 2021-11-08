@@ -12,7 +12,7 @@ interface PerfumeService {
     suspend fun getTodayPerfume(): NetworkDataResponse<PerfumeAndStories>
 
     @GET("home/weekly-ranking")
-    suspend fun getWeeklyRanking(): NetworkDataResponse<WeeklyRankingResponse>
+    suspend fun getWeeklyRanking(): NetworkDataResponse<List<Perfume>>
 
     @GET("home/steady-perfume")
     suspend fun getSteadyPerfumes(
@@ -20,5 +20,3 @@ interface PerfumeService {
         @Query("likeCursor") likeCursor: String? = null
     ): NetworkDataResponse<List<Perfume>>
 }
-
-data class WeeklyRankingResponse(val perfumes: List<Perfume>)

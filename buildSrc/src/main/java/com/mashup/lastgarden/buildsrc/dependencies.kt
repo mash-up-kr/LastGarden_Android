@@ -66,6 +66,11 @@ object Libs {
         const val crop = "com.github.CanHub:Android-Image-Cropper:3.3.5"
         const val editor = "com.burhanrashid52:photoeditor:1.5.1"
         const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:4.1.0"
+
+        object Stetho {
+            const val stetho = "com.facebook.stetho:stetho:1.5.1"
+            const val okhttp = "com.facebook.stetho:stetho-okhttp3:1.5.1"
+        }
     }
 
     object AndroidX {
