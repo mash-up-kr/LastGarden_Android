@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -60,31 +61,29 @@
 
             <TextView
                 android:id="@+id/titleTextView"
-                style="@style/TextAppearance.SeeHyangComponents.Headline3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
-                android:text="샤넬 가브리엘 에쌍스 오 드 빠르펭"
+                android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline3"
                 android:textColor="@color/black"
-                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/photoImageView"
-                app:layout_constraintTop_toBottomOf="@id/photoImageView" />
+                app:layout_constraintTop_toBottomOf="@id/photoImageView"
+                tools:text="샤넬 가브리엘 에쌍스 오 드 빠르펭" />
 
             <TextView
                 android:id="@+id/titleEngTextView"
-                style="@style/TextAppearance.SeeHyangComponents.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="Gabrielle Essence Chanel for women"
+                android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
                 android:textColor="#797979"
-                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/titleTextView"
                 app:layout_constraintStart_toStartOf="@id/titleTextView"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                tools:text="Gabrielle Essence Chanel for women" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -131,39 +130,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/likeButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
-            android:background="@drawable/grey_radius_8_shape">
+            android:background="@drawable/grey_radius_8_shape"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/likeImageView"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/ic_like_empty"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/primaryColor" />
 
             <TextView
                 android:id="@+id/likeCountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="204"
+                android:layout_gravity="center_horizontal"
                 android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
                 android:textColor="@color/primaryColor"
-                android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/likeImageView"
-                app:layout_constraintStart_toStartOf="@id/likeImageView"
-                app:layout_constraintTop_toBottomOf="@id/likeImageView" />
+                tools:text="204" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/nextButton"

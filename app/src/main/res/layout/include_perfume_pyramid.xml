@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -18,7 +19,6 @@
             android:text="@string/perfume_info_pyramid"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@color/black"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -111,9 +111,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="20dp"
-                android:text="시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
                 android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-                android:textColor="@color/grey1" />
+                android:textColor="@color/grey1"
+                tools:text="시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치" />
 
         </LinearLayout>
 
@@ -134,7 +134,6 @@
             android:text="@string/perfume_info_note"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@color/black"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

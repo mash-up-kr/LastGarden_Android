@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,7 +14,6 @@
         android:text="@string/perfume_info_accords"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textColor="@color/black"
-        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,9 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="20dp"
-            android:text="피치, 재스민, 레드프룻, 튜베로즈, 화이트플라워, 오렌지블로썸, 바닐라, 화이트머스크"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-            android:textColor="@color/grey1" />
+            android:textColor="@color/grey1"
+            tools:text="피치, 재스민, 레드프룻, 튜베로즈, 화이트플라워, 오렌지블로썸, 바닐라, 화이트머스크" />
 
     </LinearLayout>
 

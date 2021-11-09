@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.updateLayoutParams
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.base.autoCleared
@@ -66,10 +67,9 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
             view.measure(weightMeasureSpec, heightMeasureSpec)
 
             if (viewPager.layoutParams.height != view.measuredHeight) {
-                viewPager.layoutParams =
-                    (viewPager.layoutParams).also { layoutParams ->
-                        layoutParams.height = view.measuredHeight
-                    }
+                viewPager.updateLayoutParams {
+                    height = view.measuredHeight
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,7 +14,6 @@
         android:text="@string/perfume_info_type"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textColor="@color/black"
-        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,20 +26,20 @@
         android:src="@drawable/ic_info"
         app:layout_constraintBottom_toBottomOf="@id/typeTextView"
         app:layout_constraintStart_toEndOf="@id/typeTextView"
-        app:layout_constraintTop_toTopOf="@id/typeTextView" />
+        app:layout_constraintTop_toTopOf="@id/typeTextView"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/typeTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/perfume_info_type_eau_de_perfume_title"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textColor="@color/point"
-        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/typeTextView"
-        app:layout_constraintTop_toBottomOf="@id/typeTextView" />
+        app:layout_constraintTop_toBottomOf="@id/typeTextView"
+        tools:text="@string/perfume_info_type_eau_de_perfume_title" />
 
     <TextView
         android:id="@+id/typeDescriptionTextView"
@@ -47,12 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="8dp"
-        android:text="@string/perfume_info_type_eau_de_perfume_description"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
         android:textColor="@color/grey2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/typeTitleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/typeTitleTextView"
+        tools:text="@string/perfume_info_type_eau_de_perfume_description" />
 
     <TextView
         android:id="@+id/afflictionRateTextView"
@@ -70,23 +70,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="10~15%"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
         android:textColor="@color/grey3"
         app:layout_constraintBottom_toBottomOf="@id/afflictionRateTextView"
         app:layout_constraintStart_toEndOf="@id/afflictionRateTextView"
-        app:layout_constraintTop_toTopOf="@id/afflictionRateTextView" />
+        app:layout_constraintTop_toTopOf="@id/afflictionRateTextView"
+        tools:text="10~15%" />
 
     <TextView
         android:id="@+id/afflictionRateMaxPercentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20%"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
         android:textColor="@color/grey5"
         app:layout_constraintBottom_toBottomOf="@id/afflictionRatePercentTextView"
         app:layout_constraintEnd_toEndOf="@id/typeDescriptionTextView"
-        app:layout_constraintTop_toTopOf="@id/afflictionRatePercentTextView" />
+        app:layout_constraintTop_toTopOf="@id/afflictionRatePercentTextView"
+        tools:text="20%" />
 
     <ProgressBar
         android:id="@+id/afflictionRateProgressBar"
@@ -95,11 +95,11 @@
         android:layout_height="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/progress_bar_rounded_corner"
-        android:progress="75"
         android:progressDrawable="@drawable/progress_bar_rounded_corner"
         app:layout_constraintEnd_toEndOf="@id/afflictionRateMaxPercentTextView"
         app:layout_constraintStart_toStartOf="@id/afflictionRateTextView"
-        app:layout_constraintTop_toBottomOf="@id/afflictionRateTextView" />
+        app:layout_constraintTop_toBottomOf="@id/afflictionRateTextView"
+        tools:progress="75" />
 
     <TextView
         android:id="@+id/durationTextView"
@@ -117,23 +117,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="5~6시간"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
         android:textColor="@color/grey3"
         app:layout_constraintBottom_toBottomOf="@id/durationTextView"
         app:layout_constraintStart_toEndOf="@id/durationTextView"
-        app:layout_constraintTop_toTopOf="@id/durationTextView" />
+        app:layout_constraintTop_toTopOf="@id/durationTextView"
+        tools:text="5~6시간" />
 
     <TextView
         android:id="@+id/durationMaxHourTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="6시간"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
         android:textColor="@color/grey5"
         app:layout_constraintBottom_toBottomOf="@id/durationHourTextView"
         app:layout_constraintEnd_toEndOf="@id/afflictionRateProgressBar"
-        app:layout_constraintTop_toTopOf="@id/durationHourTextView" />
+        app:layout_constraintTop_toTopOf="@id/durationHourTextView"
+        tools:text="6시간" />
 
     <ProgressBar
         android:id="@+id/durationProgressBar"
@@ -142,10 +142,10 @@
         android:layout_height="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/progress_bar_rounded_corner"
-        android:progress="83"
         android:progressDrawable="@drawable/progress_bar_rounded_corner"
         app:layout_constraintEnd_toEndOf="@id/durationMaxHourTextView"
         app:layout_constraintStart_toStartOf="@id/durationTextView"
-        app:layout_constraintTop_toBottomOf="@id/durationTextView" />
+        app:layout_constraintTop_toBottomOf="@id/durationTextView"
+        tools:progress="83" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
