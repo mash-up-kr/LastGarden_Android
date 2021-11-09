@@ -10,6 +10,7 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ActivitySplashBinding
 import com.mashup.lastgarden.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
+import com.mashup.lastgarden.ui.main.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
