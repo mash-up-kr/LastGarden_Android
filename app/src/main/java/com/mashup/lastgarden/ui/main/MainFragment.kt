@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.CropImageView
-import com.canhub.cropper.options
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
-import com.mashup.lastgarden.ui.editor.EditorActivity
+import com.mashup.lastgarden.ui.upload.editor.EditorActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -29,12 +26,6 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     @Inject
     lateinit var glideRequests: GlideRequests
-
-    private val cropImageLauncher = registerForActivityResult(CropImageContract()) { result ->
-        if (result.isSuccessful) {
-            result.getUriFilePath(requireContext())?.let(::showEditorActivity)
-        }
-    }
 
     @Inject
     lateinit var todayPerfumeStoryAdapter: TodayPerfumeStoryAdapter
@@ -71,16 +62,6 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
             inflater, container, false
         )
         return binding.root
-    }
-
-    private fun showImagePicker() {
-        cropImageLauncher.launch(options { setGuidelines(CropImageView.Guidelines.ON) })
-    }
-
-    private fun showEditorActivity(imageUrl: String) {
-        EditorActivity.createIntent(requireContext(), imageUrl).run {
-            startActivity(this)
-        }
     }
 
     override fun onSetupViews(view: View) {

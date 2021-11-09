@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="Widget.SeeHyangComponents" parent="android:Widget" />
+
+    <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="background">@color/selector_primary_color</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Widget.SeeHyangComponents.Switch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:track">@drawable/selector_track_switch</item>
+        <item name="android:thumb">@drawable/bg_switch_thumb</item>
+    </style>
+
     <!--TextAppearance-->
     <style name="TextAppearance.SeeHyangComponenets.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">sans-serif-medium</item>
