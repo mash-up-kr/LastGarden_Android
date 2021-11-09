@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ActivityOnBoardingBinding
+import com.mashup.lastgarden.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.max
 
@@ -52,7 +54,7 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun moveSignActivity() {
-        //TODO SignActivity 연결
+        startActivity(Intent(this, SignActivity::class.java))
         finish()
     }
 

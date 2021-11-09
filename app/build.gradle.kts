@@ -91,6 +91,8 @@ dependencies {
     // Firebase
     implementation(platform(Libs.Firebase.bom))
     implementation(Libs.Firebase.analytics)
+    implementation(Libs.Firebase.playAuth)
+    implementation(Libs.Firebase.auth)
 
     // Editor
     implementation(Libs.ThirdParty.editor)

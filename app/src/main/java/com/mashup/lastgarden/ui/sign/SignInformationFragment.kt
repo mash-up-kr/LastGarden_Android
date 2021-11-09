@@ -1,4 +1,4 @@
-package com.mashup.lastgarden.ui.onboarding
+package com.mashup.lastgarden.ui.sign
 
 import android.graphics.Color
 import android.os.Bundle
@@ -34,8 +34,10 @@ class SignInformationFragment : BaseViewModelFragment() {
     }
 
     private fun initToolbar() {
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as? AppCompatActivity)?.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
         binding.toolbar.setNavigationIcon(R.drawable.ic_close)
         binding.toolbar.navigationIcon?.setTint(Color.BLACK)
     }

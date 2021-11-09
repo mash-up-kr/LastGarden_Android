@@ -1,4 +1,4 @@
-package com.mashup.lastgarden.ui.onboarding
+package com.mashup.lastgarden.ui.sign
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,7 +10,9 @@ import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentSignCompleteBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignCompleteFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignCompleteBinding>()
@@ -32,8 +34,10 @@ class SignCompleteFragment : BaseViewModelFragment() {
     }
 
     private fun initToolbar() {
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (requireActivity() as? AppCompatActivity)?.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
         binding.toolbar.setNavigationIcon(R.drawable.ic_close)
         binding.toolbar.navigationIcon?.setTint(Color.BLACK)
     }
