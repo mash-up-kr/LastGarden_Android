@@ -16,7 +16,7 @@ class ScentCommentViewModel : ViewModel() {
     val replyList: LiveData<List<Reply>>
         get() = _replyList
 
-    var _commentDetail = MutableLiveData<Comment>()
+    private val _commentDetail = MutableLiveData<Comment>()
     val commentDetail: LiveData<Comment>
         get() = _commentDetail
 
@@ -42,5 +42,9 @@ class ScentCommentViewModel : ViewModel() {
                 Reply(0, "일이삼", "2020-12-12", "sdfsdfsdffd", 112, 11, false),
                 Reply(0, "일이삼", "2020-12-12", "sdfsdfsdffd", 112, 11, false)
             )
+    }
+
+    fun setCommentData(comment: Comment) {
+        _commentDetail.value = comment
     }
 }

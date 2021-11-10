@@ -21,8 +21,6 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
     private var binding by autoCleared<ScentReplyBottomSheetBinding>()
     private val viewModel: ScentCommentViewModel by activityViewModels()
 
-    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme)
@@ -64,16 +62,16 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupResizeScrollView() {
-        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
-            onShowKeyboard = {
-                binding.replyScrollView.updateLayoutParams { height = 130.dp }
-                binding.commentFilterView.isVisible = false
-            },
-            onHideKeyboard = {
+        binding.replyScrollView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom < oldBottom) {
                 binding.replyScrollView.updateLayoutParams { height = 380.dp }
-                binding.addCommentEditText.clearFocus()
+                binding.commentFilterView.isVisible = false
+            } else {
+                binding.replyScrollView.updateLayoutParams { height = 130.dp }
                 binding.commentFilterView.isVisible = true
-            })
+                binding.addCommentEditText.clearFocus()
+            }
+        }
     }
 
     override fun onStart() {
@@ -82,10 +80,5 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
             state = BottomSheetBehavior.STATE_EXPANDED
             isDraggable = false
         }
-    }
-
-    override fun onDestroy() {
-        keyboardVisibilityUtils.detachKeyboardListeners()
-        super.onDestroy()
     }
 }

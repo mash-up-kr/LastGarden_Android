@@ -67,12 +67,13 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     override fun onCommentClick(scentId: Int) {
         //TODO id 해당하는 Comment Bottom Sheet 띄우기
-        val bottomSheetDialog = ScentCommentBottomSheetFragment()
-        bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
+
     }
 
     override fun onLikeClick(scentId: Int) {
         //TODO id 포스트 좋아요 처리
+        val bottomSheetDialog = ScentCommentBottomSheetFragment()
+        bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
     }
 
 }

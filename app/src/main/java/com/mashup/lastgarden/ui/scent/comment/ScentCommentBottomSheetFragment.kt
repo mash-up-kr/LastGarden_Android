@@ -22,8 +22,6 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
     private var binding by autoCleared<ScentCommentBottomSheetBinding>()
     private val viewModel: ScentCommentViewModel by activityViewModels()
 
-    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme)
@@ -51,18 +49,17 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         return binding.root
     }
 
-    //FIXME bottomsheet 높이 조절방법 바꾸기
     private fun setupResizeScrollView() {
-        keyboardVisibilityUtils = KeyboardVisibilityUtils(requireActivity().window,
-            onShowKeyboard = {
-                binding.commentScrollView.updateLayoutParams { height = 260.dp }
-                binding.commentFilterView.isVisible = false
-            },
-            onHideKeyboard = {
+        binding.commentRecyclerView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if (bottom < oldBottom) {
                 binding.commentScrollView.updateLayoutParams { height = 510.dp }
-                binding.addCommentEditText.clearFocus()
+                binding.commentFilterView.isVisible = false
+            } else {
+                binding.commentScrollView.updateLayoutParams { height = 260.dp }
                 binding.commentFilterView.isVisible = true
-            })
+                binding.addCommentEditText.clearFocus()
+            }
+        }
     }
 
     override fun onStart() {
@@ -74,13 +71,8 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
     }
 
     override fun onReplyClick(comment: Comment) {
-        viewModel._commentDetail.value = comment
+        viewModel.setCommentData(comment)
         val bottomSheetDialog = ScentReplyBottomSheetFragment()
         bottomSheetDialog.show(parentFragmentManager, "")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        keyboardVisibilityUtils.detachKeyboardListeners()
     }
 }

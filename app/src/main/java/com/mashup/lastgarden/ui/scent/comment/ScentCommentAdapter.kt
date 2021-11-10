@@ -3,7 +3,6 @@ package com.mashup.lastgarden.ui.scent.comment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.databinding.ItemCommentBinding
 import com.mashup.lastgarden.extensions.btnThumbsUpDownSelector
