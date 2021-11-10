@@ -38,6 +38,7 @@
     <string name="perfume_info_pyramid_top">Top</string>
     <string name="perfume_info_pyramid_middle">Middle</string>
     <string name="perfume_info_pyramid_base">Base</string>
+    <string name="perfume_info_note">Notes</string>
     <string name="perfume_info_accords">Main Accords</string>
     <string name="perfume_info_type">Perfume Type</string>
     <string name="perfume_info_type_eau_de_perfume_title">오 드 퍼퓸</string>
