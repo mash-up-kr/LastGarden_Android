@@ -47,10 +47,10 @@ class ScentViewPagerAdapter(
             likeCountTextView.text = item.likeCount.toString()
             commentImageView.setOnClickListener { listener?.onCommentClick(item.scentId) }
             likeImageView.setOnClickListener { listener?.onLikeClick(item.scentId) }
-            when (item.likeState) {
-                true -> likeImageView.loadImage(glideRequests, R.drawable.ic_like)
-                else -> likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
-            }
+            likeImageView.loadImage(
+                glideRequests,
+                if (item.likeState) R.drawable.ic_like else R.drawable.ic_dislike
+            )
         }
     }
 

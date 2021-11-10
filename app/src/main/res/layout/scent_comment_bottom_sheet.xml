@@ -88,11 +88,7 @@
                 android:paddingVertical="9dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/editCommentView"
-                app:layout_constraintEnd_toStartOf="@id/applyButton"
-                app:layout_constraintStart_toStartOf="@id/editCommentView"
-                app:layout_constraintTop_toTopOf="@id/editCommentView" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/applyButton"
@@ -107,10 +103,7 @@
                 android:paddingVertical="10dp"
                 android:text="@string/btn_apply"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/addCommentEditText"
-                app:layout_constraintEnd_toEndOf="@id/editCommentView"
-                app:layout_constraintTop_toTopOf="@id/addCommentEditText" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -118,11 +111,7 @@
             android:id="@+id/commentFilterView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_comment_filter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/editCommentView" />
+            android:background="@drawable/ic_comment_filter" />
 
     </FrameLayout>
 

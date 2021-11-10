@@ -55,6 +55,5 @@ class ScentReplyAdapter(
     }
 
     class ScentReplyViewHolder(val binding: ItemReplyBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-    }
+        RecyclerView.ViewHolder(binding.root)
 }

@@ -56,8 +56,7 @@ class ScentCommentAdapter(
 
     class ScentCommentViewHolder(
         val binding: ItemCommentBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-    }
+    ) : RecyclerView.ViewHolder(binding.root)
 
     interface OnClickListener {
         fun onReplyClick(comment: Comment)
