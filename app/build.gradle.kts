@@ -101,4 +101,8 @@ dependencies {
     implementation(Libs.AndroidX.Room.room)
     kapt(Libs.AndroidX.Room.compiler)
     implementation(Libs.AndroidX.Room.ktx)
+
+    // ReadMoreTextView
+    implementation("kr.co.prnd:readmore-textview:1.0.0")
+
 }

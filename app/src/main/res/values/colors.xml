@@ -32,4 +32,8 @@
     <color name="gradient_grey">#00C4C4C4</color>
     <color name="purple_sub">#8D84FF</color>
     <color name="purple">#5F54F2</color>
+    <color name="comment_line">#C1C1C1</color>
+    <color name="background_gradient_center">#CC7F828A</color>
+    <color name="background_gradient_light">#00FFFFFF</color>
+    <color name="background_gradient_dark">#aa000000</color>
 </resources>
