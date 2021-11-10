@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mashup.lastgarden.R
+import java.text.DecimalFormat
 
 //TODO custom view로 변경
 fun btnThumbsUpDownSelector(
@@ -69,4 +70,15 @@ fun btnThumbsUpDownSelector(
             )
         )
     }
+}
+
+fun numberFormatter(number: Long): String {
+    val formatter = DecimalFormat("###,###")
+    return formatter.format(number)
+}
+
+fun dateConverter(date: String): String {
+    val dateInfo = date.split("T")[0]
+    val splittedDate = dateInfo.split("-")
+    return splittedDate[0].substring(2, 4) + "년 " + splittedDate[1] + "월 " + splittedDate[2] + "일"
 }
