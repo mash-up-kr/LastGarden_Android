@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
@@ -39,13 +41,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         binding.closeButton.setOnClickListener {
             requireActivity().finish()
         }
-    }
-
-    private fun setupBottomSheet() {
-        binding.sortButton.setOnClickListener {
-            val bottomSheetDialog = ScentSortBottomSheetFragment()
-            bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
-        }
+        setupRecyclerView()
     }
 
     override fun onBindViewModelsOnViewCreated() {
@@ -54,7 +50,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         //TODO 분기처리해서 함수호출
         viewModel.getPerfumeStoryList(1)
         viewModel.perfumeStoryList.observe(viewLifecycleOwner) {
-            binding.scentViewPager.adapter = ScentViewPagerAdapter(it, glideRequests, this)
+            binding.scentRecyclerView.adapter = ScentViewPagerAdapter(it, glideRequests, this)
         }
 
         viewModel.sortOrder.observe(viewLifecycleOwner) {
@@ -65,6 +61,31 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             }
             //TODO 필터 API 적용
         }
+    }
+
+    private fun setupBottomSheet() {
+        binding.sortButton.setOnClickListener {
+            val bottomSheetDialog = ScentSortBottomSheetFragment()
+            bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.scentRecyclerView.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.scentRecyclerView)
+        val listener = SnapPagerScrollListener(
+            snapHelper,
+            SnapPagerScrollListener.ON_SCROLL,
+            true,
+            object : OnChangeListener {
+                override fun onSnapped(position: Int) {
+
+                }
+            }
+        )
+        binding.scentRecyclerView.addOnScrollListener(listener)
     }
 
     override fun onCommentClick(scentId: Int) {
