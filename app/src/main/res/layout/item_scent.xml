@@ -50,7 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottomGuideLine" />
+        app:layout_constraintTop_toTopOf="@id/bottomGuideLine"
+        tools:ignore="ContentDescription" />
 
     <com.mashup.lastgarden.customview.UserImageView
         android:id="@+id/profileImageView"
@@ -105,7 +106,7 @@
         android:id="@+id/pageCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textColor="@color/white"
         android:textStyle="bold"
