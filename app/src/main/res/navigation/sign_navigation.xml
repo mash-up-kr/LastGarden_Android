@@ -2,14 +2,32 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment2">
+    app:startDestination="@id/signInFragment">
     <fragment
-        android:id="@+id/signInFragment2"
-        android:name="com.mashup.lastgarden.ui.sign.SignInFragment"
-        android:label="SignInFragment" />
+        android:id="@+id/signInFragment"
+        android:name="com.mashup.lastgarden.ui.sign.SignInFragment">
+        <action
+            android:id="@+id/actionSignInFragmentToSignInInputNameFragment"
+            app:destination="@id/signInNameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInNameFragment"
+        android:name="com.mashup.lastgarden.ui.sign.SignInNameFragment">
+        <action
+            android:id="@+id/actionSignInInputNameFragmentToSignInputGenderFragment"
+            app:destination="@id/signInGenderFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInGenderFragment"
+        android:name="com.mashup.lastgarden.ui.sign.SignInGenderFragment">
+        <action
+            android:id="@+id/actionSignInputGenderFragmentToSignCompleteFragment"
+            app:destination="@id/signCompleteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/signCompleteFragment"
-        android:name="com.mashup.lastgarden.ui.sign.SignCompleteFragment"
-        android:label="SignCompleteFragment" />
+        android:name="com.mashup.lastgarden.ui.sign.SignCompleteFragment" />
 </navigation>
