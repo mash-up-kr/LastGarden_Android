@@ -13,7 +13,6 @@ import com.mashup.lastgarden.databinding.FragmentScentListBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,23 +22,21 @@ class ScentListFragment : BaseViewModelFragment() {
 
     private val viewModel by viewModels<PerfumeDetailViewModel>()
 
-    private lateinit var perfumeDetailAdapter: PerfumeDetailAdapter
+    private lateinit var perfumeDetailAdapter: PerfumeDetailPagingAdapter
 
     @Inject
     lateinit var glideRequests: GlideRequests
 
     override fun onCreated(savedInstanceState: Bundle?) {
         super.onCreated(savedInstanceState)
-        perfumeDetailAdapter = PerfumeDetailAdapter(glideRequests)
+        perfumeDetailAdapter = PerfumeDetailPagingAdapter(glideRequests)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentScentListBinding.inflate(
-            inflater, container, false
-        )
+        binding = FragmentScentListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,10 +47,9 @@ class ScentListFragment : BaseViewModelFragment() {
 
     override fun onBindViewModelsOnCreate() {
         lifecycleScope.launchWhenCreated {
-            viewModel.perfumeDetailItems
-                .filterNotNull()
+            viewModel.storyItems
                 .collectLatest {
-                    perfumeDetailAdapter.submitList(it)
+                    perfumeDetailAdapter.submitData(it)
                 }
         }
     }

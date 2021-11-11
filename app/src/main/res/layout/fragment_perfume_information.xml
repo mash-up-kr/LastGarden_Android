@@ -35,13 +35,15 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="40dp"
-            android:background="@color/colorGrey6" />
+            android:background="@color/colorGrey6"
+            android:visibility="gone" />
 
         <include
             android:id="@+id/perfumeTypeInclude"
             layout="@layout/include_perfume_type"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
 

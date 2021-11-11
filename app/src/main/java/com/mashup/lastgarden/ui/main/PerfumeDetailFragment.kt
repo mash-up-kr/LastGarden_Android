@@ -7,19 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.loadImage
+import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeDetailBinding>()
+
+    private val viewModel by viewModels<PerfumeDetailViewModel>()
+
     private lateinit var viewPagerAdapter: PerfumeDetailPagerAdapter
+
+    @Inject
+    lateinit var glideRequests: GlideRequests
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +51,23 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         initToolbar()
         initViewPager()
         initTabLayout()
+    }
+
+    override fun onBindViewModelsOnCreate() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.perfumeDetailItem
+                .filterNotNull()
+                .collectLatest {
+                    setPerfumeDetail(it)
+                }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.likeCount
+                .filterNotNull()
+                .collectLatest {
+                    binding.likeCountTextView.text = it.toString()
+                }
+        }
     }
 
     private fun initToolbar() {
@@ -81,5 +112,18 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                 1 -> tab.setIcon(R.drawable.ic_grid)
             }
         }.attach()
+    }
+
+    private fun setPerfumeDetail(perfumeItem: Perfume) {
+        binding.apply {
+            titleTextView.text = perfumeItem.koreanName
+            titleEngTextView.text = perfumeItem.name
+            perfumeItem.thumbnailUrl?.let {
+                photoImageView.loadImage(
+                    glideRequests = glideRequests,
+                    imageUrl = it
+                )
+            }
+        }
     }
 }
