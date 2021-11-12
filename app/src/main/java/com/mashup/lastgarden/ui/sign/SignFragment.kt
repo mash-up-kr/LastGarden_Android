@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignBinding>()
+    private val viewModel: SignViewModel by viewModels()
     private val firebaseAuth: FirebaseAuth by lazy { Firebase.auth }
     private val googleSignInClient: GoogleSignInClient by lazy { getGoogleClient() }
 
@@ -66,6 +68,13 @@ class SignInFragment : BaseViewModelFragment() {
         googleAuthLauncher.launch(signInIntent)
     }
 
+    override fun onBindViewModelsOnCreate() {
+        viewModel.accessToken.observe(this) {
+            //TODO: 성별 나이 이름 모두 입력하면 TOKEN 저장해야 할듯?
+            moveSignInformationFragment()
+        }
+    }
+
     private fun getGoogleClient(): GoogleSignInClient {
         val googleSignInOption = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -78,10 +87,9 @@ class SignInFragment : BaseViewModelFragment() {
     private fun firebaseAuthWithGoogle(idToken: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    //TODO: 로그인 API 연동
-                    moveSignInformationFragment()
+            .addOnCompleteListener(requireActivity()) {
+                idToken?.let {
+                    viewModel.requestSignIn(idToken, AuthType.GOOGLE)
                 }
             }
     }

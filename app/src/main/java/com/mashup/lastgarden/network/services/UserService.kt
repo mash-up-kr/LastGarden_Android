@@ -1,12 +1,13 @@
 package com.mashup.lastgarden.network.services
 
-import retrofit2.http.GET
+import com.mashup.lastgarden.data.vo.Token
+import com.mashup.lastgarden.network.response.NetworkDataResponse
+import okhttp3.RequestBody
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface UserService {
 
-    /** This is sample code for understanding teammates.
-     * Please remove below codes when defining UserService
-     */
-    @GET("user")
-    suspend fun getUser(userId: String): Any
+    @POST("user")
+    suspend fun signUser(@Body params: RequestBody): NetworkDataResponse<Token>
 }
