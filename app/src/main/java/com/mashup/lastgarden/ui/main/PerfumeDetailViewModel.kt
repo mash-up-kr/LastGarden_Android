@@ -42,6 +42,9 @@ class PerfumeDetailViewModel @Inject constructor(
     private val _noteContents = MutableStateFlow<String?>(null)
     val noteContents: StateFlow<String?> = _noteContents
 
+    private val _isLiked = MutableStateFlow<Boolean?>(null)
+    val isLiked: StateFlow<Boolean?> = _isLiked
+
     private val _likeCount = MutableStateFlow<Int?>(null)
     val likeCount: StateFlow<Int?> = _likeCount
 
@@ -51,12 +54,25 @@ class PerfumeDetailViewModel @Inject constructor(
         .cachedIn(viewModelScope)
 
     init {
+        getPerfumeDetail()
+    }
+
+    private fun getPerfumeDetail() {
         viewModelScope.launch(Dispatchers.IO) {
-            _perfumeDetailItem.value = perfumeDetailRepository.fetchPerfumeDetail(perfumeId)
+            fetchPerfumeDetail()
             setMainAccords()
             initSelectedNote()
-            initLikeCount()
+            setPerfumeLike()
         }
+    }
+
+    private suspend fun fetchPerfumeDetail() {
+        // TODO: get access token
+        _perfumeDetailItem.value =
+            perfumeDetailRepository.fetchPerfumeDetail(
+                token = "",
+                id = perfumeId
+            )
     }
 
     private fun setMainAccords() {
@@ -76,7 +92,8 @@ class PerfumeDetailViewModel @Inject constructor(
         }
     }
 
-    private fun initLikeCount() {
+    private fun setPerfumeLike() {
+        _isLiked.value = _perfumeDetailItem.value?.isLiked
         _likeCount.value = _perfumeDetailItem.value?.likeCount?.toInt()
     }
 
@@ -114,6 +131,18 @@ class PerfumeDetailViewModel @Inject constructor(
             ", ",
             note.map { it.koreanName }
         )
+    }
+
+    fun likePerfume() {
+        viewModelScope.launch(Dispatchers.IO) {
+            // TODO: get access token
+            perfumeDetailRepository.likePerfume(
+                token = "",
+                id = perfumeId
+            )
+            fetchPerfumeDetail()
+            setPerfumeLike()
+        }
     }
 
     enum class PerfumeDetailNote {

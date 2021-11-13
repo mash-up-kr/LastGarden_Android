@@ -51,6 +51,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         initToolbar()
         initViewPager()
         initTabLayout()
+        addListenerOnLikeButton()
     }
 
     override fun onBindViewModelsOnCreate() {
@@ -66,6 +67,17 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                 .filterNotNull()
                 .collectLatest {
                     binding.likeCountTextView.text = it.toString()
+                }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.isLiked
+                .filterNotNull()
+                .collectLatest { isLiked ->
+                    if (isLiked) {
+                        binding.likeImageView.setImageResource(R.drawable.ic_like)
+                    } else {
+                        binding.likeImageView.setImageResource(R.drawable.ic_like_empty)
+                    }
                 }
         }
     }
@@ -124,6 +136,12 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                     imageUrl = it
                 )
             }
+        }
+    }
+
+    private fun addListenerOnLikeButton() {
+        binding.likeButton.setOnClickListener {
+            viewModel.likePerfume()
         }
     }
 }
