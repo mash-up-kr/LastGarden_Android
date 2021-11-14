@@ -21,6 +21,7 @@
     <string name="sign_gender_description">간단한 정보를 알려주세요.</string>
     <string name="sign_information_name">닉네임</string>
     <string name="sign_information_name_hint">닉네임을 입력해주세요.</string>
+    <string name="sign_information_gender_explain">해당 정보는 향수 맞춤 추천을 위해 활용됩니다 :)</string>
     <string name="sign_information_name_regex">공백, 특수문자를 제외한\n한글, 영어, 숫자로 이루어진 닉네임을 입력해주세요 :)\n이후에 언제든지 변경할 수 있습니다.</string>
     <string name="sign_information_title">씨향 시작하기.</string>
     <string name="sign_information_description">간단한 정보를 알려주세요.</string>
@@ -32,7 +33,8 @@
     <string name="sign_information_age_hint">나이를 입력해주세요</string>
     <string name="sign_information_next_button">다음</string>
 
-    <!-- Sign Complete -->
+    <!-- Sign -->
+    <string name="sign_duplicated_name">이미 사용되고 있는 닉네임입니다.</string>
     <string name="sign_complete_title">반갑습니다,\n김첨지님 :)</string>
     <string name="sign_complete_description">향수에 대한 다양한 이미지를 공유하고,\n이야기하는 씨향에 온 걸 환영해요.</string>
     <string name="sign_complete_start_button">시작하기</string>

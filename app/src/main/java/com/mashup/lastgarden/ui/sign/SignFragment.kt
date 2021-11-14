@@ -70,7 +70,6 @@ class SignInFragment : BaseViewModelFragment() {
 
     override fun onBindViewModelsOnCreate() {
         viewModel.accessToken.observe(this) {
-            //TODO: 성별 나이 이름 모두 입력하면 TOKEN 저장해야 할듯?
             moveSignInformationFragment()
         }
     }
