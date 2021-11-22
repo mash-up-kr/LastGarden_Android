@@ -39,4 +39,9 @@
         android:name="com.mashup.lastgarden.ui.scent.ScentFragment"
         android:label="ScentFragment" />
 
+    <fragment
+        android:id="@+id/perfumeRecommendFragment"
+        android:name="com.mashup.lastgarden.ui.main.PerfumeRecommendFragment"
+        android:label="PerfumeRecommendFragment" />
+
 </navigation>
