@@ -2,13 +2,14 @@ package com.mashup.lastgarden.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mashup.lastgarden.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContainer {
 
     private lateinit var navController: NavController
 
@@ -21,5 +22,9 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavController() {
         navController = (supportFragmentManager.findFragmentById(R.id.navHostFragment)
                 as NavHostFragment).navController
+    }
+
+    override fun setMainActionBar(toolbar: Toolbar) {
+        setSupportActionBar(toolbar)
     }
 }

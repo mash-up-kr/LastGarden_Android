@@ -2,7 +2,10 @@ package com.mashup.lastgarden.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.mashup.lastgarden.R
+import com.mashup.lastgarden.ui.main.MainContainer
 
 abstract class BaseViewModelFragment : Fragment() {
 
@@ -22,7 +25,16 @@ abstract class BaseViewModelFragment : Fragment() {
         onBindViewModelsOnViewCreated()
     }
 
-    protected open fun onSetupViews(view: View) {}
+    protected open fun onSetupViews(view: View) {
+        view.findViewById<Toolbar>(R.id.toolbar)?.let(::setActionBar)
+    }
+
+    private fun setActionBar(toolbar: Toolbar) {
+        (activity as? MainContainer)?.setMainActionBar(toolbar)
+        onToolbarSetup(toolbar)
+    }
+
+    protected open fun onToolbarSetup(toolbar: Toolbar) {}
 
     protected open fun onBindViewModelsOnViewCreated() {}
 }
