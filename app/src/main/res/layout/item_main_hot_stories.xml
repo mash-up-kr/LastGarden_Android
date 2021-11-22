@@ -10,5 +10,6 @@
     android:orientation="horizontal"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
+    android:splitMotionEvents="false"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:listitem="@layout/item_hot_story" />
