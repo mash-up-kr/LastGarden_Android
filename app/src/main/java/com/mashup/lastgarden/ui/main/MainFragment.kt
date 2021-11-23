@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.upload.editor.EditorActivity
@@ -112,5 +114,9 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
     override fun onBannerClick() {
         startActivity(Intent(requireActivity(), EditorActivity::class.java))
         viewModel.setIsShowBanner(false)
+    }
+
+    override fun onSeeMoreClick() {
+        findNavController().navigate(R.id.perfumeRecommendFragment)
     }
 }

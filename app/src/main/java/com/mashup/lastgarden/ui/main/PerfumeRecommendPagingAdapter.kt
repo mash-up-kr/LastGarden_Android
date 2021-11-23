@@ -2,14 +2,13 @@ package com.mashup.lastgarden.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.databinding.ItemPerfumeRecommendBinding
 
-class PerfumeRecommendAdapter(
-    private val glideRequests: GlideRequests
-) : ListAdapter<PerfumeRecommendItem, PerfumeRecommendViewHolder>(DIFF_CALLBACK) {
+class PerfumeRecommendPagingAdapter(private val glideRequests: GlideRequests) :
+    PagingDataAdapter<PerfumeRecommendItem, PerfumeRecommendViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PerfumeRecommendItem>() {
@@ -25,12 +24,6 @@ class PerfumeRecommendAdapter(
         }
     }
 
-    init {
-        setHasStableIds(true)
-    }
-
-    override fun getItemId(position: Int): Long = getItem(position).hashCode().toLong()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerfumeRecommendViewHolder {
         return PerfumeRecommendViewHolder(
             ItemPerfumeRecommendBinding.inflate(
@@ -42,7 +35,7 @@ class PerfumeRecommendAdapter(
     }
 
     override fun onBindViewHolder(holder: PerfumeRecommendViewHolder, position: Int) {
-        if (position !in 0 until itemCount) return
-        holder.bind(glideRequests, getItem(position))
+        val item = getItem(position) ?: return
+        holder.bind(glideRequests, item)
     }
 }

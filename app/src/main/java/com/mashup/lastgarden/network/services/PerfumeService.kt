@@ -16,7 +16,7 @@ interface PerfumeService {
 
     @GET("home/steady-perfume")
     suspend fun getSteadyPerfumes(
-        @Query("idCursor") idCursor: String? = null,
-        @Query("likeCursor") likeCursor: String? = null
+        @Query("idCursor") idCursor: Int? = null,
+        @Query("likeCursor") likeCursor: Int? = null
     ): NetworkDataResponse<List<Perfume>>
 }

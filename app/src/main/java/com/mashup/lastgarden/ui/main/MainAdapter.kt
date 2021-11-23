@@ -53,6 +53,7 @@ class MainAdapter(
     interface OnMainItemClickListener {
         fun onRefreshPerfumeClick()
         fun onBannerClick()
+        fun onSeeMoreClick()
     }
 
     private class TodayPerfumeHeaderViewHolder(
@@ -320,6 +321,8 @@ class MainAdapter(
     private fun SeeMoreViewHolder.bind(item: MainAdapterItem) {
         if (item !is MainAdapterItem.SeeMore) return
 
-        seeMoreView.setOnClickListener { }
+        seeMoreView.setOnClickListener {
+            mainItemClickListener.onSeeMoreClick()
+        }
     }
 }

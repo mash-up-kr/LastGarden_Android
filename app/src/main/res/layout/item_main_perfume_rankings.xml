@@ -11,5 +11,6 @@
     android:paddingTop="16dp"
     android:paddingEnd="16dp"
     android:paddingBottom="31dp"
+    android:splitMotionEvents="false"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:listitem="@layout/item_perfume_ranking" />

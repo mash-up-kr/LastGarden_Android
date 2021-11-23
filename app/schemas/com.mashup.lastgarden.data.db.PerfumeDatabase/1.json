@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "16cf71ce890f4a930f4cd2fd8f243da8",
+    "identityHash": "4028f9ce33bf5a01b9137dfd1c37ff9e",
     "entities": [
       {
         "tableName": "users",
@@ -38,12 +38,12 @@
       },
       {
         "tableName": "perfumes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`perfume_id` TEXT NOT NULL, `perfume_name` TEXT, `perfume_thumbnail_url` TEXT, `perfume_korean_name` TEXT, `perfume_brand_id` TEXT NOT NULL, `perfume_brand_name` TEXT, `perfume_like_count` INTEGER, `perfume_second_name` TEXT, `perfume_is_liked` INTEGER NOT NULL, PRIMARY KEY(`perfume_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`perfume_id` INTEGER NOT NULL, `perfume_name` TEXT, `perfume_thumbnail_url` TEXT, `perfume_korean_name` TEXT, `perfume_brand_id` TEXT NOT NULL, `perfume_brand_name` TEXT, `perfume_like_count` INTEGER, `perfume_second_name` TEXT, `perfume_is_liked` INTEGER NOT NULL, PRIMARY KEY(`perfume_id`))",
         "fields": [
           {
             "fieldPath": "perfumeId",
             "columnName": "perfume_id",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -216,7 +216,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16cf71ce890f4a930f4cd2fd8f243da8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4028f9ce33bf5a01b9137dfd1c37ff9e')"
     ]
   }
 }

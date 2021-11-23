@@ -22,6 +22,7 @@
             android:layout_gravity="center"
             android:background="@drawable/card_radius_background_shape"
             android:scaleType="centerInside"
+            android:src="@drawable/ic_empty_perfume"
             tools:ignore="ContentDescription" />
 
     </FrameLayout>

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "perfumes")
 data class Perfume(
-    @PrimaryKey @ColumnInfo(name = "perfume_id") @SerializedName("id") val perfumeId: String,
+    @PrimaryKey @ColumnInfo(name = "perfume_id") @SerializedName("id") val perfumeId: Int,
     @ColumnInfo(name = "perfume_name") val name: String? = null,
     @ColumnInfo(name = "perfume_thumbnail_url") val thumbnailUrl: String? = null,
     @ColumnInfo(name = "perfume_korean_name") val koreanName: String? = null,
@@ -21,7 +21,7 @@ data class Perfume(
     @Ignore val rank: Int? = null
 ) {
     constructor(
-        perfumeId: String,
+        perfumeId: Int,
         name: String,
         thumbnailUrl: String? = null,
         koreanName: String,

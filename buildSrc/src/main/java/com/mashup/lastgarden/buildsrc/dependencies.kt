@@ -109,5 +109,11 @@ object Libs {
             const val compiler = "androidx.room:room-compiler:$version"
             const val ktx = "androidx.room:room-ktx:$version"
         }
+
+        object Paging {
+            private const val version = "3.0.1"
+            const val runtime = "androidx.paging:paging-runtime-ktx:$version"
+            const val common = "androidx.paging:paging-common-ktx:$version"
+        }
     }
 }

@@ -18,8 +18,9 @@ class PerfumeRemoteDataSource @Inject constructor(private val service: PerfumeSe
         service.getWeeklyRanking().onErrorReturnData(emptyList())
 
     suspend fun getSteadyPerfumes(
-        idCursor: String? = null,
-        likeCursor: String? = null
+        idCursor: Int? = null,
+        likeCursor: Int? = null
     ): List<Perfume> = service.getSteadyPerfumes(idCursor, likeCursor)
         .onErrorReturnDataNull() ?: emptyList()
+
 }

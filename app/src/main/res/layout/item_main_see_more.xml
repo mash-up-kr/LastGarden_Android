@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
+        android:background="?attr/selectableItemBackground"
         android:drawablePadding="2dp"
         android:gravity="center"
         android:text="@string/main_see_more"

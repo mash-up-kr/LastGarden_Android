@@ -78,6 +78,8 @@ sealed class MainAdapterItem(val id: String) {
     object SeeMore : MainAdapterItem("SeeMore")
 }
 
+typealias PerfumeRecommendItem = MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem
+
 fun List<Story>.toHotStoryItems(): List<MainAdapterItem.HotStories.HotStoryItem> =
     map { it.toHotStoryItem() }
 
