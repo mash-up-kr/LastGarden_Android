@@ -50,7 +50,7 @@ class TagFragment : BaseViewModelFragment() {
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
 
-        viewModel.tagList.observe(viewLifecycleOwner) { tagList ->
+        viewModel.tagSet.observe(viewLifecycleOwner) { tagList ->
             binding.confirmButton.isEnabled = tagList.isNotEmpty()
             drawChipGroup(tagList)
         }

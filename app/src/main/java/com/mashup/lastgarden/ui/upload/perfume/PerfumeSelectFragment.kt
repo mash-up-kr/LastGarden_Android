@@ -105,6 +105,6 @@ class PerfumeSelectFragment : BaseViewModelFragment(), OnPerfumeClickListener {
     }
 
     override fun onPerfumeClick(perfume: PerfumeItem.PerfumeSearchedItem) {
-        viewModel.updatedSelectedPerfume(perfume)
+        viewModel.updateSelectedPerfume(perfume)
     }
 }

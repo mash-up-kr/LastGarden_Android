@@ -16,7 +16,7 @@ data class Story(
     @ColumnInfo(name = "story_user_id") val userId: Int,
     @ColumnInfo(name = "story_thumbnail_url") val thumbnailUrl: String? = null,
     @ColumnInfo(name = "story_created_date") val createdAt: String,
-    @ColumnInfo(name = "story_user_profile_image") @SerializedName("userProfileImageUrl") val userProfileImage: String? = null,
+    @ColumnInfo(name = "story_user_profile_image") @SerializedName("userProfileImageUrl") val userProfileImage: String? = null,gi
     @ColumnInfo(name = "story_user_nickname") val userNickname: String,
     @ColumnInfo(name = "story_like_count") val likeCount: Long? = 0L,
     @Ignore val tags: List<Tag>? = emptyList()

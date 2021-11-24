@@ -91,7 +91,7 @@ class PerfumeSelectAdapter(
             brand = item.brandName
             name = item.name
             count = item.likeCount
-            isSelected = item.isSelected
+            isPerfumeSelected = item.isSelected
             setImageUrl(glideRequests, item.imageUrl)
             setOnClickListener {
                 onPerfumeClickListener.onPerfumeClick(item)
@@ -101,17 +101,11 @@ class PerfumeSelectAdapter(
 
     private fun ViewHolder.bindPerfumeSelected(isSelected: Boolean) {
         if (itemView !is PerfumeView) return
-
-        itemView.apply {
-            this.isSelected = isSelected
-        }
+        itemView.isPerfumeSelected = isSelected
     }
 
     private fun ViewHolder.bindLikeSelected(likeCount: Long) {
         if (itemView !is PerfumeView) return
-
-        itemView.apply {
-            count = likeCount
-        }
+        itemView.count = likeCount
     }
 }

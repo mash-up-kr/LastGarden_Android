@@ -38,8 +38,11 @@ class SearchEditText @JvmOverloads constructor(
         }
     }
 
-    val text: String
+    var text: String
         get() = binding.editText.text.toString()
+        set(value) {
+            binding.editText.setText(value)
+        }
 
     fun setOnSearchButtonClick(action: (String) -> Unit) {
         onSearchButtonClick = action

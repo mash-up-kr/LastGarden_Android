@@ -39,9 +39,9 @@ class UploadViewModel @Inject constructor(
     private val _editedImage = MutableLiveData<Bitmap>()
     val editedImage: LiveData<Bitmap> = _editedImage
 
-    private val _tagList = MutableLiveData<Set<String>>()
-    val tagList: LiveData<Set<String>>
-        get() = _tagList
+    private val _tagSet = MutableLiveData<Set<String>>()
+    val tagSet: LiveData<Set<String>>
+        get() = _tagSet
 
     private val _isEnabledUploadButton = MutableLiveData<Boolean>()
     val isEnabledUploadButton: LiveData<Boolean>
@@ -63,21 +63,23 @@ class UploadViewModel @Inject constructor(
     val onStorySaveSuccess: StateFlow<Boolean> = _onStorySaveSuccess
 
     init {
-        _selectedPerfume.tryEmit(PerfumeItem.EmptyPerfume)
+        viewModelScope.launch {
+            _selectedPerfume.emit(PerfumeItem.EmptyPerfume)
+        }
     }
 
     fun addTag(newTag: String) {
-        if (_tagList.value?.contains(newTag) == true ||
-            _tagList.value?.size ?: 0 >= MAX_TAG_SIZE
+        if (_tagSet.value?.contains(newTag) == true ||
+            (_tagSet.value?.size ?: 0) >= MAX_TAG_SIZE
         ) return
-        _tagList.value = tagList.value?.toMutableSet()?.apply {
+        _tagSet.value = tagSet.value?.toMutableSet()?.apply {
             add(newTag)
         } ?: setOf(newTag)
     }
 
     fun removeTag(removeTag: String) {
-        if (_tagList.value?.contains(removeTag) != true) return
-        _tagList.value = tagList.value?.toMutableSet()?.apply {
+        if (_tagSet.value?.contains(removeTag) != true) return
+        _tagSet.value = tagSet.value?.toMutableSet()?.apply {
             remove(removeTag)
         }
     }
@@ -109,7 +111,7 @@ class UploadViewModel @Inject constructor(
             }
         }
 
-    fun updatedSelectedPerfume(perfumeSelectedItem: PerfumeItem.PerfumeSearchedItem) =
+    fun updateSelectedPerfume(perfumeSelectedItem: PerfumeItem.PerfumeSearchedItem) =
         viewModelScope.launch {
             _selectedPerfume.emit(perfumeSelectedItem)
         }
@@ -120,7 +122,7 @@ class UploadViewModel @Inject constructor(
             val story = storyRepository.uploadStory(
                 imageId = savedImage.imageId,
                 perfumeId = (selectedPerfume.lastOrNull() as? PerfumeSelectedItem)?.id,
-                tags = tagList.value?.toList() ?: emptyList()
+                tags = tagSet.value?.toList() ?: emptyList()
             )
             _onStorySaveSuccess.emit(story != null)
         }

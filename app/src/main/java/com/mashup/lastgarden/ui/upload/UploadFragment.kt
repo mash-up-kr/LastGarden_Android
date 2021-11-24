@@ -17,17 +17,15 @@ import com.mashup.lastgarden.databinding.FragmentUploadBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.upload.perfume.PerfumeSelectedItem
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@InternalCoroutinesApi
 @AndroidEntryPoint
 class UploadFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentUploadBinding>()
-    private val editorViewModel by activityViewModels<UploadViewModel>()
+    private val viewModel by activityViewModels<UploadViewModel>()
 
     @Inject
     lateinit var glideRequests: GlideRequests
@@ -54,20 +52,20 @@ class UploadFragment : BaseViewModelFragment() {
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
 
-        editorViewModel.editedImage.observe(viewLifecycleOwner) { imageBitmap ->
+        viewModel.editedImage.observe(viewLifecycleOwner) { imageBitmap ->
             binding.editedImageView.setImageBitmap(imageBitmap)
         }
 
-        editorViewModel.isEnabledUploadButton.observe(viewLifecycleOwner) { isEnabled ->
+        viewModel.isEnabledUploadButton.observe(viewLifecycleOwner) { isEnabled ->
             binding.uploadButton.isEnabled = isEnabled
         }
 
-        editorViewModel.tagList.observe(viewLifecycleOwner) { tagList ->
+        viewModel.tagSet.observe(viewLifecycleOwner) { tagList ->
             binding.tagSection.selectedValue = tagList.joinToString()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            editorViewModel.selectedPerfume.collectLatest { perfume ->
+            viewModel.selectedPerfume.collectLatest { perfume ->
                 if (perfume is PerfumeSelectedItem) {
                     binding.perfumeSection.selectedValue = perfume.name
                 }
@@ -75,7 +73,7 @@ class UploadFragment : BaseViewModelFragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            editorViewModel.onStorySaveSuccess.collectLatest { isSuccess ->
+            viewModel.onStorySaveSuccess.collectLatest { isSuccess ->
                 if (isSuccess) {
                     showToast(R.string.upload_success_story_save)
                     requireActivity().finish()
@@ -109,8 +107,7 @@ class UploadFragment : BaseViewModelFragment() {
 
     private fun setUiOfButton() {
         binding.uploadButton.setOnClickListener {
-            editorViewModel.uploadStory()
+            viewModel.uploadStory()
         }
     }
-
 }

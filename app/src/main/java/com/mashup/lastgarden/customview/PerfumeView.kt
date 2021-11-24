@@ -41,12 +41,13 @@ class PerfumeView @JvmOverloads constructor(
             binding.perfumeCount.text = value?.toString()
         }
 
-    var isSelected: Boolean? = false
+    var isPerfumeSelected: Boolean = false
+        get() = binding.selectedImage.isVisible
         set(value) {
             field = value
-            binding.selectedImage.isVisible = value == true
+            binding.selectedImage.isVisible = value
             binding.perfumeImageContainer.setBackgroundResource(
-                if (value == true) {
+                if (value) {
                     R.drawable.bg_selected_perfume_on_list
                 } else {
                     R.drawable.card_radius_background_shape
