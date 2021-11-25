@@ -75,17 +75,6 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.scentRecyclerView)
-        val listener = SnapPagerScrollListener(
-            snapHelper,
-            SnapPagerScrollListener.ON_SCROLL,
-            true,
-            object : OnChangeListener {
-                override fun onSnapped(position: Int) {
-
-                }
-            }
-        )
-        binding.scentRecyclerView.addOnScrollListener(listener)
     }
 
     override fun onCommentClick(scentId: Int) {
