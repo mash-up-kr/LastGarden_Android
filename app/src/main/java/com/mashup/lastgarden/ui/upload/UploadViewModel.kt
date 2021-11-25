@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,10 @@ class UploadViewModel @Inject constructor(
     private val perfumeRepository: PerfumeRepository,
     private val storyRepository: StoryRepository
 ) : ViewModel() {
+
+    enum class UploadState {
+        SUCCESS, FAILURE, NONE
+    }
 
     companion object {
         private const val MAX_TAG_SIZE = 10
@@ -50,12 +55,16 @@ class UploadViewModel @Inject constructor(
     private val _selectedPerfume = MutableStateFlow<PerfumeItem>(PerfumeItem.EmptyPerfume)
     val selectedPerfume: StateFlow<PerfumeItem> = _selectedPerfume
 
-    private val _onStorySaveSuccess = MutableStateFlow(false)
-    val onStorySaveSuccess: StateFlow<Boolean> = _onStorySaveSuccess
+    private val _onStorySaveSuccess = MutableStateFlow(UploadState.NONE)
+    val onStorySaveSuccess: StateFlow<UploadState> = _onStorySaveSuccess
 
     val searchedPerfumeList by lazy {
         queryOfPerfume.flatMapConcat { query ->
-            perfumeRepository.getPerfumesWithName(PAGE_SIZE, query)
+            if (query.isNotBlank()) {
+                perfumeRepository.getPerfumesWithName(PAGE_SIZE, query)
+            } else {
+                flowOf()
+            }
         }.cachedIn(viewModelScope)
             .combine(selectedPerfume) { pagingData, selectedItem ->
                 pagingData.map { perfume ->
@@ -97,27 +106,9 @@ class UploadViewModel @Inject constructor(
         _editedImage.value = image
     }
 
-    fun requestPerfumeWithName(name: String) = perfumeRepository
-        .getPerfumesWithName(PAGE_SIZE, name)
-        .cachedIn(viewModelScope)
-        .combine(selectedPerfume) { pagingData, selectedItem ->
-            pagingData.map { perfume ->
-                val isSelected = if (selectedItem is PerfumeItem.PerfumeSearchedItem) {
-                    perfume.perfumeId == selectedItem.id
-                } else {
-                    false
-                }
-
-                PerfumeSelectedItem(
-                    id = perfume.perfumeId,
-                    imageUrl = perfume.thumbnailUrl,
-                    brandName = perfume.brandName,
-                    name = perfume.koreanName,
-                    likeCount = perfume.likeCount ?: 0,
-                    isSelected = isSelected
-                )
-            }
-        }
+    fun requestPerfumeWithName(name: String) = viewModelScope.launch {
+        _queryOfPerfume.emit(name)
+    }
 
     fun updateSelectedPerfume(perfumeSelectedItem: PerfumeItem.PerfumeSearchedItem) =
         viewModelScope.launch {
@@ -136,7 +127,13 @@ class UploadViewModel @Inject constructor(
                 perfumeId = (selectedPerfume.lastOrNull() as? PerfumeSelectedItem)?.id,
                 tags = tagSet.value?.toList() ?: emptyList()
             )
-            _onStorySaveSuccess.emit(story != null)
+            _onStorySaveSuccess.emit(
+                if (story != null) {
+                    UploadState.SUCCESS
+                } else {
+                    UploadState.FAILURE
+                }
+            )
         }
     }
 }

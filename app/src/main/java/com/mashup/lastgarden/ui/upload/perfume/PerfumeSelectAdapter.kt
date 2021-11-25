@@ -42,6 +42,9 @@ class PerfumeSelectAdapter(
                 newItem: PerfumeSelectedItem
             ): Any? {
                 return when {
+                    oldItem.isSelected != newItem.isSelected &&
+                            oldItem.likeCount != newItem.likeCount ->
+                        PerfumePayload.SelectedPayload to PerfumePayload.LikePayload
                     oldItem.isSelected != newItem.isSelected -> PerfumePayload.SelectedPayload
                     oldItem.likeCount != newItem.likeCount -> PerfumePayload.LikePayload
                     else -> null
@@ -74,13 +77,25 @@ class PerfumeSelectAdapter(
         } else {
             payloads.onEach { payload ->
                 when (payload) {
-                    PerfumePayload.SelectedPayload -> {
-                        holder.bindPerfumeSelected(item.isSelected)
+                    is Pair<*, *> -> {
+                        bindPayload(holder, item, payload.first)
+                        bindPayload(holder, item, payload.second)
                     }
-                    PerfumePayload.LikePayload -> {
-                        holder.bindLikeSelected(item.likeCount)
+                    else -> {
+                        bindPayload(holder, item, payload)
                     }
                 }
+            }
+        }
+    }
+
+    private fun bindPayload(holder: ViewHolder, item: PerfumeSelectedItem, payload: Any?) {
+        when (payload) {
+            PerfumePayload.SelectedPayload -> {
+                holder.bindPerfumeSelected(item.isSelected)
+            }
+            PerfumePayload.LikePayload -> {
+                holder.bindLikeSelected(item.likeCount)
             }
         }
     }
