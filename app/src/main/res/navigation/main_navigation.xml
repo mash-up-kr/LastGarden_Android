@@ -37,7 +37,11 @@
     <fragment
         android:id="@+id/scentFragment"
         android:name="com.mashup.lastgarden.ui.scent.ScentFragment"
-        android:label="ScentFragment" />
+        android:label="ScentFragment">
+        <action
+            android:id="@+id/actionScentFragmentToPerfumeDetailFragment"
+            app:destination="@id/perfumeDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/perfumeRecommendFragment"

@@ -40,4 +40,5 @@
     <color name="background_gradient_center">#CC7F828A</color>
     <color name="background_gradient_light">#00FFFFFF</color>
     <color name="background_gradient_dark">#aa000000</color>
+    <color name="opacity_white">#B3FFFFFF</color>
 </resources>
