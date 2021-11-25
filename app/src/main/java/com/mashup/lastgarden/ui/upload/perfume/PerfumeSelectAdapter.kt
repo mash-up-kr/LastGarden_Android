@@ -11,9 +11,6 @@ import com.mashup.lastgarden.databinding.ItemPerfumeRecommendBinding
 
 typealias PerfumeSelectedItem = PerfumeItem.PerfumeSearchedItem
 
-interface OnPerfumeClickListener {
-    fun onPerfumeClick(perfume: PerfumeSelectedItem)
-}
 
 enum class PerfumePayload {
     SelectedPayload, LikePayload
@@ -23,6 +20,10 @@ class PerfumeSelectAdapter(
     private val glideRequests: GlideRequests,
     private val onPerfumeClickListener: OnPerfumeClickListener
 ) : PagingDataAdapter<PerfumeSelectedItem, PerfumeSelectAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    interface OnPerfumeClickListener {
+        fun onPerfumeClick(perfume: PerfumeSelectedItem)
+    }
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PerfumeSelectedItem>() {

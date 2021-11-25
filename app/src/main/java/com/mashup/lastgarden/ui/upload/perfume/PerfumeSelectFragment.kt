@@ -17,13 +17,12 @@ import com.mashup.lastgarden.databinding.FragmentPerfumeSearchBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.upload.UploadViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PerfumeSelectFragment : BaseViewModelFragment(), OnPerfumeClickListener {
+class PerfumeSelectFragment : BaseViewModelFragment(), PerfumeSelectAdapter.OnPerfumeClickListener {
 
     private var binding by autoCleared<FragmentPerfumeSearchBinding>()
     private val viewModel by activityViewModels<UploadViewModel>()
@@ -32,8 +31,6 @@ class PerfumeSelectFragment : BaseViewModelFragment(), OnPerfumeClickListener {
 
     @Inject
     lateinit var glideRequests: GlideRequests
-
-    private var searchJob: Job? = null
 
     override fun onCreated(savedInstanceState: Bundle?) {
         super.onCreated(savedInstanceState)
@@ -63,15 +60,24 @@ class PerfumeSelectFragment : BaseViewModelFragment(), OnPerfumeClickListener {
     }
 
     override fun onBindViewModelsOnViewCreated() {
-        viewModel.queryOfPerfume.observe(viewLifecycleOwner) { query ->
-            binding.titleSearchingResult.text =
-                getString(R.string.result_title_searching, query)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.queryOfPerfume.collectLatest { query ->
+                binding.titleSearchingResult.text =
+                    getString(R.string.result_title_searching, query)
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.selectedPerfume.collectLatest { perfume ->
                 binding.bottomButtonLayout.isVisible = perfume is PerfumeItem.PerfumeSearchedItem
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.searchedPerfumeList
+                .collectLatest {
+                    perfumeSelectAdapter.submitData(it)
+                }
         }
     }
 
@@ -88,13 +94,7 @@ class PerfumeSelectFragment : BaseViewModelFragment(), OnPerfumeClickListener {
 
     private fun setUiOfEditText() {
         binding.searchingEditText.setOnSearchButtonClick { nameOfPerfume ->
-            searchJob?.cancel()
-            searchJob = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-                viewModel.requestPerfumeWithName(nameOfPerfume)
-                    .collectLatest {
-                        perfumeSelectAdapter.submitData(it)
-                    }
-            }
+            viewModel.requestPerfumeWithName(nameOfPerfume)
         }
     }
 

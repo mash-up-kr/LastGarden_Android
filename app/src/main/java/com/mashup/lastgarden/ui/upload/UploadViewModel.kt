@@ -13,16 +13,12 @@ import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.ui.upload.perfume.PerfumeItem
 import com.mashup.lastgarden.ui.upload.perfume.PerfumeSelectedItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -47,25 +43,37 @@ class UploadViewModel @Inject constructor(
     val isEnabledUploadButton: LiveData<Boolean>
         get() = _isEnabledUploadButton
 
-    private val _queryOfPerfume = MutableLiveData<String>()
-    val queryOfPerfume: LiveData<String>
+    private val _queryOfPerfume = MutableStateFlow("")
+    val queryOfPerfume: StateFlow<String>
         get() = _queryOfPerfume
 
-    private val _selectedPerfume =
-        MutableSharedFlow<PerfumeItem>(
-            replay = 0,
-            extraBufferCapacity = 1,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST
-        )
-    val selectedPerfume: SharedFlow<PerfumeItem> = _selectedPerfume
+    private val _selectedPerfume = MutableStateFlow<PerfumeItem>(PerfumeItem.EmptyPerfume)
+    val selectedPerfume: StateFlow<PerfumeItem> = _selectedPerfume
 
     private val _onStorySaveSuccess = MutableStateFlow(false)
     val onStorySaveSuccess: StateFlow<Boolean> = _onStorySaveSuccess
 
-    init {
-        viewModelScope.launch {
-            _selectedPerfume.emit(PerfumeItem.EmptyPerfume)
-        }
+    val searchedPerfumeList by lazy {
+        queryOfPerfume.flatMapConcat { query ->
+            perfumeRepository.getPerfumesWithName(PAGE_SIZE, query)
+        }.cachedIn(viewModelScope)
+            .combine(selectedPerfume) { pagingData, selectedItem ->
+                pagingData.map { perfume ->
+                    val isSelected = if (selectedItem is PerfumeItem.PerfumeSearchedItem) {
+                        perfume.perfumeId == selectedItem.id
+                    } else {
+                        false
+                    }
+                    PerfumeSelectedItem(
+                        id = perfume.perfumeId,
+                        imageUrl = perfume.thumbnailUrl,
+                        brandName = perfume.brandName,
+                        name = perfume.koreanName,
+                        likeCount = perfume.likeCount ?: 0,
+                        isSelected = isSelected
+                    )
+                }
+            }
     }
 
     fun addTag(newTag: String) {
@@ -117,7 +125,11 @@ class UploadViewModel @Inject constructor(
         }
 
     fun uploadStory() = viewModelScope.launch {
-        val savedImage = savaImage()
+        val editedImage = editedImage.value
+        val savedImage = perfumeRepository.uploadImage(
+            key = KEY_IMAGE_FILE,
+            image = editedImage ?: return@launch
+        )
         savedImage?.let {
             val story = storyRepository.uploadStory(
                 imageId = savedImage.imageId,
@@ -125,16 +137,6 @@ class UploadViewModel @Inject constructor(
                 tags = tagSet.value?.toList() ?: emptyList()
             )
             _onStorySaveSuccess.emit(story != null)
-        }
-    }
-
-    private suspend fun savaImage() = withContext(Dispatchers.IO) {
-        val editedImage = editedImage.value
-
-        if (editedImage != null) {
-            return@withContext perfumeRepository.uploadImage(KEY_IMAGE_FILE, editedImage)
-        } else {
-            return@withContext null
         }
     }
 }
