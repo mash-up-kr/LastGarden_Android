@@ -8,6 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface StoryService {
 
@@ -16,7 +17,8 @@ interface StoryService {
 
     @GET("perfume/{id}/story")
     suspend fun getPerfumeStoryList(
-        @Path("id") storyId: Int
+        @Path("id") storyId: Int,
+        @Query("cursor") cursor: Int? = null
     ): NetworkDataResponse<List<Story>>
 
     @GET("story/{id}")
