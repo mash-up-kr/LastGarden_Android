@@ -1,6 +1,7 @@
 package com.mashup.lastgarden.network.services
 
 import com.mashup.lastgarden.data.vo.Story
+import com.mashup.lastgarden.network.response.LikeResponse
 import com.mashup.lastgarden.network.response.NetworkDataResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -28,7 +29,3 @@ interface StoryService {
         @Path("id") storyId: Int
     ): NetworkDataResponse<LikeResponse>
 }
-
-data class LikeResponse(
-    val isLike: Boolean
-)

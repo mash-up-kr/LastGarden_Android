@@ -38,7 +38,7 @@ class ScentViewModel @Inject constructor(
     fun getPerfumeStory(storyId: Int) {
         viewModelScope.launch {
             list.add(storyRepository.fetchPerfumeStory(storyId))
-            _perfumeStoryList.value = list.toList()
+            _perfumeStoryList.value = list
         }
     }
 

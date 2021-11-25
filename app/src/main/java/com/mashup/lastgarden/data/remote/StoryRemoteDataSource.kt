@@ -1,9 +1,9 @@
 package com.mashup.lastgarden.data.remote
 
 import com.mashup.lastgarden.data.vo.Story
+import com.mashup.lastgarden.network.response.LikeResponse
 import com.mashup.lastgarden.network.response.onErrorReturnData
 import com.mashup.lastgarden.network.response.onErrorReturnDataNull
-import com.mashup.lastgarden.network.services.LikeResponse
 import com.mashup.lastgarden.network.services.StoryService
 import javax.inject.Inject
 import javax.inject.Singleton

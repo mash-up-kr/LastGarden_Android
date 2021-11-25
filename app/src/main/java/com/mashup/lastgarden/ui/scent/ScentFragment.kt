@@ -68,8 +68,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
     }
 
     override fun onCommentClick(scentId: Int) {
-        val bottomSheetDialog = ScentCommentBottomSheetFragment()
-        bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
+        ScentCommentBottomSheetFragment().show(requireActivity().supportFragmentManager, "")
     }
 
     override fun onLikeClick(scentId: Int) {
