@@ -25,7 +25,6 @@ interface StoryService {
 
     @POST("story/{id}/like")
     suspend fun getStoryLike(
-        @Header("Authorization") token: String,
         @Path("id") storyId: Int
     ): NetworkDataResponse<LikeResponse>
 }

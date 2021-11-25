@@ -15,7 +15,7 @@ class StoryRepository @Inject constructor(private val remote: StoryRemoteDataSou
     suspend fun fetchPerfumeStory(storyId: Int): Story? =
         remote.getPerfumeStory(storyId)
 
-    suspend fun getStoryLike(token: String, storyId: Int): LikeResponse? =
-        remote.getStoryLike(token, storyId)
+    suspend fun getStoryLike(storyId: Int): LikeResponse? =
+        remote.getStoryLike(storyId)
 
 }

@@ -44,9 +44,7 @@ class ScentViewModel @Inject constructor(
 
     fun getPerfumeStoryLike(storyId: Int) {
         viewModelScope.launch {
-            //TODO token 나중에 제거
-            val token = ""
-            storyRepository.getStoryLike(token, storyId)
+            storyRepository.getStoryLike(storyId)
             //TODO 좋아요 API 호출 후 리스트 다시 가져오기
         }
     }
