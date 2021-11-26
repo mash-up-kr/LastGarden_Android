@@ -56,7 +56,7 @@ class ScentPagingAdapter(
             val pageCount =
                 (bindingAdapterPosition + 1).toString() + " / " + numberFormatter(itemCount.toLong())
             pageCountTextView.text = pageCount
-            profileImageView.setImageUrl(glideRequests, item.perfumeImageUrl)
+            profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             nicknameTextView.text = item.userNickname
             dateTextView.text = dateConverter(item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
