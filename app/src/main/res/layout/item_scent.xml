@@ -33,13 +33,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:background="@drawable/background_gradation_bottom">
-
 
         <com.mashup.lastgarden.customview.UserImageView
             android:id="@+id/profileImageView"
@@ -136,4 +134,5 @@
             app:layout_constraintStart_toEndOf="@id/likeImageView"
             app:layout_constraintTop_toTopOf="@id/likeImageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>
