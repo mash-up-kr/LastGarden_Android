@@ -42,7 +42,7 @@ class ScentViewPagerAdapter(
     private fun ScentViewHolder.bindImageView(item: Story) {
         binding.run {
             glideRequests.load(item.imageUrl).into(binding.scentImageView)
-            profileImageView.setImageUrl(glideRequests, item.perfumeThumbnailUrl)
+            profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
