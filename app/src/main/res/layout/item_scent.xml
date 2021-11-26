@@ -1,111 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topGuideLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <ImageView
-        android:id="@+id/topGradientImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_gradation_top"
-        app:layout_constraintBottom_toBottomOf="@id/topGuideLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="contentDescription" />
 
     <ImageView
         android:id="@+id/scentImageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="contentDescription" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottomGuideLine"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        tools:ignore="contentDescription"/>
 
     <ImageView
-        android:id="@+id/bottomGradientImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_gradation_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottomGuideLine"
-        tools:ignore="ContentDescription" />
-
-    <com.mashup.lastgarden.customview.UserImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@id/dateTextView"
-        app:layout_constraintStart_toStartOf="@id/tagListTextView" />
-
-    <TextView
-        android:id="@+id/nicknameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/profileImageView"
-        app:layout_constraintStart_toEndOf="@id/profileImageView"
-        app:layout_constraintTop_toTopOf="@id/profileImageView" />
-
-    <TextView
-        android:id="@+id/dateTextView"
-        style="@style/TextAppearance.SeeHyangComponents.Body3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@id/tagListTextView"
-        app:layout_constraintStart_toStartOf="@id/profileImageView" />
-
-    <kr.co.prnd.readmore.ReadMoreTextView
-        android:id="@+id/tagListTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@id/likeImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/likeImageView"
-        app:readMoreColor="@color/white"
-        app:readMoreMaxLine="2"
-        app:readMoreText="@string/tv_more" />
+        android:id="@+id/topGradientImageView"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/background_gradation_top"
+        tools:ignore="contentDescription"/>
 
     <TextView
         android:id="@+id/pageCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
         android:layout_marginTop="20dp"
         android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
         android:textColor="@color/white"
@@ -114,48 +33,107 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/commentImageView"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone"
-        android:background="@drawable/ic_comment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="contentDescription" />
 
-    <TextView
-        android:id="@+id/commentCountTextView"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        android:textColor="@color/white"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_gravity="center|bottom"
+        android:background="@drawable/background_gradation_bottom">
 
-    <ImageView
-        android:id="@+id/likeImageView"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="contentDescription" />
 
-    <TextView
-        android:id="@+id/likeCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/likeImageView"
-        app:layout_constraintStart_toEndOf="@id/likeImageView"
-        app:layout_constraintTop_toTopOf="@id/likeImageView" />
+        <com.mashup.lastgarden.customview.UserImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/dateTextView"
+            app:layout_constraintStart_toStartOf="@id/tagListTextView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/nicknameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/profileImageView"
+            app:layout_constraintStart_toEndOf="@id/profileImageView"
+            app:layout_constraintTop_toTopOf="@id/profileImageView" />
+
+        <TextView
+            android:id="@+id/dateTextView"
+            style="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/tagListTextView"
+            app:layout_constraintStart_toStartOf="@id/profileImageView" />
+
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:id="@+id/tagListTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="13dp"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/likeImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/likeImageView"
+            app:readMoreColor="@color/white"
+            app:readMoreMaxLine="2"
+            app:readMoreText="@string/tv_more" />
+
+        <ImageView
+            android:id="@+id/commentImageView"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/ic_comment"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/commentCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/likeImageView"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="contentDescription" />
+
+        <TextView
+            android:id="@+id/likeCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/likeImageView"
+            app:layout_constraintStart_toEndOf="@id/likeImageView"
+            app:layout_constraintTop_toTopOf="@id/likeImageView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
