@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="0dp"
@@ -61,7 +60,7 @@
     <EditText
         android:id="@+id/nameEditText"
         style="@style/TextAppearance.SeeHyangComponents.Body1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="4dp"
@@ -89,9 +88,11 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/TextAppearance.SeeHyangComponents.Body3"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="21dp"
+        android:textColor="@color/colorGrey2"
         android:text="@string/sign_information_name_regex"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/infoImage"
@@ -111,6 +112,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
