@@ -106,7 +106,7 @@
       },
       {
         "tableName": "stories",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`story_id` INTEGER NOT NULL, `story_perfume_image_url` TEXT, `story_thumbnail_url` TEXT, `story_user_profile_image` TEXT, `story_user_nickname` TEXT NOT NULL, `story_like_count` INTEGER, PRIMARY KEY(`story_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`story_id` INTEGER NOT NULL, `story_perfume_image_url` TEXT, `story_user_id` INTEGER NOT NULL, `story_thumbnail_url` TEXT, `story_created_date` TEXT NOT NULL, `story_user_profile_image` TEXT, `story_user_nickname` TEXT NOT NULL, `story_like_count` INTEGER, PRIMARY KEY(`story_id`))",
         "fields": [
           {
             "fieldPath": "storyId",
@@ -121,10 +121,22 @@
             "notNull": false
           },
           {
+            "fieldPath": "userId",
+            "columnName": "story_user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "thumbnailUrl",
             "columnName": "story_thumbnail_url",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "story_created_date",
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "userProfileImage",

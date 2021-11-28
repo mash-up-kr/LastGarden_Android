@@ -50,8 +50,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
-        viewModel.getScentList(0)
-        viewModel.scentList.observe(viewLifecycleOwner) {
+
+        //TODO 분기처리해서 함수호출
+        viewModel.getPerfumeStoryList(1)
+        viewModel.perfumeStoryList.observe(viewLifecycleOwner) {
             binding.scentViewPager.adapter = ScentViewPagerAdapter(it, glideRequests, this)
         }
 
@@ -61,19 +63,16 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
                 Sort.LATEST -> binding.sortButton.text = getString(R.string.radio_btn_middle)
                 else -> binding.sortButton.text = getString(R.string.radio_btn_bottom)
             }
-            //TODO it 번째로 정렬 함수 호출
+            //TODO 필터 API 적용
         }
     }
 
     override fun onCommentClick(scentId: Int) {
-        //TODO id 해당하는 Comment Bottom Sheet 띄우기
-
+        ScentCommentBottomSheetFragment().show(requireActivity().supportFragmentManager, "")
     }
 
     override fun onLikeClick(scentId: Int) {
-        //TODO id 포스트 좋아요 처리
-        val bottomSheetDialog = ScentCommentBottomSheetFragment()
-        bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
+        viewModel.getPerfumeStoryLike(scentId)
     }
 
 }

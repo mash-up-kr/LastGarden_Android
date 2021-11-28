@@ -87,4 +87,7 @@
     <string name="reply">답글</string>
     <string name="write_comment">댓글쓰기</string>
     <string name="perfume_recommend_title">꾸준히 사랑받는 향수</string>
+    <string name="year">"년 "</string>
+    <string name="month">"월 "</string>
+    <string name="date">일</string>
 </resources>

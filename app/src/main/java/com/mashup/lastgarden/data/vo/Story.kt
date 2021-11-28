@@ -12,9 +12,11 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "stories")
 data class Story(
     @PrimaryKey @ColumnInfo(name = "story_id") @SerializedName("id") val storyId: Int,
-    @ColumnInfo(name = "story_perfume_image_url") val perfumeImageUrl: String? = null,
+    @ColumnInfo(name = "story_perfume_image_url") @SerializedName("imageUrl") val perfumeImageUrl: String? = null,
+    @ColumnInfo(name = "story_user_id") val userId: Int,
     @ColumnInfo(name = "story_thumbnail_url") val thumbnailUrl: String? = null,
-    @ColumnInfo(name = "story_user_profile_image") val userProfileImage: String? = null,
+    @ColumnInfo(name = "story_created_date") val createdAt: String,
+    @ColumnInfo(name = "story_user_profile_image") @SerializedName("userProfileImageUrl") val userProfileImage: String? = null,
     @ColumnInfo(name = "story_user_nickname") val userNickname: String,
     @ColumnInfo(name = "story_like_count") val likeCount: Long? = 0L,
     @Ignore val tags: List<Tag>? = emptyList()
@@ -22,14 +24,18 @@ data class Story(
     constructor(
         storyId: Int,
         perfumeImageUrl: String?,
+        userId: Int,
         thumbnailUrl: String?,
         userProfileImage: String?,
+        createdAt: String,
         userNickname: String,
         likeCount: Long?
     ) : this(
         storyId = storyId,
         perfumeImageUrl = perfumeImageUrl,
+        userId = userId,
         thumbnailUrl = thumbnailUrl,
+        createdAt = createdAt,
         userProfileImage = userProfileImage,
         userNickname = userNickname,
         likeCount = likeCount,

@@ -79,13 +79,17 @@
             android:textColor="@color/grey1" />
     </RadioGroup>
 
-    <Button
+    <TextView
         android:id="@+id/finishButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="25dp"
         android:text="@string/btn_finish"
-        android:theme="@style/Widget.SeeHyangComponents.Button"
+        android:background="@drawable/btn_apply_background_round"
+        android:paddingVertical="15dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/radioGroup"
         app:layout_constraintStart_toStartOf="@id/radioGroup"
