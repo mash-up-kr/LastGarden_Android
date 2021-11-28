@@ -17,10 +17,10 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.FragmentScentBinding
-import com.mashup.lastgarden.extensions.dateConverter
-import com.mashup.lastgarden.extensions.numberFormatter
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.scent.comment.ScentCommentBottomSheetFragment
+import com.mashup.lastgarden.utils.convertDate
+import com.mashup.lastgarden.utils.formatNumber
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -83,7 +83,6 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
                 lifecycleScope.launchWhenCreated {
                     viewModel.getPerfumeStoryLists(perfumeId).collectLatest {
                         perfumeStoryAdapter.submitData(it)
-                        binding.sortButton.isVisible = true
                     }
                 }
             }
@@ -99,6 +98,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         viewModel.perfumeStoryList.observe(viewLifecycleOwner) {
             binding.scentRecyclerView.adapter = ScentViewPagerAdapter(it, glideRequests, this)
             binding.detailButton.isVisible = true
+            binding.sortButton.isVisible = false
         }
         viewModel.storyIndex.observe(viewLifecycleOwner) {
             binding.scentRecyclerView.scrollToPosition(it)
@@ -106,7 +106,8 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
         viewModel.perfumeStory.observe(viewLifecycleOwner) {
             if (it != null) {
-                setScentItem(it)
+                binding.sortButton.isVisible = false
+                setPerfumeStory(it)
             }
         }
 
@@ -122,8 +123,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     private fun setupBottomSheet() {
         binding.sortButton.setOnClickListener {
-            val bottomSheetDialog = ScentSortBottomSheetFragment()
-            bottomSheetDialog.show(requireActivity().supportFragmentManager, "")
+            //TODO API 나오면 업데이트
         }
     }
 
@@ -135,17 +135,29 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         snapHelper.attachToRecyclerView(binding.scentRecyclerView)
     }
 
-    private fun setScentItem(item: Story) {
+    private fun setPerfumeStory(item: Story) {
         binding.scentRecyclerView.isVisible = false
         binding.sortButton.isVisible = false
         binding.includeScentLayout.root.isVisible = true
+
+        bindTextView(item)
+        bindImageView(item)
+    }
+
+    private fun bindTextView(item: Story) {
         binding.includeScentLayout.run {
             pageCountTextView.isVisible = false
-            profileImageView.setImageUrl(glideRequests, item.perfumeImageUrl)
             nicknameTextView.text = item.userNickname
-            dateTextView.text = dateConverter(item.createdAt)
+            dateTextView.text = convertDate(requireActivity().resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
-            likeCountTextView.text = item.likeCount?.let { numberFormatter(it) }
+            likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
+            //TODO like 이미지 설정
+        }
+    }
+
+    private fun bindImageView(item: Story) {
+        binding.includeScentLayout.run {
+            profileImageView.setImageUrl(glideRequests, item.perfumeImageUrl)
             commentImageView.setOnClickListener { onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { onLikeClick(item.storyId) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
