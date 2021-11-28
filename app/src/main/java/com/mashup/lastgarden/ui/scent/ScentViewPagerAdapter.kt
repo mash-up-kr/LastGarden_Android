@@ -36,14 +36,28 @@ class ScentViewPagerAdapter(
     }
 
     private fun ScentViewHolder.bind(item: Story) {
-        glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
+        bindImageView(item)
+        bindTextView(item)
+    }
+
+    private fun ScentViewHolder.bindImageView(item: Story) {
+        binding.run {
+            glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
+            profileImageView.setImageUrl(glideRequests, item.perfumeImageUrl)
+            commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
+            likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
+            likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
+            //TODO like 이미지 설정
+        }
+    }
+
+    private fun ScentViewHolder.bindTextView(item: Story) {
         binding.run {
             val pageCount =
                 (bindingAdapterPosition + 1).toString() + " / " + list?.size?.let {
                     formatNumber(it.toLong())
                 }
             pageCountTextView.text = pageCount
-            profileImageView.setImageUrl(glideRequests, item.perfumeImageUrl)
             nicknameTextView.text = item.userNickname
             dateTextView.text = convertDate(binding.dateTextView.context.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }

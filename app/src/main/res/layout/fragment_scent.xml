@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.scent.ScentFragment">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/scentViewPager"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scentRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,5 +44,6 @@
         android:background="@drawable/ic_close"
         android:drawableTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="contentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>
