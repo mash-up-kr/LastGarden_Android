@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
             <TextView
-                android:id="@+id/titleTextView"
+                android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -80,9 +80,9 @@
                 android:layout_marginTop="7dp"
                 android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
                 android:textColor="#797979"
-                app:layout_constraintEnd_toEndOf="@id/titleTextView"
-                app:layout_constraintStart_toStartOf="@id/titleTextView"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Gabrielle Essence Chanel for women" />
 
             <com.google.android.material.tabs.TabLayout

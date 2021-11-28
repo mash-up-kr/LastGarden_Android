@@ -13,7 +13,7 @@
         android:layout_marginStart="20dp"
         android:background="@drawable/ic_reply"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <include
         android:id="@+id/include_detail_layout"

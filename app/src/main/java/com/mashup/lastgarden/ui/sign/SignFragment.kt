@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -86,6 +87,8 @@ class SignInFragment : BaseViewModelFragment() {
     }
 
     private fun moveSignInformationFragment() {
-        // TODO: 닉네임 입력 화면으로 이동
+        findNavController().navigate(
+            R.id.actionSignInFragmentToSignInInputNameFragment
+        )
     }
 }
