@@ -10,8 +10,8 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.ItemScentBinding
-import com.mashup.lastgarden.extensions.dateConverter
-import com.mashup.lastgarden.extensions.numberFormatter
+import com.mashup.lastgarden.utils.convertDate
+import com.mashup.lastgarden.utils.formatNumber
 
 class ScentPagingAdapter(
     private val glideRequests: GlideRequests,
@@ -54,13 +54,13 @@ class ScentPagingAdapter(
         glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
         binding.run {
             val pageCount =
-                (bindingAdapterPosition + 1).toString() + " / " + numberFormatter(itemCount.toLong())
+                (bindingAdapterPosition + 1).toString() + " / " + formatNumber(itemCount.toLong())
             pageCountTextView.text = pageCount
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             nicknameTextView.text = item.userNickname
-            dateTextView.text = dateConverter(item.createdAt)
+            dateTextView.text = convertDate(dateTextView.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
-            likeCountTextView.text = item.likeCount?.let { numberFormatter(it) }
+            likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)

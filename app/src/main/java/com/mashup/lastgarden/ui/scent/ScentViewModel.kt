@@ -26,7 +26,7 @@ class ScentViewModel @Inject constructor(
     val storyIndex: LiveData<Int>
         get() = _storyIndex
 
-    private var _sortOrder = MutableLiveData(Sort.POPULARITY)
+    private var _sortOrder = MutableLiveData(Sort.LATEST)
     val sortOrder: LiveData<Sort>
         get() = _sortOrder
 
