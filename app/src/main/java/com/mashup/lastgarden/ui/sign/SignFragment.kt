@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.ui.sign
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -21,7 +23,10 @@ import com.mashup.base.extensions.underLine
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentSignBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignInFragment : BaseViewModelFragment() {
@@ -37,7 +42,7 @@ class SignInFragment : BaseViewModelFragment() {
         val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         try {
             val account = task.getResult(ApiException::class.java)
-            firebaseAuthWithGoogle(account.idToken)
+            firebaseAuthWithGoogle(account.idToken, account.email)
         } catch (exception: ApiException) {
             Log.e(SignInFragment::class.java.simpleName, exception.stackTraceToString())
         }
@@ -58,6 +63,9 @@ class SignInFragment : BaseViewModelFragment() {
         super.onSetupViews(view)
 
         binding.unUsedSign.underLine()
+        binding.unUsedSign.setOnClickListener {
+            moveMainActivity()
+        }
         binding.loginGoogleButton.setOnClickListener {
             requestGoogleLogin()
         }
@@ -69,8 +77,20 @@ class SignInFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnCreate() {
-        viewModel.accessToken.observe(this) {
-            moveSignInformationFragment()
+        lifecycleScope.launch {
+            viewModel.hasAccessToken.collectLatest { hasAccessToken ->
+                if (hasAccessToken) {
+                    moveSignInformationFragment()
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.alreadyExistUser.collectLatest { isAlreadyExistUser ->
+                if (isAlreadyExistUser) {
+                    moveMainActivity()
+                }
+            }
         }
     }
 
@@ -83,12 +103,12 @@ class SignInFragment : BaseViewModelFragment() {
         return GoogleSignIn.getClient(requireActivity(), googleSignInOption)
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String?) {
+    private fun firebaseAuthWithGoogle(idToken: String?, email: String?) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) {
                 idToken?.let {
-                    viewModel.requestSignIn(idToken, AuthType.GOOGLE)
+                    viewModel.requestSignIn(idToken, email, AuthType.GOOGLE)
                 }
             }
     }
@@ -97,5 +117,14 @@ class SignInFragment : BaseViewModelFragment() {
         findNavController().navigate(
             R.id.actionSignInFragmentToSignInInputNameFragment
         )
+    }
+
+    private fun moveMainActivity() {
+        requireActivity().run {
+            startActivity(
+                Intent(requireContext(), MainActivity::class.java)
+            )
+            finish()
+        }
     }
 }

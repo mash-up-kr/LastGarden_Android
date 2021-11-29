@@ -8,11 +8,15 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UserService {
 
     @POST("user")
     suspend fun signUser(@Body params: RequestBody): NetworkDataResponse<Token>
+
+    @GET("login")
+    suspend fun loginUser(@Query("email") email: String): NetworkDataResponse<Token>
 
     @GET("user/{nickname}")
     suspend fun checkDuplicatedUserName(

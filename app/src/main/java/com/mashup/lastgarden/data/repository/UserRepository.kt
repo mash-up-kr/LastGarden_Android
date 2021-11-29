@@ -11,7 +11,11 @@ class UserRepository @Inject constructor(private val remote: UserRemoteDataSourc
     suspend fun signUser(
         idToken: String,
         oAuthType: AuthType
-    ): Token? = remote.signUser(idToken, oAuthType)
+    ) = remote.signUser(idToken, oAuthType)
+
+    suspend fun loginUser(
+        email: String
+    ) = remote.loginUser(email)
 
     suspend fun checkValidNickName(name: String): ValidUserNickName? =
         remote.checkDuplicatedUserName(name)

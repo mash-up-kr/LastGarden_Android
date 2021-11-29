@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val _snackBarStringResId = MutableStateFlow(0)
-    val snackBarStringResId: StateFlow<Int>
+    protected val _snackBarStringResId = MutableStateFlow<Int?>(null)
+    val snackBarStringResId: StateFlow<Int?>
         get() = _snackBarStringResId
 
     protected val _isLoading = MutableStateFlow(false)
