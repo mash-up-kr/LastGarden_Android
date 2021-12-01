@@ -55,8 +55,8 @@ class ScentListFragment : BaseViewModelFragment() {
     }
 
     private fun initRecyclerView() {
-        binding.recyclerView.layoutManager =
+        binding.scentListRecyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.recyclerView.adapter = perfumeDetailAdapter
+        binding.scentListRecyclerView.adapter = perfumeDetailAdapter
     }
 }

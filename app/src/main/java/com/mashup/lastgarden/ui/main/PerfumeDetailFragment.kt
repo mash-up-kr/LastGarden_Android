@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
@@ -14,6 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.base.autoCleared
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
+import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
@@ -54,7 +56,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         addListenerOnLikeButton()
     }
 
-    override fun onBindViewModelsOnCreate() {
+    override fun onBindViewModelsOnViewCreated() {
         lifecycleScope.launchWhenCreated {
             viewModel.perfumeDetailItem
                 .filterNotNull()
@@ -96,22 +98,34 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
             ScentListFragment()
         )
         binding.viewPager.adapter = viewPagerAdapter
-        binding.viewPager.setPageTransformer { page, _ ->
-            updatePagerHeight(page, binding.viewPager)
-        }
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updatePagerHeight(position, binding.viewPager)
+            }
+        })
     }
 
-    private fun updatePagerHeight(view: View, viewPager: ViewPager2) {
-        view.post {
-            val weightMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-            val heightMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            view.measure(weightMeasureSpec, heightMeasureSpec)
+    private fun updatePagerHeight(position: Int, viewPager: ViewPager2) {
+        if (position == 0) {
+            viewPager.post {
+                val view = viewPager.findViewById<ScrollView>(R.id.perfumeInformationContainer)
+                view.measure(
+                    View.MeasureSpec.makeMeasureSpec(
+                        View.MeasureSpec.UNSPECIFIED,
+                        View.MeasureSpec.UNSPECIFIED
+                    ),
+                    View.MeasureSpec.makeMeasureSpec(
+                        View.MeasureSpec.UNSPECIFIED,
+                        View.MeasureSpec.UNSPECIFIED
+                    )
+                )
 
-            if (viewPager.layoutParams.height != view.measuredHeight) {
-                viewPager.updateLayoutParams {
-                    height = view.measuredHeight
+                if (viewPager.layoutParams.height != view.measuredHeight) {
+                    viewPager.updateLayoutParams {
+                        val maxHeight = resources.displayMetrics.heightPixels - 246.dp
+                        height = view.measuredHeight.coerceAtMost(maxHeight)
+                    }
                 }
             }
         }
