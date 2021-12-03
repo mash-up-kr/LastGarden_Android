@@ -4,17 +4,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.haroldadmin.cnradapter.NetworkResponse
 import com.mashup.base.BaseViewModel
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.PerfumeSharedPreferences
 import com.mashup.lastgarden.data.repository.UserRepository
-import com.mashup.lastgarden.data.vo.Token
 import com.mashup.lastgarden.data.vo.User
-import com.mashup.lastgarden.network.response.onErrorReturnDataNull
+import com.mashup.lastgarden.network.NetworkCode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,14 +26,6 @@ class SignViewModel @Inject constructor(
 ) : BaseViewModel() {
     private var userAge: Int? = null
 
-    private val _createdUser = MutableLiveData<User>()
-    val createdUser: LiveData<User>
-        get() = _createdUser
-
-    private val _loginToken = MutableLiveData<Token>()
-    val loginToken: LiveData<Token>
-        get() = _loginToken
-
     private val _userName = MutableLiveData<String>()
     val userName: LiveData<String>
         get() = _userName
@@ -42,13 +34,13 @@ class SignViewModel @Inject constructor(
     val genderType: LiveData<GenderType>
         get() = _genderType
 
-    private val _hasAccessToken = MutableStateFlow(false)
-    val hasAccessToken: StateFlow<Boolean>
-        get() = _hasAccessToken
+    private val _user = MutableSharedFlow<User>()
+    val user: SharedFlow<User>
+        get() = _user
 
-    private val _alreadyExistUser = MutableStateFlow(false)
-    val alreadyExistUser: StateFlow<Boolean>
-        get() = _isValidName
+    private val _needUserRegister = MutableStateFlow(false)
+    val needUserRegister: StateFlow<Boolean>
+        get() = _needUserRegister
 
     private val _isValidName = MutableStateFlow(false)
     val isValidName: StateFlow<Boolean>
@@ -78,42 +70,57 @@ class SignViewModel @Inject constructor(
 
     fun checkDuplicatedUserName() = viewModelScope.launch {
         userName.value?.let { name ->
-            val validNickName = userRepository.checkValidNickName(name)
+            val result = userRepository.checkValidNickName(name)
 
-            if (validNickName?.isDuplicated == true) {
-                _snackBarStringResId.value = R.string.sign_duplicated_name
+            if (result.data?.isDuplicated != false) {
+                _snackBarStringResId.emit(R.string.sign_duplicated_name)
             }
-            _isValidName.value = validNickName?.isDuplicated == false
+            _isValidName.emit(result.data?.isDuplicated == false)
         }
     }
 
-    private fun checkUserInformation() {
-        _isValidUserInformation.value = userAge != null && _genderType.value != null
+    private fun checkUserInformation() = viewModelScope.launch {
+        _isValidUserInformation.emit(userAge != null && _genderType.value != null)
     }
 
-    fun requestSignIn(idToken: String, email: String?, authType: AuthType) = viewModelScope.launch {
+    fun requestLogin(idToken: String, email: String?, authType: AuthType) = viewModelScope.launch {
         val result = userRepository.signUser(idToken, authType)
-        val token = result.onErrorReturnDataNull()
 
-        token?.token?.let { accessToken ->
-            _hasAccessToken.emit(true)
-            setUserAccessToken(accessToken)
-        } ?: kotlin.run {
-
-            when (result) {
-                is NetworkResponse.UnknownError -> {
-                    //TODO: exist user error code check
-                    email?.let {
-                        val loginToken = userRepository.loginUser(email)
-                        loginToken?.let { loginAccessToken ->
-                            _alreadyExistUser.emit(true)
-                            setUserAccessToken(loginAccessToken.token)
-                        }
+        when (result.code) {
+            NetworkCode.EXIST_USER -> {
+                email?.let {
+                    val loginToken = userRepository.loginUser(email)
+                    loginToken.data?.let { loginAccessToken ->
+                        setUserAccessToken(loginAccessToken.token)
+                        getUser()
                     }
                 }
-                else -> {}
+            }
+            null -> {
+                result.data?.token?.let { accessToken ->
+                    setUserAccessToken(accessToken)
+                    getUser()
+                }
             }
         }
+    }
+
+    fun registerUser() = viewModelScope.launch {
+        val user = userRepository.registerUser(
+            age = userAge ?: return@launch,
+            genderType = genderType.value ?: return@launch,
+            nickName = _userName.value ?: return@launch
+        )
+        user?.let { _user.emit(user) }
+        _needUserRegister.emit(user == null)
+    }
+
+    private fun getUser() = viewModelScope.launch {
+        val user = userRepository.getUser()
+        if (user != null && !user.isEmpty()) {
+            _user.emit(user)
+        }
+        _needUserRegister.emit(user == null || user.isEmpty())
     }
 
     private fun setUserAccessToken(accessToken: String?) {

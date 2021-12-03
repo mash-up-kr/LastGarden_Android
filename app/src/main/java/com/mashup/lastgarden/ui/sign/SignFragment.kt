@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,7 +33,7 @@ import kotlinx.coroutines.launch
 class SignInFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignBinding>()
-    private val viewModel: SignViewModel by viewModels()
+    private val viewModel: SignViewModel by activityViewModels()
     private val firebaseAuth: FirebaseAuth by lazy { Firebase.auth }
     private val googleSignInClient: GoogleSignInClient by lazy { getGoogleClient() }
 
@@ -78,18 +79,18 @@ class SignInFragment : BaseViewModelFragment() {
 
     override fun onBindViewModelsOnCreate() {
         lifecycleScope.launch {
-            viewModel.hasAccessToken.collectLatest { hasAccessToken ->
+            viewModel.needUserRegister.collectLatest { hasAccessToken ->
                 if (hasAccessToken) {
                     moveSignInformationFragment()
                 }
             }
         }
+    }
 
-        lifecycleScope.launch {
-            viewModel.alreadyExistUser.collectLatest { isAlreadyExistUser ->
-                if (isAlreadyExistUser) {
-                    moveMainActivity()
-                }
+    override fun onBindViewModelsOnViewCreated() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.user.collectLatest {
+                moveMainActivity()
             }
         }
     }
@@ -108,7 +109,7 @@ class SignInFragment : BaseViewModelFragment() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) {
                 idToken?.let {
-                    viewModel.requestSignIn(idToken, email, AuthType.GOOGLE)
+                    viewModel.requestLogin(idToken, email, AuthType.GOOGLE)
                 }
             }
     }
