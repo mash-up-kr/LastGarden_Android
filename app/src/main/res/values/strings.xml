@@ -2,10 +2,15 @@
     <string name="app_name">LastGarden</string>
     <string name="common_cancel">취소</string>
     <string name="common_confirm">확인</string>
+    <string name="common_select">선택</string>
     <string name="common_add">추가</string>
     <string name="common_upload">등록하기</string>
+    <string name="common_empty_list">검색 결과가 비어있습니다.</string>
 
     <string name="need_permisson_storage">사진을 저장하기 위해서는 저장소 권한이 필요합니다.</string>
+
+    <string name="hint_search_edit_text">내가 사용한 향수를 검색해보세요.</string>
+    <string name="result_title_searching">‘%s’ 검색 결과입니다.</string>
 
     <!-- Sign Information -->
     <string name="sign_explain_label">간편하게 씨향 시작하기</string>
@@ -74,6 +79,8 @@
     <string name="upload_only_show_to_me">나만 보기</string>
     <string name="upload_perfume_section_title">향수 선택</string>
     <string name="upload_tag_section_title">태그 추가</string>
+    <string name="upload_success_story_save">스토리 업로드가 성공했습니다.</string>
+    <string name="upload_failed_story_save_success">스토리 업로드가 실패했습니다.</string>
     <string name="upload_title">씨향지 만들기</string>
     <string name="editor_failed_save_edited_image">이미지 저장에 실패했습니다..</string>
 
@@ -90,4 +97,6 @@
     <string name="year">"년 "</string>
     <string name="month">"월 "</string>
     <string name="date">일</string>
+
+    <string name="perfume_select_label">향수 선택</string>
 </resources>

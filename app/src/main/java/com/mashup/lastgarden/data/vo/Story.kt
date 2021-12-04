@@ -23,8 +23,8 @@ data class Story(
 ) {
     constructor(
         storyId: Int,
-        perfumeImageUrl: String?,
         userId: Int,
+        perfumeImageUrl: String?,
         thumbnailUrl: String?,
         userProfileImage: String?,
         createdAt: String,
@@ -32,8 +32,8 @@ data class Story(
         likeCount: Long?
     ) : this(
         storyId = storyId,
-        perfumeImageUrl = perfumeImageUrl,
         userId = userId,
+        perfumeImageUrl = perfumeImageUrl,
         thumbnailUrl = thumbnailUrl,
         createdAt = createdAt,
         userProfileImage = userProfileImage,

@@ -16,7 +16,6 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentTagBinding
 import com.mashup.lastgarden.databinding.ItemTagBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
-import com.mashup.lastgarden.ui.upload.editor.EditorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,7 +23,7 @@ import javax.inject.Inject
 class TagFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentTagBinding>()
-    private val editorViewModel by activityViewModels<EditorViewModel>()
+    private val viewModel by activityViewModels<UploadViewModel>()
 
     @Inject
     lateinit var glideRequests: GlideRequests
@@ -51,7 +50,7 @@ class TagFragment : BaseViewModelFragment() {
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
 
-        editorViewModel.tagList.observe(viewLifecycleOwner) { tagList ->
+        viewModel.tagSet.observe(viewLifecycleOwner) { tagList ->
             binding.confirmButton.isEnabled = tagList.isNotEmpty()
             drawChipGroup(tagList)
         }
@@ -68,7 +67,7 @@ class TagFragment : BaseViewModelFragment() {
         }
         binding.addTagButton.setOnClickListener {
             val tag = binding.tagEditText.text.toString()
-            editorViewModel.addTag(tag)
+            viewModel.addTag(tag)
             binding.tagEditText.setText("")
         }
     }
@@ -95,7 +94,7 @@ class TagFragment : BaseViewModelFragment() {
         this.tag = tag
         text = getString(R.string.tag_regex, tag)
         setOnCloseIconClickListener {
-            editorViewModel.removeTag(tag)
+            viewModel.removeTag(tag)
         }
     }
 }

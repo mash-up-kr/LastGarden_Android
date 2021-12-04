@@ -5,23 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.showToast
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentUploadBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
-import com.mashup.lastgarden.ui.upload.editor.EditorViewModel
+import com.mashup.lastgarden.ui.upload.perfume.PerfumeSelectedItem
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class UploadFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentUploadBinding>()
-    private val editorViewModel by activityViewModels<EditorViewModel>()
+    private val viewModel by activityViewModels<UploadViewModel>()
 
     @Inject
     lateinit var glideRequests: GlideRequests
@@ -48,16 +52,39 @@ class UploadFragment : BaseViewModelFragment() {
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
 
-        editorViewModel.editedImage.observe(viewLifecycleOwner) { imageBitmap ->
+        viewModel.editedImage.observe(viewLifecycleOwner) { imageBitmap ->
             binding.editedImageView.setImageBitmap(imageBitmap)
         }
 
-        editorViewModel.isEnabledUploadButton.observe(viewLifecycleOwner) { isEnabled ->
+        viewModel.isEnabledUploadButton.observe(viewLifecycleOwner) { isEnabled ->
             binding.uploadButton.isEnabled = isEnabled
         }
 
-        editorViewModel.tagList.observe(viewLifecycleOwner) { tagList ->
+        viewModel.tagSet.observe(viewLifecycleOwner) { tagList ->
             binding.tagSection.selectedValue = tagList.joinToString()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.selectedPerfume.collectLatest { perfume ->
+                if (perfume is PerfumeSelectedItem) {
+                    binding.perfumeSection.selectedValue = perfume.name
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.onStorySaveSuccess.collectLatest { uploadState ->
+                when (uploadState) {
+                    UploadViewModel.UploadState.SUCCESS -> {
+                        showToast(R.string.upload_success_story_save)
+                        requireActivity().finish()
+                    }
+                    UploadViewModel.UploadState.FAILURE -> {
+                        showToast(R.string.upload_failed_story_save_success)
+                    }
+                    else -> {}
+                }
+            }
         }
     }
 
@@ -70,7 +97,7 @@ class UploadFragment : BaseViewModelFragment() {
         binding.perfumeSection.apply {
             title = getString(R.string.upload_perfume_section_title)
             setOnClickListener {
-                //TODO: 향수 검색
+                findNavController().navigate(R.id.actionUploadFragmentToPerfumeSelectFragment)
             }
         }
 
@@ -84,8 +111,7 @@ class UploadFragment : BaseViewModelFragment() {
 
     private fun setUiOfButton() {
         binding.uploadButton.setOnClickListener {
-            //TODO: upload 로직 추가
+            viewModel.uploadStory()
         }
     }
-
 }

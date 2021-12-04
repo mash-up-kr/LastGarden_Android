@@ -11,6 +11,10 @@
 
     <color name="divider_google_login">#CECECE</color>
 
+    <color name="stroke_edit_text">#E2E2E2</color>
+    <color name="background_edit_text">#F1F1F1</color>
+    <color name="hint_edit_text">#9d9d9d</color>
+
     <color name="primaryColor">#5F54F2</color>
     <color name="primaryDisableColor">#DFDDFF</color>
     <color name="pink">#FF5A82</color>

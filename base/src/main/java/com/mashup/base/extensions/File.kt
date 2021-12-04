@@ -2,7 +2,9 @@ package com.mashup.base.extensions
 
 import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
+import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -44,3 +46,7 @@ fun Uri.toContentFromInputStream(contentResolver: ContentResolver): ByteArray? {
         inputStream.close()
     }
 }
+
+fun Bitmap.getByteArray() = ByteArrayOutputStream().apply {
+    compress(Bitmap.CompressFormat.JPEG, 100, this)
+}.toByteArray()

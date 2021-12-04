@@ -8,4 +8,6 @@ object Constant {
      */
     const val PREFIX_PERFUME_ID = "P"
     const val PREFIX_STORY_ID = "S"
+
+    const val KEY_IMAGE_FILE = "image"
 }

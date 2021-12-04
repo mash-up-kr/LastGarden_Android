@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -38,6 +39,20 @@ class PerfumeView @JvmOverloads constructor(
         get() = binding.perfumeCount.toString().toLongOrNull()
         set(value) {
             binding.perfumeCount.text = value?.toString()
+        }
+
+    var isPerfumeSelected: Boolean = false
+        get() = binding.selectedImage.isVisible
+        set(value) {
+            field = value
+            binding.selectedImage.isVisible = value
+            binding.perfumeImageContainer.setBackgroundResource(
+                if (value) {
+                    R.drawable.bg_selected_perfume_on_list
+                } else {
+                    R.drawable.card_radius_background_shape
+                }
+            )
         }
 
     fun setImageUrl(glideRequests: GlideRequests, imageUrl: String?) {
