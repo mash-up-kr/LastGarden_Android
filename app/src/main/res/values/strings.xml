@@ -38,6 +38,7 @@
     <string name="sign_complete_title">반갑습니다,\n%s님 :)</string>
     <string name="sign_complete_description">향수에 대한 다양한 이미지를 공유하고,\n이야기하는 씨향에 온 걸 환영해요.</string>
     <string name="sign_complete_start_button">시작하기</string>
+    <string name="sign_need_valid_information">올바르게 모두 입력해주세요</string>
 
     <!-- Perfume Detail -->
     <string name="perfume_detail_scent_button">눈으로 시향하기</string>

@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.User
 import com.mashup.lastgarden.databinding.FragmentSignGenderBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,13 +56,22 @@ class SignInGenderFragment : BaseViewModelFragment() {
             binding.unknownCheckBox.isChecked = genderType == GenderType.BOTH
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.user.collectLatest {
-                moveSignCompleteFragment()
+        viewModel.userAge.observe(viewLifecycleOwner) { savedAge ->
+            if (binding.ageEditText.text.toString() == savedAge.toString()) {
+                return@observe
+            }
+            binding.ageEditText.setText(savedAge.toString())
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.userState.collectLatest { userState ->
+                if (userState is User) {
+                    moveSignCompleteFragment()
+                }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.isValidUserInformation.collectLatest { isValidUserInfo ->
                 binding.nextButton.isEnabled = isValidUserInfo
             }

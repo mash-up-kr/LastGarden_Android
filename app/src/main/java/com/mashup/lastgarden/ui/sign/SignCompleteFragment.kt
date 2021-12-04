@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.User
 import com.mashup.lastgarden.databinding.FragmentSignCompleteBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.main.MainActivity
@@ -46,9 +47,11 @@ class SignCompleteFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnViewCreated() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.user.collectLatest { user ->
-                binding.title.text = getString(R.string.sign_complete_title, user.nickname)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.userState.collectLatest { userState ->
+                if (userState is User) {
+                    binding.title.text = getString(R.string.sign_complete_title, userState.nickname)
+                }
             }
         }
     }

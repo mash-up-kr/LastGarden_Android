@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +21,7 @@ import com.google.firebase.ktx.Firebase
 import com.mashup.base.autoCleared
 import com.mashup.base.extensions.underLine
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.User
 import com.mashup.lastgarden.databinding.FragmentSignBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.main.MainActivity
@@ -33,7 +33,7 @@ import kotlinx.coroutines.launch
 class SignInFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignBinding>()
-    private val viewModel: SignViewModel by activityViewModels()
+    private val viewModel: SignViewModel by viewModels()
     private val firebaseAuth: FirebaseAuth by lazy { Firebase.auth }
     private val googleSignInClient: GoogleSignInClient by lazy { getGoogleClient() }
 
@@ -62,7 +62,6 @@ class SignInFragment : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-
         binding.unUsedSign.underLine()
         binding.unUsedSign.setOnClickListener {
             moveMainActivity()
@@ -89,8 +88,10 @@ class SignInFragment : BaseViewModelFragment() {
 
     override fun onBindViewModelsOnViewCreated() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.user.collectLatest {
-                moveMainActivity()
+            viewModel.userState.collectLatest { userState ->
+                if (userState is User) {
+                    moveMainActivity()
+                }
             }
         }
     }
