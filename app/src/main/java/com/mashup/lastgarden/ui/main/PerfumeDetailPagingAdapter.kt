@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.databinding.ItemPerfumeDetailBinding
 
-class PerfumeDetailPagingAdapter(private val glideRequests: GlideRequests) :
-    PagingDataAdapter<PerfumeDetailItem, PerfumeDetailViewHolder>(DIFF_CALLBACK) {
+class PerfumeDetailPagingAdapter(
+    private val glideRequests: GlideRequests
+) : PagingDataAdapter<PerfumeDetailItem, PerfumeDetailViewHolder>(DIFF_CALLBACK) {
+    private lateinit var storyClickListener: OnItemClickListener
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PerfumeDetailItem>() {
@@ -37,5 +39,16 @@ class PerfumeDetailPagingAdapter(private val glideRequests: GlideRequests) :
     override fun onBindViewHolder(holder: PerfumeDetailViewHolder, position: Int) {
         val item = getItem(position) ?: return
         holder.bind(glideRequests, item)
+        holder.itemView.setOnClickListener {
+            storyClickListener.onStoryItemClick(item.id, position)
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onStoryItemClick(storyId: Int, storyIndex: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.storyClickListener = onItemClickListener
     }
 }

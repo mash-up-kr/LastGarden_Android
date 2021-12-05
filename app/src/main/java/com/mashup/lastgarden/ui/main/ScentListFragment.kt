@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentScentListBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +46,7 @@ class ScentListFragment : BaseViewModelFragment() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
         initRecyclerView()
+        addListener()
     }
 
     override fun onBindViewModelsOnCreate() {
@@ -58,5 +62,17 @@ class ScentListFragment : BaseViewModelFragment() {
         binding.scentListRecyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.scentListRecyclerView.adapter = perfumeDetailAdapter
+    }
+
+    private fun addListener() {
+        perfumeDetailAdapter.setItemClickListener(object :
+            PerfumeDetailPagingAdapter.OnItemClickListener {
+            override fun onStoryItemClick(storyId: Int, storyIndex: Int) {
+                findNavController().navigate(
+                    R.id.actionPerfumeDetailFragmentToScentFragment,
+                    bundleOf("storyId" to storyId, "storyIndex" to storyIndex)
+                )
+            }
+        })
     }
 }

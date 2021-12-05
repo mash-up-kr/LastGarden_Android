@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.base.autoCleared
@@ -54,7 +56,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         initToolbar()
         initViewPager()
         initTabLayout()
-        addListenerOnLikeButton()
+        addListeners()
     }
 
     override fun onBindViewModelsOnViewCreated() {
@@ -151,9 +153,15 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         }
     }
 
-    private fun addListenerOnLikeButton() {
+    private fun addListeners() {
         binding.likeButton.setOnSingleClickListener {
             viewModel.likePerfume()
+        }
+        binding.nextButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.actionPerfumeDetailFragmentToScentFragment,
+                bundleOf("perfumeId" to viewModel.perfumeId)
+            )
         }
     }
 }

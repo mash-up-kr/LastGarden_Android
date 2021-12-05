@@ -28,7 +28,7 @@ class PerfumeDetailViewModel @Inject constructor(
     }
 
     // TODO: Change perfume id value
-    private val perfumeId = 1
+    val perfumeId = 1
 
     private val _perfumeDetailItem = MutableStateFlow<Perfume?>(null)
     val perfumeDetailItem: StateFlow<Perfume?> = _perfumeDetailItem
