@@ -1,6 +1,7 @@
 package com.mashup.lastgarden.ui.main
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.Note
 import com.mashup.lastgarden.databinding.FragmentPerfumeInformationBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,12 +39,13 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
         addListenersOnCheckButton()
     }
 
-    override fun onBindViewModelsOnCreate() {
+    override fun onBindViewModelsOnViewCreated() {
         lifecycleScope.launchWhenCreated {
             viewModel.perfumeDetailItem
                 .filterNotNull()
                 .collectLatest {
-                    setMainAccords()
+                    viewModel.initSelectedNote()
+                    setMainAccords(it.accords)
                     setPerfumePyramidVisibility()
                 }
         }
@@ -63,7 +66,7 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
             viewModel.noteContents
                 .filterNotNull()
                 .collectLatest { noteContents ->
-                    if (viewModel.selectedNote.value != null) {
+                    if (viewModel.selectedNoteValue != null) {
                         binding.perfumePyramidInclude.pyramidContentTextView.text = noteContents
                     } else {
                         binding.perfumePyramidInclude.noteContentTextView.text = noteContents
@@ -72,12 +75,13 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
         }
     }
 
-    private fun setMainAccords() {
-        binding.mainAccordsInclude.accordContentTextView.text = viewModel.mainAccords.value
+    private fun setMainAccords(accords: List<Note>?) {
+        binding.mainAccordsInclude.accordContentTextView.text =
+            accords?.let { TextUtils.join(", ", it.map { accord -> accord.koreanName }) }
     }
 
     private fun setPerfumePyramidVisibility() {
-        if (viewModel.selectedNote.value == null) {
+        if (viewModel.selectedNoteValue == null) {
             binding.perfumePyramidInclude.apply {
                 noteContainer.isVisible = true
                 perfumePyramidContainer.isVisible = false

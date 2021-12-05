@@ -6,7 +6,7 @@ import com.mashup.base.image.GlideRequests
 
 fun ImageView.loadImage(
     glideRequests: GlideRequests,
-    imageUrl: String,
+    imageUrl: String?,
     @DrawableRes placeholder: Int = 0,
     @DrawableRes errorImage: Int = 0,
 ) {

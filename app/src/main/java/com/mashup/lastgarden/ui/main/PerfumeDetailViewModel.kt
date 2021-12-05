@@ -33,11 +33,9 @@ class PerfumeDetailViewModel @Inject constructor(
     private val _perfumeDetailItem = MutableStateFlow<Perfume?>(null)
     val perfumeDetailItem: StateFlow<Perfume?> = _perfumeDetailItem
 
-    private val _mainAccords = MutableStateFlow<String?>(null)
-    val mainAccords: StateFlow<String?> = _mainAccords
-
     private val _selectedNote = MutableStateFlow<PerfumeDetailNote?>(null)
     val selectedNote: StateFlow<PerfumeDetailNote?> = _selectedNote
+    val selectedNoteValue: PerfumeDetailNote? get() = _selectedNote.value
 
     private val _noteContents = MutableStateFlow<String?>(null)
     val noteContents: StateFlow<String?> = _noteContents
@@ -54,37 +52,21 @@ class PerfumeDetailViewModel @Inject constructor(
         .cachedIn(viewModelScope)
 
     init {
-        getPerfumeDetail()
+        fetchPerfumeDetail()
     }
 
-    private fun getPerfumeDetail() {
+    private fun fetchPerfumeDetail() {
         viewModelScope.launch(Dispatchers.IO) {
-            fetchPerfumeDetail()
-            setMainAccords()
-            initSelectedNote()
-            setPerfumeLike()
+            // TODO: get access token
+            _perfumeDetailItem.value =
+                perfumeDetailRepository.fetchPerfumeDetail(
+                    token = "",
+                    id = perfumeId
+                )
         }
     }
 
-    private suspend fun fetchPerfumeDetail() {
-        // TODO: get access token
-        _perfumeDetailItem.value =
-            perfumeDetailRepository.fetchPerfumeDetail(
-                token = "",
-                id = perfumeId
-            )
-    }
-
-    private fun setMainAccords() {
-        _perfumeDetailItem.value?.accords?.let { accords ->
-            _mainAccords.value = TextUtils.join(
-                ", ",
-                accords.map { it.koreanName }
-            )
-        }
-    }
-
-    private fun initSelectedNote() {
+    fun initSelectedNote() {
         if (_perfumeDetailItem.value?.notes?.default.isNullOrEmpty()) {
             setSelectedNote(PerfumeDetailNote.TOP)
         } else {
@@ -92,7 +74,7 @@ class PerfumeDetailViewModel @Inject constructor(
         }
     }
 
-    private fun setPerfumeLike() {
+    fun setPerfumeLike() {
         _isLiked.value = _perfumeDetailItem.value?.isLiked
         _likeCount.value = _perfumeDetailItem.value?.likeCount?.toInt()
     }

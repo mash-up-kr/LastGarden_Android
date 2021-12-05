@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updateLayoutParams
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -20,6 +20,7 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.utils.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -62,6 +63,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                 .filterNotNull()
                 .collectLatest {
                     setPerfumeDetail(it)
+                    viewModel.setPerfumeLike()
                 }
         }
         lifecycleScope.launchWhenCreated {
@@ -109,7 +111,8 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     private fun updatePagerHeight(position: Int, viewPager: ViewPager2) {
         if (position == 0) {
             viewPager.post {
-                val view = viewPager.findViewById<ScrollView>(R.id.perfumeInformationContainer)
+                val view =
+                    viewPager.findViewById<NestedScrollView>(R.id.perfumeInformationContainer)
                 view.measure(
                     View.MeasureSpec.makeMeasureSpec(
                         View.MeasureSpec.UNSPECIFIED,
@@ -144,17 +147,12 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         binding.apply {
             titleTextView.text = perfumeItem.koreanName
             titleEngTextView.text = perfumeItem.name
-            perfumeItem.thumbnailUrl?.let {
-                photoImageView.loadImage(
-                    glideRequests = glideRequests,
-                    imageUrl = it
-                )
-            }
+            photoImageView.loadImage(glideRequests, perfumeItem.thumbnailUrl)
         }
     }
 
     private fun addListenerOnLikeButton() {
-        binding.likeButton.setOnClickListener {
+        binding.likeButton.setOnSingleClickListener {
             viewModel.likePerfume()
         }
     }

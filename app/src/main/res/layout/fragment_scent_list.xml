@@ -9,4 +9,4 @@
     android:nestedScrollingEnabled="true"
     android:clipToPadding="false"
     android:overScrollMode="never"
-    android:paddingBottom="150dp" />
+    android:paddingBottom="100dp" />

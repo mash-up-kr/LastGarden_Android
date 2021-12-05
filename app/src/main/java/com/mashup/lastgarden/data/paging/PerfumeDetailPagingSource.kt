@@ -33,7 +33,7 @@ class PerfumeDetailPagingSource(
             Log.e(TAG, "HTTPException occured", e)
             return LoadResult.Error(e)
         } catch (e: Exception) {
-            Log.e(this::class.java.simpleName, "Failed to load stories", e)
+            Log.e(TAG, "Failed to load stories", e)
             LoadResult.Error(e)
         }
     }
