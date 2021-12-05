@@ -5,7 +5,6 @@ import com.mashup.lastgarden.data.vo.PerfumeLike
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.NetworkDataResponse
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,7 +13,6 @@ interface PerfumeDetailService {
 
     @GET("perfume/{id}")
     suspend fun getPerfumeDetail(
-        @Header("Authorization") token: String,
         @Path("id") id: Int
     ): NetworkDataResponse<Perfume>
 
@@ -26,7 +24,6 @@ interface PerfumeDetailService {
 
     @POST("perfume/{id}/like")
     suspend fun likePerfume(
-        @Header("Authorization") token: String,
         @Path("id") id: Int
     ): NetworkDataResponse<PerfumeLike>
 }

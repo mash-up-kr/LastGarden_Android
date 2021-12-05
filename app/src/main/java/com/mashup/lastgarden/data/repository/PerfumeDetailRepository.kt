@@ -15,13 +15,13 @@ import javax.inject.Singleton
 @Singleton
 class PerfumeDetailRepository @Inject constructor(private val remote: PerfumeDetailRemoteDataSource) {
 
-    suspend fun fetchPerfumeDetail(token: String, id: Int): Perfume? =
-        remote.fetchPerfumeDetail(token, id)
+    suspend fun fetchPerfumeDetail(id: Int): Perfume? =
+        remote.fetchPerfumeDetail(id)
 
     fun getStoryByPerfume(id: Int, pageSize: Int): Flow<PagingData<Story>> =
         Pager(PagingConfig(pageSize)) {
             PerfumeDetailPagingSource(id, remote)
         }.flow
 
-    suspend fun likePerfume(token: String, id: Int): PerfumeLike? = remote.likePerfume(token, id)
+    suspend fun likePerfume(id: Int): PerfumeLike? = remote.likePerfume(id)
 }

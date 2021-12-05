@@ -57,12 +57,8 @@ class PerfumeDetailViewModel @Inject constructor(
 
     private fun fetchPerfumeDetail() {
         viewModelScope.launch(Dispatchers.IO) {
-            // TODO: get access token
             _perfumeDetailItem.value =
-                perfumeDetailRepository.fetchPerfumeDetail(
-                    token = "",
-                    id = perfumeId
-                )
+                perfumeDetailRepository.fetchPerfumeDetail(perfumeId)
         }
     }
 
@@ -117,11 +113,7 @@ class PerfumeDetailViewModel @Inject constructor(
 
     fun likePerfume() {
         viewModelScope.launch(Dispatchers.IO) {
-            // TODO: get access token
-            perfumeDetailRepository.likePerfume(
-                token = "",
-                id = perfumeId
-            )
+            perfumeDetailRepository.likePerfume(perfumeId)
             fetchPerfumeDetail()
             setPerfumeLike()
         }

@@ -12,8 +12,8 @@ import javax.inject.Singleton
 @Singleton
 class PerfumeDetailRemoteDataSource @Inject constructor(private val service: PerfumeDetailService) {
 
-    suspend fun fetchPerfumeDetail(token: String, id: Int): Perfume? =
-        service.getPerfumeDetail(token, id).onErrorReturnDataNull()
+    suspend fun fetchPerfumeDetail(id: Int): Perfume? =
+        service.getPerfumeDetail(id).onErrorReturnDataNull()
 
     suspend fun getStoryByPerfume(
         id: Int,
@@ -21,6 +21,6 @@ class PerfumeDetailRemoteDataSource @Inject constructor(private val service: Per
     ): List<Story> = service.getStoryByPerfume(id, cursor)
         .onErrorReturnData(emptyList())
 
-    suspend fun likePerfume(token: String, id: Int): PerfumeLike? =
-        service.likePerfume(token, id).onErrorReturnDataNull()
+    suspend fun likePerfume(id: Int): PerfumeLike? =
+        service.likePerfume(id).onErrorReturnDataNull()
 }
