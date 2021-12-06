@@ -73,7 +73,7 @@
     <string name="tutorial_btn_next">"다음"</string>
     <string name="tutorial_btn_start">"시작하기"</string>
     <string name="btn_apply">"등록"</string>
-
+    <string name="tv_more">"…더보기"</string>
     <string name="tag_label">태그 추가</string>
     <string name="tag_edit_hint">#태그 입력하기</string>
     <string name="tag_max_count">#최대 10개까지 등록</string>
@@ -86,8 +86,6 @@
     <string name="upload_failed_story_save_success">스토리 업로드가 실패했습니다.</string>
     <string name="upload_title">씨향지 만들기</string>
     <string name="editor_failed_save_edited_image">이미지 저장에 실패했습니다..</string>
-
-    <string name="tv_more">" …더보기"</string>
     <string name="tv_sort">정렬</string>
     <string name="radio_btn_top">인기순</string>
     <string name="radio_btn_middle">최신 등록순</string>
@@ -102,4 +100,17 @@
     <string name="date">일</string>
 
     <string name="perfume_select_label">향수 선택</string>
+    <string name="my_account_title">마이페이지</string>
+    <string name="edit_profile_button">프로필 편집</string>
+    <string name="my_account_in_process">준비중입니다.</string>
+    <string name="settings_title">설정</string>
+    <string name="settings_logout">로그아웃</string>
+    <string name="settings_version">버전정보</string>
+    <string name="edit_profile_title">프로필 편집</string>
+    <string name="edit_profile_nickname">닉네임</string>
+    <string name="edit_profile_description">공백, 특수문자를 제외한\n한글, 영어, 숫자로 이루어진 닉네임을 입력해주세요 :)\n이후에 언제든지 변경할 수 있습니다.</string>
+    <string name="edit_profile_complete">수정완료</string>
+
+    <string name="open_file_error">파일을 열지 못했습니다.</string>
+    <string name="uploading_file_error">이미지 업로드에 실패하였습니다.</string>
 </resources>

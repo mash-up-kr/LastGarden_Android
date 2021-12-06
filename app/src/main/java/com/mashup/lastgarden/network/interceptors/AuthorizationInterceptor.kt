@@ -21,7 +21,7 @@ class AuthorizationInterceptor @Inject constructor(
             .apply {
                 runBlocking(Dispatchers.IO) {
                     val token = preferences.getAccessToken() ?: return@runBlocking
-                    header(KEY_AUTHORIZATION, token)
+                    header(KEY_AUTHORIZATION, "Bearer $token")
                 }
             }
             .build()

@@ -41,4 +41,8 @@ class UserRemoteDataSource @Inject constructor(private val service: UserService)
     suspend fun loginUser(email: String) = service.loginUser(email)
 
     suspend fun checkDuplicatedUserName(name: String) = service.checkDuplicatedUserName(name)
+
+    suspend fun updateUserProfileImage(imageId: Int) = service.updateUserProfile(
+        requestBodyOf { "imageId" to imageId }
+    )
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/background"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/my_account_title"
+            app:titleTextAppearance="@style/TextAppearance.SeeHyangComponents.Headline2.Bold">
+
+            <ImageView
+                android:id="@+id/toolbarSettings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_settings_24dp"
+                app:tint="@color/colorGrey4"
+                tools:ignore="ContentDescription" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/userProfileImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/userNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="17dp"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
+        android:textColor="@color/colorGrey1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/userProfileImage"
+        app:layout_constraintTop_toTopOf="@id/userProfileImage"
+        tools:text="@tools:sample/full_names" />
+
+    <TextView
+        android:id="@+id/editProfileView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edit_profile_background"
+        android:gravity="center"
+        android:paddingVertical="6dp"
+        android:text="@string/edit_profile_button"
+        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body1"
+        android:textColor="@color/colorGrey1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/userNameView"
+        app:layout_constraintTop_toBottomOf="@id/userNameView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_account_in_process"
+        android:textColor="@color/point"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userProfileImage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
