@@ -70,7 +70,7 @@ class ScentListFragment : BaseViewModelFragment() {
             override fun onStoryItemClick(storyId: Int, storyIndex: Int) {
                 findNavController().navigate(
                     R.id.actionPerfumeDetailFragmentToScentFragment,
-                    bundleOf("storyId" to storyId, "storyIndex" to storyIndex)
+                    bundleOf("storyId" to storyId)
                 )
             }
         })
