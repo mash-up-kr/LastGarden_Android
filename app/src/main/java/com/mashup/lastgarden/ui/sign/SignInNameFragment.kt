@@ -5,19 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.showToast
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentSignNameBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SignInNameFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignNameBinding>()
+    private val viewModel: SignViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,11 +40,33 @@ class SignInNameFragment : BaseViewModelFragment() {
         initToolbar()
 
         binding.nameEditText.doOnTextChanged { text, _, _, _ ->
-            binding.nextButton.isEnabled = !text.isNullOrEmpty()
+            viewModel.setUserName(text.toString())
         }
 
         binding.nextButton.setOnClickListener {
-            moveSignCompleteFragment()
+            viewModel.checkDuplicatedUserName()
+        }
+    }
+
+    override fun onBindViewModelsOnViewCreated() {
+        viewModel.userName.observe(viewLifecycleOwner) { name ->
+            binding.nextButton.isEnabled = !name.isNullOrEmpty()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.isValidName.collectLatest { isValidName ->
+                if (isValidName) {
+                    moveSignGenderFragment()
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.snackBarStringResId.collectLatest { stringRes ->
+                stringRes?.let {
+                    showToast(stringRes)
+                }
+            }
         }
     }
 
@@ -48,7 +75,7 @@ class SignInNameFragment : BaseViewModelFragment() {
         binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 
-    private fun moveSignCompleteFragment() {
+    private fun moveSignGenderFragment() {
         findNavController().navigate(
             R.id.actionSignInInputNameFragmentToSignInputGenderFragment
         )

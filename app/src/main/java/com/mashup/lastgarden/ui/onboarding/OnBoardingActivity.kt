@@ -2,6 +2,7 @@ package com.mashup.lastgarden.ui.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -15,6 +16,7 @@ import kotlin.math.max
 @AndroidEntryPoint
 class OnBoardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnBoardingBinding
+    private val viewModel: OnBoardingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,7 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun moveSignActivity() {
+        viewModel.setIsShowOnBoarding(false)
         startActivity(Intent(this, SignActivity::class.java))
         finish()
     }

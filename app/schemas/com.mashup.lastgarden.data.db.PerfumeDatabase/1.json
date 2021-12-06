@@ -2,29 +2,59 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3c6fd9456cd83a326be727c838821c75",
+    "identityHash": "71a0d95262a8d30c540b861842a45bb8",
     "entities": [
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER NOT NULL, `user_name` TEXT NOT NULL, `user_profile_url` TEXT, PRIMARY KEY(`user_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER, `nickname` TEXT, `user_profile_url` TEXT, `email` TEXT NOT NULL, `age` INTEGER, `gender` TEXT, `isActivated` INTEGER NOT NULL, `oauthType` TEXT NOT NULL, PRIMARY KEY(`user_id`))",
         "fields": [
           {
-            "fieldPath": "userId",
+            "fieldPath": "id",
             "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nickname",
+            "columnName": "nickname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "profileImage",
+            "columnName": "user_profile_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isActivated",
+            "columnName": "isActivated",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "user_name",
+            "fieldPath": "oauthType",
+            "columnName": "oauthType",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "profileUrl",
-            "columnName": "user_profile_url",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {

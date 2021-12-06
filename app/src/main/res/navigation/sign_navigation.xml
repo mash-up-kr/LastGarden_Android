@@ -8,7 +8,9 @@
         android:name="com.mashup.lastgarden.ui.sign.SignInFragment">
         <action
             android:id="@+id/actionSignInFragmentToSignInInputNameFragment"
-            app:destination="@id/signInNameFragment" />
+            app:destination="@id/signInNameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
@@ -16,7 +18,9 @@
         android:name="com.mashup.lastgarden.ui.sign.SignInNameFragment">
         <action
             android:id="@+id/actionSignInInputNameFragmentToSignInputGenderFragment"
-            app:destination="@id/signInGenderFragment" />
+            app:destination="@id/signInGenderFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -24,10 +28,12 @@
         android:name="com.mashup.lastgarden.ui.sign.SignInGenderFragment">
         <action
             android:id="@+id/actionSignInputGenderFragmentToSignCompleteFragment"
-            app:destination="@id/signCompleteFragment" />
+            app:destination="@id/signCompleteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/signCompleteFragment"
-        android:name="com.mashup.lastgarden.ui.sign.SignCompleteFragment" />
+        android:name="com.mashup.lastgarden.ui.sign.SignCompleteFragment"/>
 </navigation>

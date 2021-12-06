@@ -12,7 +12,7 @@ class AuthorizationInterceptor @Inject constructor(
 ) : Interceptor {
     companion object {
         //TODO 서버에서 알려주는대로 바꿔야함
-        private const val KEY_AUTHORIZATION = "authorization"
+        private const val KEY_AUTHORIZATION = "Authorization"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response = chain.proceed(
