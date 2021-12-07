@@ -1,6 +1,7 @@
 package com.mashup.lastgarden.ui.scent
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.mashup.base.autoCleared
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
@@ -41,7 +43,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     override fun onCreated(savedInstanceState: Bundle?) {
         super.onCreated(savedInstanceState)
-        perfumeStoryAdapter = ScentPagingAdapter(glideRequests)
+        perfumeStoryAdapter = ScentPagingAdapter(glideRequests, this)
     }
 
     override fun onCreateView(
@@ -61,7 +63,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         setupRecyclerView()
 
         binding.closeButton.setOnClickListener {
-            requireActivity().finish()
+            findNavController().popBackStack()
         }
         binding.detailButton.setOnClickListener {
             findNavController().navigate(
@@ -70,41 +72,31 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
                     "perfumeId" to requireArguments().getInt("perfumeId")
                 )
             )
+            val lastPosition =
+                (binding.scentRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+            viewModel.setScrollPosition(lastPosition)
         }
     }
 
     override fun onBindViewModelsOnCreate() {
-        viewModel.setMainStoryList(mainStorySet, storyIndex)
+        viewModel.setMainStoryList(mainStorySet)
         viewModel.setPerfumeId(perfumeId)
         viewModel.setStoryId(storyId)
     }
 
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
-
-        viewModel.storyIdAndPerfumeIdSet.observe(viewLifecycleOwner) {
-            if (it != null) {
-                viewModel.getTodayAndHotStoryList(it)
-            }
-        }
-
-        viewModel.perfumeId.observe(viewLifecycleOwner) {
-            if (it != 0) {
-                viewModel.getPerfumeStoryList(it)
-            }
-        }
-
-        viewModel.storyId.observe(viewLifecycleOwner) {
-            if (it != 0) {
-                viewModel.getPerfumeStory(it)
-            }
-        }
+        getStoryList()
 
         viewModel.perfumeStoryList.observe(viewLifecycleOwner) {
             binding.scentRecyclerView.adapter = ScentViewPagerAdapter(it, glideRequests, this)
             binding.detailButton.isVisible = true
             binding.sortButton.isVisible = false
-            binding.scentRecyclerView.scrollToPosition(storyIndex)
+            viewModel.storyPosition.value?.let { position ->
+                binding.scentRecyclerView.scrollToPosition(
+                    position
+                )
+            }
         }
 
         viewModel.perfumeStory.observe(viewLifecycleOwner) {
@@ -130,6 +122,27 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         }
     }
 
+    private fun getStoryList() {
+        viewModel.storyIdAndPerfumeIdSet.observe(viewLifecycleOwner) {
+            if (it != null) {
+                viewModel.getTodayAndHotStoryList(it)
+                viewModel.setScrollPosition(storyIndex)
+            }
+        }
+
+        viewModel.perfumeId.observe(viewLifecycleOwner) {
+            if (it != 0) {
+                viewModel.getPerfumeStoryList(it)
+            }
+        }
+
+        viewModel.storyId.observe(viewLifecycleOwner) {
+            if (it != 0) {
+                viewModel.getPerfumeStory(it)
+            }
+        }
+    }
+
     private fun setupBottomSheet() {
         binding.sortButton.setOnClickListener {
             //TODO API 나오면 업데이트
@@ -137,6 +150,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
     }
 
     private fun setupRecyclerView() {
+        val animator = binding.scentRecyclerView.itemAnimator
+        if (animator is SimpleItemAnimator) {
+            animator.supportsChangeAnimations = false
+        }
         binding.scentRecyclerView.adapter = perfumeStoryAdapter
         binding.scentRecyclerView.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -167,11 +184,15 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     private fun bindImageView(item: Story) {
         binding.includeScentLayout.run {
-            profileImageView.setImageUrl(glideRequests, item.imageUrl)
+            glideRequests.load(item.imageUrl).into(scentImageView)
+            profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             commentImageView.setOnClickListener { onCommentClick(item.storyId) }
-            likeImageView.setOnClickListener { onLikeClick(item.storyId) }
+            likeImageView.setOnClickListener { onLikeClick(item.storyId, 0) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
-            //TODO like 이미지 설정
+            likeImageView.loadImage(
+                glideRequests,
+                if (item.isLiked) R.drawable.ic_like else R.drawable.ic_dislike
+            )
         }
     }
 
@@ -179,8 +200,9 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         ScentCommentBottomSheetFragment().show(requireActivity().supportFragmentManager, "")
     }
 
-    override fun onLikeClick(scentId: Int) {
+    override fun onLikeClick(scentId: Int, storyPosition: Int) {
         viewModel.getPerfumeStoryLike(scentId)
+        getStoryList()
     }
 
 }

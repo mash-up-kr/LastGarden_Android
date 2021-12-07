@@ -7,6 +7,7 @@ import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -18,17 +19,20 @@ interface StoryService {
     @GET("perfume/{id}/story")
     suspend fun getPerfumeStoryList(
         @Path("id") storyId: Int,
-        @Query("cursor") cursor: Int? = null
+        @Query("cursor") cursor: Int? = null,
+        @Header("Authorization") token: String
     ): NetworkDataResponse<List<Story>>
 
     @GET("story/{id}")
     suspend fun getPerfumeStory(
-        @Path("id") storyId: Int
+        @Path("id") storyId: Int,
+        @Header("Authorization") token: String
     ): NetworkDataResponse<Story>
 
     @POST("story/{id}/like")
     suspend fun getStoryLike(
-        @Path("id") storyId: Int
+        @Path("id") storyId: Int,
+        @Header("Authorization") token: String
     ): NetworkDataResponse<LikeResponse>
 
     @POST("story")
