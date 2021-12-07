@@ -60,7 +60,7 @@ class ScentPagingAdapter(
         glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
         binding.run {
             pageCountTextView.text =
-                formatPageCount(pageCountTextView.context, bindingAdapterPosition, itemCount)
+                formatPageCount(pageCountTextView.context, bindingAdapterPosition, listSize)
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             nicknameTextView.text = item.userNickname
             dateTextView.text = convertDate(dateTextView.resources, item.createdAt)

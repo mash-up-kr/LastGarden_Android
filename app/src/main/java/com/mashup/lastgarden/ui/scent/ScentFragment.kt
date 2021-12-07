@@ -77,6 +77,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         val perfumeId = requireArguments().getInt("perfumeId")
         if (perfumeId != 0) {
             lifecycleScope.launchWhenCreated {
+                viewModel.getStorySize(perfumeId)
                 viewModel.getPerfumeStoryLists(perfumeId).collectLatest {
                     perfumeStoryAdapter.submitData(it)
                 }
@@ -99,6 +100,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
                     position
                 )
             }
+        }
+
+        viewModel.storySize.observe(viewLifecycleOwner) {
+            perfumeStoryAdapter.setStoryListSize(it)
         }
 
         viewModel.perfumeStory.observe(viewLifecycleOwner) {

@@ -29,7 +29,7 @@ class ScentViewPagerAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ScentViewHolder, position: Int) {
-        viewHolder.bind(list[position])
+        list.get(position).let { viewHolder.bind(it) }
     }
 
     override fun getItemCount(): Int {
@@ -47,10 +47,7 @@ class ScentViewPagerAdapter(
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
             likeImageView.setOnClickListener {
-                listener?.onLikeClick(
-                    item.storyId,
-                    bindingAdapterPosition
-                )
+                listener?.onLikeClick(item.storyId, bindingAdapterPosition)
             }
             likeImageView.loadImage(
                 glideRequests,
@@ -67,17 +64,6 @@ class ScentViewPagerAdapter(
             dateTextView.text = convertDate(binding.dateTextView.context.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
             likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
-            commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
-            likeImageView.setOnClickListener {
-                listener?.onLikeClick(
-                    item.storyId,
-                    bindingAdapterPosition
-                )
-            }
-            likeImageView.loadImage(
-                glideRequests,
-                if (item.isLiked) R.drawable.ic_like else R.drawable.ic_dislike
-            )
         }
     }
 

@@ -32,4 +32,7 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
                 "tags" to tags
             }
         ).onErrorReturnDataNull()
+
+    suspend fun getStoryCount(perfumeId: Int): Int? =
+        service.getStoryCount(perfumeId).onErrorReturnDataNull()
 }
