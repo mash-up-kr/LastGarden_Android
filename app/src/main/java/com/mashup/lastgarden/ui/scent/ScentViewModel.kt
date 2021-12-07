@@ -51,6 +51,9 @@ class ScentViewModel @Inject constructor(
     private val _likedStoryList = MutableStateFlow(emptyList<Int>())
     val likedStoryList: StateFlow<List<Int>> = _likedStoryList
 
+    private val _storySize = MutableLiveData(0)
+    val storySize: LiveData<Int> = _storySize
+
     private val todayAndHotStoryList = mutableListOf<Story>()
     lateinit var pagingStoryList: Flow<PagingData<Story>>
 
@@ -104,6 +107,12 @@ class ScentViewModel @Inject constructor(
             }
     }
 
+
+    fun getStorySize(perfumeId: Int) {
+        viewModelScope.launch {
+            _storySize.value = storyRepository.getStoryCount(perfumeId)
+        }
+    }
 
     fun getPerfumeStory(storyId: Int) {
         viewModelScope.launch {

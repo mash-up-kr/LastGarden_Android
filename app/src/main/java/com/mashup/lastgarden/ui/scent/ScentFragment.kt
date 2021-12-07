@@ -99,6 +99,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             }
         }
 
+        viewModel.storySize.observe(viewLifecycleOwner) {
+            perfumeStoryAdapter.setStoryListSize(it)
+        }
+
         viewModel.perfumeStory.observe(viewLifecycleOwner) {
             binding.sortButton.isVisible = false
             setPerfumeStory(it)
