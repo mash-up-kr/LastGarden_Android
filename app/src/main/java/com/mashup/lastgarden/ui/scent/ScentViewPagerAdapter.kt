@@ -10,9 +10,10 @@ import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.ItemScentBinding
 import com.mashup.lastgarden.utils.convertDate
 import com.mashup.lastgarden.utils.formatNumber
+import com.mashup.lastgarden.utils.formatPageCount
 
 class ScentViewPagerAdapter(
-    private val list: List<Story?>?,
+    private val list: List<Story>,
     private val glideRequests: GlideRequests,
     private val listener: OnClickListener? = null
 ) : RecyclerView.Adapter<ScentViewPagerAdapter.ScentViewHolder>() {
@@ -28,11 +29,11 @@ class ScentViewPagerAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ScentViewHolder, position: Int) {
-        list?.get(position)?.let { viewHolder.bind(it) }
+        viewHolder.bind(list[position])
     }
 
     override fun getItemCount(): Int {
-        return list?.size ?: 0
+        return list.size
     }
 
     private fun ScentViewHolder.bind(item: Story) {
@@ -53,11 +54,8 @@ class ScentViewPagerAdapter(
 
     private fun ScentViewHolder.bindTextView(item: Story) {
         binding.run {
-            val pageCount =
-                (bindingAdapterPosition + 1).toString() + " / " + list?.size?.let {
-                    formatNumber(it.toLong())
-                }
-            pageCountTextView.text = pageCount
+            pageCountTextView.text =
+                formatPageCount(pageCountTextView.context, bindingAdapterPosition, list.size)
             nicknameTextView.text = item.userNickname
             dateTextView.text = convertDate(binding.dateTextView.context.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }

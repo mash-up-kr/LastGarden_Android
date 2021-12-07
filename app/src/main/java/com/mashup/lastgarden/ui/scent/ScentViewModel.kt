@@ -34,11 +34,11 @@ class ScentViewModel @Inject constructor(
     val perfumeStory: LiveData<Story?>
         get() = _perfumeStory
 
-    private val _perfumeStoryList = MutableLiveData<List<Story?>?>()
-    val perfumeStoryList: LiveData<List<Story?>?>
+    private val _perfumeStoryList = MutableLiveData<List<Story>>()
+    val perfumeStoryList: LiveData<List<Story>>
         get() = _perfumeStoryList
 
-    private val todayAndHotStoryList = mutableListOf<Story?>()
+    private val todayAndHotStoryList = mutableListOf<Story>()
 
     fun setSortOrder(sort: Sort) {
         _sortOrder.value = sort
@@ -47,7 +47,9 @@ class ScentViewModel @Inject constructor(
     fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet, storyIndex: Int) {
         viewModelScope.launch {
             storyIdAndPerfumeIdSet.set?.forEach {
-                todayAndHotStoryList.add(storyRepository.fetchPerfumeStory(storyId = it.first))
+                storyRepository.fetchPerfumeStory(storyId = it.first)?.let { story ->
+                    todayAndHotStoryList.add(story)
+                }
             }
             _perfumeStoryList.value = todayAndHotStoryList
             _storyIndex.value = storyIndex

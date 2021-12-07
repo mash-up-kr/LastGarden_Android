@@ -12,6 +12,7 @@ import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.ItemScentBinding
 import com.mashup.lastgarden.utils.convertDate
 import com.mashup.lastgarden.utils.formatNumber
+import com.mashup.lastgarden.utils.formatPageCount
 
 class ScentPagingAdapter(
     private val glideRequests: GlideRequests,
@@ -53,9 +54,8 @@ class ScentPagingAdapter(
     private fun ScentViewHolder.bind(item: Story) {
         glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
         binding.run {
-            val pageCount =
-                (bindingAdapterPosition + 1).toString() + " / " + formatNumber(itemCount.toLong())
-            pageCountTextView.text = pageCount
+            pageCountTextView.text =
+                formatPageCount(pageCountTextView.context, bindingAdapterPosition, itemCount)
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             nicknameTextView.text = item.userNickname
             dateTextView.text = convertDate(dateTextView.resources, item.createdAt)
