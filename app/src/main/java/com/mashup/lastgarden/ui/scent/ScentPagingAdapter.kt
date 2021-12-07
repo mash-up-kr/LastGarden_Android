@@ -16,8 +16,9 @@ import com.mashup.lastgarden.utils.formatPageCount
 
 class ScentPagingAdapter(
     private val glideRequests: GlideRequests,
-    private val listener: OnClickListener? = null
+    private val listener: ScentViewPagerAdapter.OnClickListener? = null
 ) : PagingDataAdapter<Story, ScentPagingAdapter.ScentViewHolder>(DIFF_CALLBACK) {
+    var listSize: Int = 0
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
@@ -43,6 +44,10 @@ class ScentPagingAdapter(
         )
     }
 
+    fun setStoryListSize(size: Int) {
+        listSize = size
+    }
+
     class ScentViewHolder(val binding: ItemScentBinding) :
         RecyclerView.ViewHolder(binding.root) {
     }
@@ -62,15 +67,13 @@ class ScentPagingAdapter(
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
             likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
-            likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
-            likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
-            //TODO like 이미지 설정
+            likeImageView.setOnClickListener {
+                listener?.onLikeClick(item.storyId, bindingAdapterPosition)
+            }
+            likeImageView.loadImage(
+                glideRequests,
+                if (item.isLiked) R.drawable.ic_like else R.drawable.ic_dislike
+            )
         }
     }
-
-    interface OnClickListener {
-        fun onCommentClick(scentId: Int)
-        fun onLikeClick(scentId: Int)
-    }
-
 }

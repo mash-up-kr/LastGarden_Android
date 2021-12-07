@@ -46,9 +46,16 @@ class ScentViewPagerAdapter(
             glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
-            likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
-            likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
-            //TODO like 이미지 설정
+            likeImageView.setOnClickListener {
+                listener?.onLikeClick(
+                    item.storyId,
+                    bindingAdapterPosition
+                )
+            }
+            likeImageView.loadImage(
+                glideRequests,
+                if (item.isLiked) R.drawable.ic_like else R.drawable.ic_dislike
+            )
         }
     }
 
@@ -61,9 +68,16 @@ class ScentViewPagerAdapter(
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
             likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
-            likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
-            likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
-            //TODO like 이미지 설정
+            likeImageView.setOnClickListener {
+                listener?.onLikeClick(
+                    item.storyId,
+                    bindingAdapterPosition
+                )
+            }
+            likeImageView.loadImage(
+                glideRequests,
+                if (item.isLiked) R.drawable.ic_like else R.drawable.ic_dislike
+            )
         }
     }
 
@@ -73,6 +87,6 @@ class ScentViewPagerAdapter(
 
     interface OnClickListener {
         fun onCommentClick(scentId: Int)
-        fun onLikeClick(scentId: Int)
+        fun onLikeClick(scentId: Int, storyPosition: Int)
     }
 }
