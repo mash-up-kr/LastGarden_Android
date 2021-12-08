@@ -1,17 +1,28 @@
 package com.mashup.lastgarden.ui.main
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.Note
 import com.mashup.lastgarden.databinding.FragmentPerfumeInformationBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
 
+@AndroidEntryPoint
 class PerfumeInformationFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeInformationBinding>()
+
+    private val viewModel by viewModels<PerfumeDetailViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,41 +36,78 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-        setNoteButtonChecked()
+        addListenersOnCheckButton()
     }
 
-    private fun setNoteButtonChecked() {
-        binding.perfumePyramidInclude.topCheckBox.setOnClickListener {
-            allButtonUnchecked()
-            binding.perfumePyramidInclude.apply {
-                topCheckBox.isChecked = true
-                pyramidImageView.setImageResource(R.drawable.ic_pyramid_top)
-                pyramidContentTextView.text = "시트러스 어코드, 페티그레인, 블랙커런트, 레드프룻, 피치"
-            }
+    override fun onBindViewModelsOnViewCreated() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.perfumeDetailItem
+                .filterNotNull()
+                .collectLatest {
+                    viewModel.initSelectedNote()
+                    setMainAccords(it.accords)
+                    setPerfumePyramidVisibility()
+                }
         }
-        binding.perfumePyramidInclude.middleCheckBox.setOnClickListener {
-            allButtonUnchecked()
-            binding.perfumePyramidInclude.apply {
-                middleCheckBox.isChecked = true
-                pyramidImageView.setImageResource(R.drawable.ic_pyramid_middle)
-                pyramidContentTextView.text = "화이트플라워, 튜베로즈, 재스민, 일랑일랑, 오렌지블로썸, 코코넛"
-            }
+        lifecycleScope.launchWhenCreated {
+            viewModel.selectedNote
+                .filterNotNull()
+                .collectLatest { selectedNote ->
+                    binding.perfumePyramidInclude.topCheckBox.isChecked =
+                        selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.TOP
+                    binding.perfumePyramidInclude.middleCheckBox.isChecked =
+                        selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.MIDDLE
+                    binding.perfumePyramidInclude.baseCheckBox.isChecked =
+                        selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.BASE
+                    viewModel.setNoteContents()
+                }
         }
-        binding.perfumePyramidInclude.baseCheckBox.setOnClickListener {
-            allButtonUnchecked()
+        lifecycleScope.launchWhenCreated {
+            viewModel.noteContents
+                .filterNotNull()
+                .collectLatest { noteContents ->
+                    if (viewModel.selectedNoteValue != null) {
+                        binding.perfumePyramidInclude.pyramidContentTextView.text = noteContents
+                    } else {
+                        binding.perfumePyramidInclude.noteContentTextView.text = noteContents
+                    }
+                }
+        }
+    }
+
+    private fun setMainAccords(accords: List<Note>?) {
+        binding.mainAccordsInclude.accordContentTextView.text =
+            accords?.let { TextUtils.join(", ", it.map { accord -> accord.koreanName }) }
+    }
+
+    private fun setPerfumePyramidVisibility() {
+        if (viewModel.selectedNoteValue == null) {
             binding.perfumePyramidInclude.apply {
-                baseCheckBox.isChecked = true
-                pyramidImageView.setImageResource(R.drawable.ic_pyramid_base)
-                pyramidContentTextView.text = "샌달우드, 바닐라, 화이트머스크"
+                noteContainer.isVisible = true
+                perfumePyramidContainer.isVisible = false
+            }
+        } else {
+            binding.perfumePyramidInclude.apply {
+                noteContainer.isVisible = false
+                perfumePyramidContainer.isVisible = true
             }
         }
     }
 
-    private fun allButtonUnchecked() {
+    private fun addListenersOnCheckButton() {
         binding.perfumePyramidInclude.apply {
-            topCheckBox.isChecked = false
-            middleCheckBox.isChecked = false
-            baseCheckBox.isChecked = false
+            topCheckBox.setOnClickListener {
+                viewModel.setSelectedNote(PerfumeDetailViewModel.PerfumeDetailNote.TOP)
+                pyramidImageView.setImageResource(R.drawable.ic_pyramid_top)
+            }
+            middleCheckBox.setOnClickListener {
+                viewModel.setSelectedNote(PerfumeDetailViewModel.PerfumeDetailNote.MIDDLE)
+                pyramidImageView.setImageResource(R.drawable.ic_pyramid_middle)
+            }
+            baseCheckBox.setOnClickListener {
+                viewModel.setSelectedNote(PerfumeDetailViewModel.PerfumeDetailNote.BASE)
+                pyramidImageView.setImageResource(R.drawable.ic_pyramid_base)
+            }
         }
     }
 }

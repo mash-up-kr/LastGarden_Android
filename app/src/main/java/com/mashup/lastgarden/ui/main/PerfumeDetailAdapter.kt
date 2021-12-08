@@ -18,7 +18,7 @@ class PerfumeDetailAdapter(private val glideRequests: GlideRequests) :
                 override fun areItemsTheSame(
                     oldItem: PerfumeDetailItem,
                     newItem: PerfumeDetailItem
-                ): Boolean = oldItem.storyId == newItem.storyId
+                ): Boolean = oldItem.id == newItem.id
 
                 override fun areContentsTheSame(
                     oldItem: PerfumeDetailItem,
@@ -48,8 +48,8 @@ class ScentListViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: PerfumeDetailItem) {
-        binding.perfumeCardView.setUserImage(glideRequests, data.userProfileImage)
-        binding.perfumeCardView.setSourceImage(glideRequests, data.thumbnailUrl)
+        binding.perfumeCardView.setUserImage(glideRequests, data.userProfileImageUrl)
+        binding.perfumeCardView.setSourceImage(glideRequests, data.imageUrl)
         binding.perfumeCardView.userName = data.userNickname
         binding.perfumeCardView.count = data.likeCount
         if (data.tags != null)
