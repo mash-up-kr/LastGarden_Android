@@ -100,6 +100,7 @@
     <string name="year">"년 "</string>
     <string name="month">"월 "</string>
     <string name="date">일</string>
-
     <string name="perfume_select_label">향수 선택</string>
+    <string name="detail_button">향수 상세 정보</string>
+    <string name="page_count">%1$s/%2$s</string>
 </resources>

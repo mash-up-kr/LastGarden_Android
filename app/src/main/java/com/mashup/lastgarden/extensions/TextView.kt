@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mashup.lastgarden.R
+import java.text.DecimalFormat
 
 //TODO custom view로 변경
 fun btnThumbsUpDownSelector(

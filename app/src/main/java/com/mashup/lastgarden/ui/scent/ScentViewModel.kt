@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.Story
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,30 +18,52 @@ class ScentViewModel @Inject constructor(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
 
-    private var _sortOrder = MutableLiveData(Sort.POPULARITY)
+    companion object {
+        private const val PAGE_SIZE = 10
+    }
+
+    private var _storyIndex = MutableLiveData<Int>()
+    val storyIndex: LiveData<Int>
+        get() = _storyIndex
+
+    private var _sortOrder = MutableLiveData(Sort.LATEST)
     val sortOrder: LiveData<Sort>
         get() = _sortOrder
 
-    private val _perfumeStoryList = MutableLiveData<List<Story?>?>()
-    val perfumeStoryList: LiveData<List<Story?>?>
+    private val _perfumeStory = MutableLiveData<Story?>()
+    val perfumeStory: LiveData<Story?>
+        get() = _perfumeStory
+
+    private val _perfumeStoryList = MutableLiveData<List<Story>>()
+    val perfumeStoryList: LiveData<List<Story>>
         get() = _perfumeStoryList
 
-    private val list = mutableListOf<Story?>()
+    private val todayAndHotStoryList = mutableListOf<Story>()
 
     fun setSortOrder(sort: Sort) {
         _sortOrder.value = sort
     }
 
-    fun getPerfumeStoryList(storyId: Int) {
+    fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet, storyIndex: Int) {
         viewModelScope.launch {
-            _perfumeStoryList.value = storyRepository.fetchPerfumeStoryList(storyId)
+            storyIdAndPerfumeIdSet.set?.forEach {
+                storyRepository.fetchPerfumeStory(storyId = it.first)?.let { story ->
+                    todayAndHotStoryList.add(story)
+                }
+            }
+            _perfumeStoryList.value = todayAndHotStoryList
+            _storyIndex.value = storyIndex
         }
     }
 
+    fun getPerfumeStoryLists(perfumeId: Int): Flow<PagingData<Story>> =
+        storyRepository
+            .fetchPerfumeStoryList(perfumeId, PAGE_SIZE)
+            .cachedIn(viewModelScope)
+
     fun getPerfumeStory(storyId: Int) {
         viewModelScope.launch {
-            list.add(storyRepository.fetchPerfumeStory(storyId))
-            _perfumeStoryList.value = list
+            _perfumeStory.value = storyRepository.fetchPerfumeStory(storyId)
         }
     }
 
