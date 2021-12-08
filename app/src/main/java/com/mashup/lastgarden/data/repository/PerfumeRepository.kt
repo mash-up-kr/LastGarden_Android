@@ -17,6 +17,7 @@ import com.mashup.lastgarden.data.vo.Image
 import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.data.vo.PerfumeAndStories
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -50,6 +51,9 @@ class PerfumeRepository @Inject constructor(
 
     suspend fun uploadImage(key: String, image: Bitmap): Image? =
         remote.uploadImage(image.getByteArray().toMultipartBody(key))
+
+    suspend fun uploadImage(image: MultipartBody.Part): Image? =
+        remote.uploadImage(image)
 
     fun getPerfumesWithName(
         pageSize: Int,
