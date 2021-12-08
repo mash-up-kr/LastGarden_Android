@@ -30,4 +30,7 @@ class StoryRepository @Inject constructor(
 
     suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
         remote.uploadStory(perfumeId, imageId, tags)
+
+    suspend fun getStoryCount(perfumeId: Int): Int? =
+        remote.getStoryCount(perfumeId)
 }

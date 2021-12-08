@@ -35,4 +35,9 @@ interface StoryService {
     suspend fun uploadStory(
         @Body body: RequestBody
     ): NetworkDataResponse<Story>
+
+    @GET("perfume/{id}/storyCount")
+    suspend fun getStoryCount(
+        @Path("id") perfumeId: Int
+    ): NetworkDataResponse<Int>
 }

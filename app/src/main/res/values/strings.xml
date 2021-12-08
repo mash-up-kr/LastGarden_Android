@@ -101,7 +101,6 @@
     <string name="perfume_select_label">향수 선택</string>
 
     <string name="detail_button">향수 상세 정보</string>
-    <string name="page_count">%1$s/%2$s</string>
 
     <string name="my_account_title">마이페이지</string>
     <string name="edit_profile_button">프로필 편집</string>
@@ -116,4 +115,5 @@
 
     <string name="open_file_error">파일을 열지 못했습니다.</string>
     <string name="uploading_file_error">이미지 업로드에 실패하였습니다.</string>
+    <string name="page_count">"%1$s / %2$s"</string>
 </resources>

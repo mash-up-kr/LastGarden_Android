@@ -15,11 +15,8 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
     suspend fun fetchHotStory(): List<Story> =
         service.getHotStories().onErrorReturnData(emptyList())
 
-    suspend fun getPerfumeStoryList(
-        storyId: Int,
-        cursor: Int? = null
-    ): List<Story> = service.getPerfumeStoryList(storyId, cursor)
-        .onErrorReturnDataNull() ?: emptyList()
+    suspend fun getPerfumeStoryList(storyId: Int, cursor: Int? = null): List<Story> =
+        service.getPerfumeStoryList(storyId, cursor).onErrorReturnData(emptyList())
 
     suspend fun getPerfumeStory(storyId: Int): Story? =
         service.getPerfumeStory(storyId).onErrorReturnDataNull()
@@ -35,4 +32,7 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
                 "tags" to tags
             }
         ).onErrorReturnDataNull()
+
+    suspend fun getStoryCount(perfumeId: Int): Int? =
+        service.getStoryCount(perfumeId).onErrorReturnDataNull()
 }
