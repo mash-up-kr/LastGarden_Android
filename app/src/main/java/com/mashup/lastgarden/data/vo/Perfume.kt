@@ -18,7 +18,8 @@ data class Perfume(
     @ColumnInfo(name = "perfume_second_name") @SerializedName("perfume_name") val perfumeName: String? = null,
     @ColumnInfo(name = "perfume_is_liked") val isLiked: Boolean = false,
     @Ignore val notes: NoteContainer? = null,
-    @Ignore val rank: Int? = null
+    @Ignore val rank: Int? = null,
+    @Ignore val accords: List<Note>? = null
 ) {
     constructor(
         perfumeId: Int,
@@ -41,7 +42,8 @@ data class Perfume(
         perfumeName = perfumeName,
         isLiked = isLiked,
         notes = null,
-        rank = null
+        rank = null,
+        accords = null
     )
 
     data class NoteContainer(

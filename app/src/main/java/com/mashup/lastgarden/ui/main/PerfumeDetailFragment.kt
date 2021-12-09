@@ -6,20 +6,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.updateLayoutParams
+import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.loadImage
+import com.mashup.base.image.GlideRequests
+import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
+import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.utils.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeDetailBinding>()
+
+    private val viewModel by viewModels<PerfumeDetailViewModel>()
+
     private lateinit var viewPagerAdapter: PerfumeDetailPagerAdapter
+
+    @Inject
+    lateinit var glideRequests: GlideRequests
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +56,36 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         initToolbar()
         initViewPager()
         initTabLayout()
+        addListeners()
+    }
+
+    override fun onBindViewModelsOnViewCreated() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.perfumeDetailItem
+                .filterNotNull()
+                .collectLatest {
+                    setPerfumeDetail(it)
+                    viewModel.setPerfumeLike()
+                }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.likeCount
+                .filterNotNull()
+                .collectLatest {
+                    binding.likeCountTextView.text = it.toString()
+                }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.isLiked
+                .filterNotNull()
+                .collectLatest { isLiked ->
+                    if (isLiked) {
+                        binding.likeImageView.setImageResource(R.drawable.ic_like)
+                    } else {
+                        binding.likeImageView.setImageResource(R.drawable.ic_like_empty)
+                    }
+                }
+        }
     }
 
     private fun initToolbar() {
@@ -53,22 +102,35 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
             ScentListFragment()
         )
         binding.viewPager.adapter = viewPagerAdapter
-        binding.viewPager.setPageTransformer { page, _ ->
-            updatePagerHeight(page, binding.viewPager)
-        }
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updatePagerHeight(position, binding.viewPager)
+            }
+        })
     }
 
-    private fun updatePagerHeight(view: View, viewPager: ViewPager2) {
-        view.post {
-            val weightMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-            val heightMeasureSpec =
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            view.measure(weightMeasureSpec, heightMeasureSpec)
+    private fun updatePagerHeight(position: Int, viewPager: ViewPager2) {
+        if (position == 0) {
+            viewPager.post {
+                val view =
+                    viewPager.findViewById<NestedScrollView>(R.id.perfumeInformationContainer)
+                view.measure(
+                    View.MeasureSpec.makeMeasureSpec(
+                        View.MeasureSpec.UNSPECIFIED,
+                        View.MeasureSpec.UNSPECIFIED
+                    ),
+                    View.MeasureSpec.makeMeasureSpec(
+                        View.MeasureSpec.UNSPECIFIED,
+                        View.MeasureSpec.UNSPECIFIED
+                    )
+                )
 
-            if (viewPager.layoutParams.height != view.measuredHeight) {
-                viewPager.updateLayoutParams {
-                    height = view.measuredHeight
+                if (viewPager.layoutParams.height != view.measuredHeight) {
+                    viewPager.updateLayoutParams {
+                        val maxHeight = resources.displayMetrics.heightPixels - 246.dp
+                        height = view.measuredHeight.coerceAtMost(maxHeight)
+                    }
                 }
             }
         }
@@ -81,5 +143,25 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                 1 -> tab.setIcon(R.drawable.ic_grid)
             }
         }.attach()
+    }
+
+    private fun setPerfumeDetail(perfumeItem: Perfume) {
+        binding.apply {
+            titleTextView.text = perfumeItem.koreanName
+            titleEngTextView.text = perfumeItem.name
+            photoImageView.loadImage(glideRequests, perfumeItem.thumbnailUrl)
+        }
+    }
+
+    private fun addListeners() {
+        binding.likeButton.setOnSingleClickListener {
+            viewModel.likePerfume()
+        }
+        binding.nextButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.actionPerfumeDetailFragmentToScentFragment,
+                bundleOf("perfumeId" to viewModel.perfumeId)
+            )
+        }
     }
 }
