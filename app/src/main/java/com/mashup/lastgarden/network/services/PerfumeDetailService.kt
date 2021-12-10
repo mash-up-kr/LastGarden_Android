@@ -26,4 +26,9 @@ interface PerfumeDetailService {
     suspend fun likePerfume(
         @Path("id") id: Int
     ): NetworkDataResponse<PerfumeLike>
+
+    @GET("perfume/{id}/storyCount")
+    suspend fun getStoryCount(
+        @Path("id") perfumeId: Int
+    ): NetworkDataResponse<Int>
 }

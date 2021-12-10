@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -33,12 +33,14 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeDetailBinding>()
 
-    private val viewModel by viewModels<PerfumeDetailViewModel>()
+    private val viewModel by activityViewModels<PerfumeDetailViewModel>()
 
     private lateinit var viewPagerAdapter: PerfumeDetailPagerAdapter
 
     @Inject
     lateinit var glideRequests: GlideRequests
+
+    private var perfumeId = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +50,10 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         binding = FragmentPerfumeDetailBinding.inflate(
             inflater, container, false
         )
+        arguments?.getString("perfumeId")?.drop(1)?.let {
+            perfumeId = it.toInt()
+            viewModel.setPerfumeId(it.toInt())
+        }
         return binding.root
     }
 
@@ -60,6 +66,8 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnViewCreated() {
+        viewModel.fetchPerfumeDetail(perfumeId)
+        viewModel.fetchStoryCount(perfumeId)
         lifecycleScope.launchWhenCreated {
             viewModel.perfumeDetailItem
                 .filterNotNull()
@@ -83,6 +91,20 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                         binding.likeImageView.setImageResource(R.drawable.ic_like)
                     } else {
                         binding.likeImageView.setImageResource(R.drawable.ic_like_empty)
+                    }
+                }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.storyCount
+                .filterNotNull()
+                .collectLatest { count ->
+                    if (count > 0) {
+                        binding.nextButton.isEnabled = true
+                        binding.nextButton.text = getString(R.string.perfume_detail_scent_button)
+                    } else {
+                        binding.nextButton.isEnabled = false
+                        binding.nextButton.text =
+                            getString(R.string.perfume_detail_scent_button_enabled)
                     }
                 }
         }
@@ -155,12 +177,12 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private fun addListeners() {
         binding.likeButton.setOnSingleClickListener {
-            viewModel.likePerfume()
+            viewModel.likePerfume(perfumeId)
         }
         binding.nextButton.setOnClickListener {
             findNavController().navigate(
                 R.id.actionPerfumeDetailFragmentToScentFragment,
-                bundleOf("perfumeId" to viewModel.perfumeId)
+                bundleOf("perfumeId" to perfumeId)
             )
         }
     }

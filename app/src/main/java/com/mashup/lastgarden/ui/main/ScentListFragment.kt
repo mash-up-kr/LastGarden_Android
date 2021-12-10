@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -23,7 +23,7 @@ class ScentListFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentScentListBinding>()
 
-    private val viewModel by viewModels<PerfumeDetailViewModel>()
+    private val viewModel by activityViewModels<PerfumeDetailViewModel>()
 
     private lateinit var perfumeDetailAdapter: PerfumeDetailPagingAdapter
 
@@ -47,15 +47,7 @@ class ScentListFragment : BaseViewModelFragment() {
         super.onSetupViews(view)
         initRecyclerView()
         addListener()
-    }
-
-    override fun onBindViewModelsOnCreate() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.storyItems
-                .collectLatest {
-                    perfumeDetailAdapter.submitData(it)
-                }
-        }
+        addObserver()
     }
 
     private fun initRecyclerView() {
@@ -74,5 +66,16 @@ class ScentListFragment : BaseViewModelFragment() {
                 )
             }
         })
+    }
+
+    private fun addObserver() {
+        viewModel.perfumeId.observe(viewLifecycleOwner) {
+            lifecycleScope.launchWhenCreated {
+                viewModel.getStoryItems(it)
+                    .collectLatest {
+                        perfumeDetailAdapter.submitData(it)
+                    }
+            }
+        }
     }
 }

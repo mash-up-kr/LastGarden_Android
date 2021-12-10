@@ -104,7 +104,7 @@ dependencies {
 
     // ReadMoreTextView
     implementation("kr.co.prnd:readmore-textview:1.0.0")
-    
+
     // Paging3
     implementation(Libs.AndroidX.Paging.runtime)
     testImplementation(Libs.AndroidX.Paging.common)

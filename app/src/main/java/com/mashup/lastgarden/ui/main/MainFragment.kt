@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -128,5 +129,19 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onSeeMoreClick() {
         findNavController().navigate(R.id.perfumeRecommendFragment)
+    }
+
+    override fun onPerfumeRankingClick(id: String) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf("perfumeId" to id)
+        )
+    }
+
+    override fun onPerfumeRecommendClick(id: String) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf("perfumeId" to id)
+        )
     }
 }
