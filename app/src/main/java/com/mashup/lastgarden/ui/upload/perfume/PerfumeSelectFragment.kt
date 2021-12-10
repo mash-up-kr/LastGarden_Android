@@ -62,8 +62,10 @@ class PerfumeSelectFragment : BaseViewModelFragment(), PerfumeSelectAdapter.OnPe
     override fun onBindViewModelsOnViewCreated() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.queryOfPerfume.collectLatest { query ->
-                binding.titleSearchingResult.text =
-                    getString(R.string.result_title_searching, query)
+                if (query.isNotBlank()) {
+                    binding.titleSearchingResult.text =
+                        getString(R.string.result_title_searching, query)
+                }
             }
         }
 
@@ -78,6 +80,12 @@ class PerfumeSelectFragment : BaseViewModelFragment(), PerfumeSelectAdapter.OnPe
                 .collectLatest {
                     perfumeSelectAdapter.submitData(it)
                 }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.isLoading.collectLatest {
+                binding.loadingView.isVisible = it
+            }
         }
     }
 

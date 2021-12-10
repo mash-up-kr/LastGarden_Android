@@ -86,11 +86,11 @@ fun List<Story>.toHotStoryItems(): List<MainAdapterItem.HotStories.HotStoryItem>
 fun Story.toHotStoryItem(): MainAdapterItem.HotStories.HotStoryItem =
     MainAdapterItem.HotStories.HotStoryItem(
         id = PREFIX_STORY_ID + storyId,
-        perfumeContentImageUrl = perfumeImageUrl,
-        storyImageUrl = thumbnailUrl,
+        perfumeContentImageUrl = perfumeThumbnailUrl,
+        storyImageUrl = perfumeImageUrl,
         authorName = userNickname,
         authorProfileImage = userProfileImage,
-        title = "Dummy",
+        title = perfumeName ?: "",
         likeCount = likeCount ?: 0L
     )
 
@@ -130,7 +130,7 @@ fun List<Story>.toTodayPerfumeStoryItems(): List<MainAdapterItem.TodayPerfumeSto
             id = PREFIX_STORY_ID + story.storyId,
             authorName = story.userNickname,
             authorProfileImage = story.userProfileImage,
-            storyImageUrl = story.thumbnailUrl
+            storyImageUrl = story.perfumeImageUrl
         )
     }
 

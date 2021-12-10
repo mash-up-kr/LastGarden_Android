@@ -40,7 +40,7 @@
         <activity
             android:name=".ui.sign.SignActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".ui.upload.editor.EditorActivity"

@@ -50,6 +50,21 @@
         app:strokeColor="@color/divider_google_login"
         app:strokeWidth="1dp" />
 
+    <com.mashup.lastgarden.customview.loadingview.LoadingView
+        android:id="@+id/loadingView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:background="@color/loading_view_mask"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/unUsedSign"
         android:layout_width="wrap_content"

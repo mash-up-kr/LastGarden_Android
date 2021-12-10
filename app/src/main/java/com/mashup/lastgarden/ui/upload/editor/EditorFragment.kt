@@ -52,7 +52,7 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
         setUiOfAddTextButton()
 
         binding.closeButton.setOnClickListener {
-            findNavController().popBackStack()
+            requireActivity().finish()
         }
         binding.floatingButton.setOnClickListener {
             saveEditedImage()

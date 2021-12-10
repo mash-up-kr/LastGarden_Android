@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.collectLatest
 class SignCompleteFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignCompleteBinding>()
-    private val viewModel: SignViewModel by viewModels()
+    private val viewModel: SignViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,10 +43,6 @@ class SignCompleteFragment : BaseViewModelFragment() {
         binding.nextButton.setOnClickListener {
             moveMainActivity()
         }
-    }
-
-    override fun onBindViewModelsOnCreate() {
-        viewModel.getUser()
     }
 
     override fun onBindViewModelsOnViewCreated() {

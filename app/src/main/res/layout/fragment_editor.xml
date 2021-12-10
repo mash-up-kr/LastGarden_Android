@@ -22,7 +22,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/ic_close"
-        app:tint="@color/point"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
@@ -34,7 +33,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_text"
-        app:tint="@color/point"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
