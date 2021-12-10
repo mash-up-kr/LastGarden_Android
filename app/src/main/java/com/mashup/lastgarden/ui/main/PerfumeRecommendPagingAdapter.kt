@@ -4,11 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.customview.PerfumeView
 import com.mashup.lastgarden.databinding.ItemPerfumeRecommendBinding
 
-class PerfumeRecommendPagingAdapter(private val glideRequests: GlideRequests) :
-    PagingDataAdapter<PerfumeRecommendItem, PerfumeRecommendViewHolder>(DIFF_CALLBACK) {
+class PerfumeRecommendPagingAdapter(
+    private val glideRequests: GlideRequests,
+    private val listener: OnRecommendItemClickListener
+) : PagingDataAdapter<PerfumeRecommendItem, PerfumeRecommendPagingAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PerfumeRecommendItem>() {
@@ -24,8 +28,10 @@ class PerfumeRecommendPagingAdapter(private val glideRequests: GlideRequests) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PerfumeRecommendViewHolder {
-        return PerfumeRecommendViewHolder(
+    class ViewHolder(binding: ItemPerfumeRecommendBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
             ItemPerfumeRecommendBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -34,8 +40,28 @@ class PerfumeRecommendPagingAdapter(private val glideRequests: GlideRequests) :
         )
     }
 
-    override fun onBindViewHolder(holder: PerfumeRecommendViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position) ?: return
-        holder.bind(glideRequests, item)
+        holder.bind(glideRequests, item, listener)
+    }
+
+    private fun ViewHolder.bind(
+        glideRequests: GlideRequests,
+        item: MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem,
+        listener: OnRecommendItemClickListener?
+    ) {
+        if (itemView !is PerfumeView) return
+
+        itemView.apply {
+            brand = item.brandName
+            name = item.name
+            count = item.likeCount
+            setImageUrl(glideRequests, item.imageUrl)
+            setOnClickListener { listener?.onPerfumeRecommendClick(item.id) }
+        }
+    }
+
+    interface OnRecommendItemClickListener {
+        fun onPerfumeRecommendClick(id: String)
     }
 }

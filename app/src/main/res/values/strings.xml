@@ -42,6 +42,7 @@
 
     <!-- Perfume Detail -->
     <string name="perfume_detail_scent_button">눈으로 시향하기</string>
+    <string name="perfume_detail_scent_button_enabled">시향지를 준비중</string>
     <string name="perfume_info_pyramid">Perfume Pyramid</string>
     <string name="perfume_info_pyramid_top">Top</string>
     <string name="perfume_info_pyramid_middle">Middle</string>
