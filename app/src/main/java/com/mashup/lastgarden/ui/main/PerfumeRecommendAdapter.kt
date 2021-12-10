@@ -8,7 +8,8 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.databinding.ItemPerfumeRecommendBinding
 
 class PerfumeRecommendAdapter(
-    private val glideRequests: GlideRequests
+    private val glideRequests: GlideRequests,
+    private val listener: MainAdapter.OnMainItemClickListener? = null
 ) : ListAdapter<PerfumeRecommendItem, PerfumeRecommendViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -43,6 +44,6 @@ class PerfumeRecommendAdapter(
 
     override fun onBindViewHolder(holder: PerfumeRecommendViewHolder, position: Int) {
         if (position !in 0 until itemCount) return
-        holder.bind(glideRequests, getItem(position))
+        holder.bind(glideRequests, getItem(position), listener)
     }
 }

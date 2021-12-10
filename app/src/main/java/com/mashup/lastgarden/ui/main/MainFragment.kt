@@ -73,6 +73,7 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
+        binding.toolbar.title = ""
         binding.recyclerView.adapter = adapter
 
         binding.floatingButton.setOnClickListener {
@@ -123,6 +124,20 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onSeeMoreClick() {
         findNavController().navigate(R.id.perfumeRecommendFragment)
+    }
+
+    override fun onPerfumeRankingClick(id: String) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf("perfumeId" to id)
+        )
+    }
+
+    override fun onPerfumeRecommendClick(id: String) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf("perfumeId" to id)
+        )
     }
 
     private fun moveEditorActivity() {

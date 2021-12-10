@@ -23,4 +23,7 @@ class PerfumeDetailRemoteDataSource @Inject constructor(private val service: Per
 
     suspend fun likePerfume(id: Int): PerfumeLike? =
         service.likePerfume(id).onErrorReturnDataNull()
+
+    suspend fun getStoryCount(perfumeId: Int): Int? =
+        service.getStoryCount(perfumeId).onErrorReturnDataNull()
 }

@@ -1,7 +1,9 @@
 package com.mashup.lastgarden.di
 
+import androidx.fragment.app.Fragment
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.ui.main.HotStoryAdapter
+import com.mashup.lastgarden.ui.main.MainFragment
 import com.mashup.lastgarden.ui.main.PerfumeRankingAdapter
 import com.mashup.lastgarden.ui.main.PerfumeRecommendAdapter
 import com.mashup.lastgarden.ui.main.TodayPerfumeStoryAdapter
@@ -23,10 +25,16 @@ object MainModule {
         HotStoryAdapter(glideRequests)
 
     @Provides
-    fun provideRankingAdapter(glideRequests: GlideRequests): PerfumeRankingAdapter =
-        PerfumeRankingAdapter(glideRequests)
+    fun provideRankingAdapter(
+        glideRequests: GlideRequests,
+        fragment: Fragment
+    ): PerfumeRankingAdapter =
+        PerfumeRankingAdapter(glideRequests, fragment as? MainFragment)
 
     @Provides
-    fun provideRecommendAdapter(glideRequests: GlideRequests): PerfumeRecommendAdapter =
-        PerfumeRecommendAdapter(glideRequests)
+    fun provideRecommendAdapter(
+        glideRequests: GlideRequests,
+        fragment: Fragment
+    ): PerfumeRecommendAdapter =
+        PerfumeRecommendAdapter(glideRequests, fragment as? MainFragment)
 }

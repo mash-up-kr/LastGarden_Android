@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,7 +19,8 @@ import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PerfumeRecommendFragment : BaseViewModelFragment() {
+class PerfumeRecommendFragment : BaseViewModelFragment(),
+    PerfumeRecommendPagingAdapter.OnRecommendItemClickListener {
 
     private var binding by autoCleared<FragmentPerfumeRecommendBinding>()
     private val viewModel by viewModels<PerfumeRecommendViewModel>()
@@ -34,7 +36,7 @@ class PerfumeRecommendFragment : BaseViewModelFragment() {
 
     override fun onCreated(savedInstanceState: Bundle?) {
         super.onCreated(savedInstanceState)
-        adapter = PerfumeRecommendPagingAdapter(glideRequests)
+        adapter = PerfumeRecommendPagingAdapter(glideRequests, this)
     }
 
     override fun onCreateView(
@@ -58,5 +60,12 @@ class PerfumeRecommendFragment : BaseViewModelFragment() {
                     adapter.submitData(it)
                 }
         }
+    }
+
+    override fun onPerfumeRecommendClick(id: String) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf("perfumeId" to id)
+        )
     }
 }

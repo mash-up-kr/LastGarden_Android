@@ -29,6 +29,9 @@ class PerfumeDetailViewModel @Inject constructor(
         private const val PAGE_SIZE = 10
     }
 
+    private var _perfumeId = MutableLiveData(1)
+    val perfumeId: LiveData<Int> get() = _perfumeId
+
     private val _perfumeDetailItem = MutableStateFlow<Perfume?>(null)
     val perfumeDetailItem: StateFlow<Perfume?> = _perfumeDetailItem
 
@@ -45,31 +48,33 @@ class PerfumeDetailViewModel @Inject constructor(
     private val _likeCount = MutableStateFlow<Int?>(null)
     val likeCount: StateFlow<Int?> = _likeCount
 
-    private val _perfumeId = MutableLiveData(1)
-    val perfumeId: LiveData<Int> = _perfumeId
+    private val _storyCount = MutableStateFlow<Int?>(null)
+    val storyCount: StateFlow<Int?> = _storyCount
 
-    val storyItems: Flow<PagingData<PerfumeDetailItem>> = perfumeDetailRepository
-        .getStoryByPerfume(perfumeId.value ?: 1, PAGE_SIZE)
+    fun getStoryItems(perfumeId: Int): Flow<PagingData<PerfumeDetailItem>> = perfumeDetailRepository
+        .getStoryByPerfume(perfumeId, PAGE_SIZE)
         .map { pagingData -> pagingData.map { story -> story.toPerfumeDetailStoryItem() } }
         .cachedIn(viewModelScope)
-
-    init {
-        fetchPerfumeDetail()
-    }
 
     fun setPerfumeId(perfumeId: Int) {
         _perfumeId.value = perfumeId
     }
 
-    private fun fetchPerfumeDetail() {
+    fun fetchPerfumeDetail(perfumeId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _perfumeDetailItem.value =
-                perfumeDetailRepository.fetchPerfumeDetail(perfumeId.value ?: 1)
+                perfumeDetailRepository.fetchPerfumeDetail(perfumeId)
         }
     }
 
-    fun initSelectedNote() {
-        if (_perfumeDetailItem.value?.notes?.default.isNullOrEmpty()) {
+    fun fetchStoryCount(perfumeId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _storyCount.value = perfumeDetailRepository.getStoryCount(perfumeId)
+        }
+    }
+
+    fun initSelectedNote(perfumeItem: Perfume) {
+        if (perfumeItem.notes?.default.isNullOrEmpty()) {
             setSelectedNote(PerfumeDetailNote.TOP)
         } else {
             setSelectedNote(null)
@@ -117,10 +122,10 @@ class PerfumeDetailViewModel @Inject constructor(
         )
     }
 
-    fun likePerfume() {
+    fun likePerfume(perfumeId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            perfumeDetailRepository.likePerfume(perfumeId.value ?: 1)
-            fetchPerfumeDetail()
+            perfumeDetailRepository.likePerfume(perfumeId)
+            fetchPerfumeDetail(perfumeId)
             setPerfumeLike()
         }
     }

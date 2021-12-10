@@ -9,15 +9,12 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.PerfumeSharedPreferences
 import com.mashup.lastgarden.data.repository.UserRepository
 import com.mashup.lastgarden.data.vo.NoneUser
-import com.mashup.lastgarden.data.vo.User
 import com.mashup.lastgarden.data.vo.UserState
 import com.mashup.lastgarden.network.NetworkCode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -45,11 +42,11 @@ class SignViewModel @Inject constructor(
     private val _needUserRegister = MutableSharedFlow<Boolean>()
     val needUserRegister = _needUserRegister.asSharedFlow()
 
-    private val _isValidName = MutableStateFlow(false)
-    val isValidName = _isValidName.asStateFlow()
+    private val _isValidName = MutableSharedFlow<Boolean>()
+    val isValidName = _isValidName.asSharedFlow()
 
-    private val _isValidUserInformation = MutableStateFlow(false)
-    val isValidUserInformation = _isValidUserInformation.asStateFlow()
+    private val _isValidUserInformation = MutableSharedFlow<Boolean>()
+    val isValidUserInformation = _isValidUserInformation.asSharedFlow()
 
     fun setUserName(name: String) {
         _userName.value = name
@@ -85,6 +82,7 @@ class SignViewModel @Inject constructor(
     }
 
     fun requestLogin(idToken: String, email: String?, authType: AuthType) = viewModelScope.launch {
+        _isLoading.emit(true)
         val result = userRepository.signUser(idToken, authType)
 
         when (result.code) {
@@ -104,9 +102,11 @@ class SignViewModel @Inject constructor(
                 }
             }
         }
+        _isLoading.emit(false)
     }
 
     fun registerUser() = viewModelScope.launch {
+        _isLoading.emit(true)
         val user = userRepository.registerUser(
             age = userAge.value ?: return@launch,
             genderType = genderType.value ?: return@launch,
@@ -114,6 +114,7 @@ class SignViewModel @Inject constructor(
         )
         user?.let { _userState.emit(user) }
         _needUserRegister.emit(user == null)
+        _isLoading.emit(false)
     }
 
     fun getUser() = viewModelScope.launch {
