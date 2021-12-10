@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +29,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickListener {
     private var binding by autoCleared<FragmentScentBinding>()
-    private val viewModel: ScentViewModel by activityViewModels()
+    private val viewModel: ScentViewModel by viewModels()
 
     private lateinit var perfumeStoryAdapter: ScentPagingAdapter
 
@@ -61,28 +61,29 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             findNavController().popBackStack()
         }
         binding.detailButton.setOnClickListener {
+            val lastPosition =
+                (binding.scentRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+            viewModel.getPerfumeId(lastPosition)
             findNavController().navigate(
                 R.id.actionScentFragmentToPerfumeDetailFragment,
                 bundleOf(
-                    "perfumeId" to requireArguments().getInt("perfumeId")
+                    "perfumeId" to viewModel.perfumeId.value
                 )
             )
-            val lastPosition =
-                (binding.scentRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
             viewModel.setScrollPosition(lastPosition)
         }
     }
 
     override fun onBindViewModelsOnCreate() {
         val perfumeId = requireArguments().getInt("perfumeId")
-        if (perfumeId != 0) {
+        if( perfumeId != 0) {
             lifecycleScope.launchWhenCreated {
                 viewModel.getStorySize(perfumeId)
                 viewModel.getPerfumeStoryLists(perfumeId).collectLatest {
                     perfumeStoryAdapter.submitData(it)
                 }
             }
-        } else {
+        } else{
             val storyPosition = requireArguments().getInt("storyPosition")
             getPerfumeStory(storyPosition)
         }

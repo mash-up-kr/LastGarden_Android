@@ -64,12 +64,7 @@ class ScentViewModel @Inject constructor(
         _storyPosition.value = storyPosition
     }
 
-
-    fun setPerfumeId(perfumeId: Int){
-        _perfumeId.value = perfumeId
-    }
-
-    fun getPerfumeId(storyPosition: Int){
+    fun getPerfumeId(storyPosition: Int) {
         _perfumeId.value = perfumeIdList[storyPosition]
     }
 
@@ -98,7 +93,6 @@ class ScentViewModel @Inject constructor(
             }
 
     fun getStorySize(perfumeId: Int) {
-        _perfumeId.value = perfumeId
         viewModelScope.launch {
             _storySize.value = storyRepository.getStoryCount(perfumeId)
         }

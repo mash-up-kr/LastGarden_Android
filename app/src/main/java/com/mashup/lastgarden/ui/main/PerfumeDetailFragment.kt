@@ -60,6 +60,8 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnViewCreated() {
+        val perfumeId = requireArguments().getInt("perfumeId")
+        viewModel.setPerfumeId(perfumeId)
         lifecycleScope.launchWhenCreated {
             viewModel.perfumeDetailItem
                 .filterNotNull()
@@ -160,7 +162,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         binding.nextButton.setOnClickListener {
             findNavController().navigate(
                 R.id.actionPerfumeDetailFragmentToScentFragment,
-                bundleOf("perfumeId" to viewModel.perfumeId)
+                bundleOf("perfumeId" to viewModel.perfumeId.value)
             )
         }
     }

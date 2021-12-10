@@ -1,6 +1,8 @@
 package com.mashup.lastgarden.ui.main
 
 import android.text.TextUtils
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -27,9 +29,6 @@ class PerfumeDetailViewModel @Inject constructor(
         private const val PAGE_SIZE = 10
     }
 
-    // TODO: Change perfume id value
-    val perfumeId = 1
-
     private val _perfumeDetailItem = MutableStateFlow<Perfume?>(null)
     val perfumeDetailItem: StateFlow<Perfume?> = _perfumeDetailItem
 
@@ -46,8 +45,11 @@ class PerfumeDetailViewModel @Inject constructor(
     private val _likeCount = MutableStateFlow<Int?>(null)
     val likeCount: StateFlow<Int?> = _likeCount
 
+    private val _perfumeId = MutableLiveData(1)
+    val perfumeId: LiveData<Int> = _perfumeId
+
     val storyItems: Flow<PagingData<PerfumeDetailItem>> = perfumeDetailRepository
-        .getStoryByPerfume(perfumeId, PAGE_SIZE)
+        .getStoryByPerfume(perfumeId.value ?: 1, PAGE_SIZE)
         .map { pagingData -> pagingData.map { story -> story.toPerfumeDetailStoryItem() } }
         .cachedIn(viewModelScope)
 
@@ -55,10 +57,14 @@ class PerfumeDetailViewModel @Inject constructor(
         fetchPerfumeDetail()
     }
 
+    fun setPerfumeId(perfumeId: Int) {
+        _perfumeId.value = perfumeId
+    }
+
     private fun fetchPerfumeDetail() {
         viewModelScope.launch(Dispatchers.IO) {
             _perfumeDetailItem.value =
-                perfumeDetailRepository.fetchPerfumeDetail(perfumeId)
+                perfumeDetailRepository.fetchPerfumeDetail(perfumeId.value ?: 1)
         }
     }
 
@@ -113,7 +119,7 @@ class PerfumeDetailViewModel @Inject constructor(
 
     fun likePerfume() {
         viewModelScope.launch(Dispatchers.IO) {
-            perfumeDetailRepository.likePerfume(perfumeId)
+            perfumeDetailRepository.likePerfume(perfumeId.value ?: 1)
             fetchPerfumeDetail()
             setPerfumeLike()
         }
