@@ -82,6 +82,7 @@ class SignViewModel @Inject constructor(
     }
 
     fun requestLogin(idToken: String, email: String?, authType: AuthType) = viewModelScope.launch {
+        _isLoading.emit(true)
         val result = userRepository.signUser(idToken, authType)
 
         when (result.code) {
@@ -101,9 +102,11 @@ class SignViewModel @Inject constructor(
                 }
             }
         }
+        _isLoading.emit(false)
     }
 
     fun registerUser() = viewModelScope.launch {
+        _isLoading.emit(true)
         val user = userRepository.registerUser(
             age = userAge.value ?: return@launch,
             genderType = genderType.value ?: return@launch,
@@ -111,6 +114,7 @@ class SignViewModel @Inject constructor(
         )
         user?.let { _userState.emit(user) }
         _needUserRegister.emit(user == null)
+        _isLoading.emit(false)
     }
 
     fun getUser() = viewModelScope.launch {
