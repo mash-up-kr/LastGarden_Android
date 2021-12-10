@@ -50,10 +50,6 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         binding = FragmentPerfumeDetailBinding.inflate(
             inflater, container, false
         )
-        arguments?.getString("perfumeId")?.drop(1)?.let {
-            perfumeId = it.toInt()
-            viewModel.setPerfumeId(it.toInt())
-        }
         return binding.root
     }
 
@@ -66,6 +62,8 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnViewCreated() {
+        val perfumeId = requireArguments().getInt("perfumeId")
+        viewModel.setPerfumeId(perfumeId)
         viewModel.fetchPerfumeDetail(perfumeId)
         viewModel.fetchStoryCount(perfumeId)
         lifecycleScope.launchWhenCreated {

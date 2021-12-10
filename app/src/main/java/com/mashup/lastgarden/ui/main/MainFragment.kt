@@ -2,7 +2,6 @@ package com.mashup.lastgarden.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
-import com.mashup.lastgarden.ui.scent.MainStorySet
 import com.mashup.lastgarden.ui.upload.editor.EditorActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -127,16 +125,18 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
     }
 
     override fun onPerfumeRankingClick(id: String) {
+        val perfumeId = id.replace("P", "").toInt()
         findNavController().navigate(
             R.id.perfumeDetailFragment,
-            bundleOf("perfumeId" to id)
+            bundleOf("perfumeId" to perfumeId)
         )
     }
 
     override fun onPerfumeRecommendClick(id: String) {
+        val perfumeId = id.replace("P", "").toInt()
         findNavController().navigate(
             R.id.perfumeDetailFragment,
-            bundleOf("perfumeId" to id)
+            bundleOf("perfumeId" to perfumeId)
         )
     }
 
