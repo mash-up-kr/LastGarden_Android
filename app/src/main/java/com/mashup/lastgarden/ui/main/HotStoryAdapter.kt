@@ -15,6 +15,7 @@ private typealias HotStoryItem = MainAdapterItem.HotStories.HotStoryItem
 class HotStoryAdapter(
     private val glideRequests: GlideRequests
 ) : ListAdapter<HotStoryItem, HotStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+    lateinit var listener: TodayPerfumeStoryAdapter.OnTodayPerfumeStoryClickListener
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<HotStoryItem>() {
@@ -64,6 +65,13 @@ class HotStoryAdapter(
             setContentImage(glideRequests, item.perfumeContentImageUrl)
             setSourceImage(glideRequests, item.storyImageUrl, R.drawable.ic_story_empty_vertical)
             setUserImage(glideRequests, item.authorProfileImage)
+            setOnClickListener {
+                listener.hotPerfumeStoryClick(bindingAdapterPosition)
+            }
         }
+    }
+
+    fun setOnTodayPerfumeStoryClickListener(listener: TodayPerfumeStoryAdapter.OnTodayPerfumeStoryClickListener) {
+        this.listener = listener
     }
 }

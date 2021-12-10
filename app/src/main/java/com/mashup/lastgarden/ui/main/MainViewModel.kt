@@ -1,5 +1,7 @@
 package com.mashup.lastgarden.ui.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.base.extensions.combine
@@ -7,6 +9,8 @@ import com.mashup.lastgarden.data.PerfumeSharedPreferences
 import com.mashup.lastgarden.data.repository.PerfumeRepository
 import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.PerfumeAndStories
+import com.mashup.lastgarden.data.vo.Story
+import com.mashup.lastgarden.ui.scent.MainStorySet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,7 +67,8 @@ class MainViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _hotStoriesItem.value = storyRepository.fetchHotStory().toHotStoryItems()
+            hotStoryList = storyRepository.fetchHotStory()
+            _hotStoriesItem.value = hotStoryList.toHotStoryItems()
         }
     }
 
@@ -137,7 +142,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-
     fun setIsShowBanner(isShow: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             sharedPreferences.saveIsShowBanner(isShow)
@@ -149,5 +153,31 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _isShowBanner.value = sharedPreferences.getIsShowBanner()
         }
+    }
+
+    private val _perfumeStorySet = MutableLiveData<MainStorySet>()
+    val perfumeStorySet: LiveData<MainStorySet>
+        get() = _perfumeStorySet
+
+    lateinit var hotStoryList: List<Story>
+
+    fun getMainStorySet() {
+        val set: MutableSet<Pair<Int, Int>> = mutableSetOf()
+        val perfumeId = _todayPerfumeAndStories.value?.perfume?.perfumeId ?: 0
+        todayPerfumeStories.value.forEach { todayPerfumeStory ->
+            val storyId = todayPerfumeStory.id.replace("S", "").toInt()
+            set.add(Pair(storyId, perfumeId))
+        }
+        _perfumeStorySet.value = MainStorySet(set)
+    }
+
+    fun getHotStorySet() {
+        val set: MutableSet<Pair<Int, Int>> = mutableSetOf()
+        hotStoryList.forEach { hotPerfumeStory ->
+            val storyId = hotPerfumeStory.storyId
+            val perfumeId = hotPerfumeStory.perfumeId?.toInt() ?: 0
+            set.add(Pair(storyId, perfumeId))
+        }
+        _perfumeStorySet.value = MainStorySet(set)
     }
 }

@@ -50,6 +50,11 @@ class ScentViewModel @Inject constructor(
     val storySize: LiveData<Int> = _storySize
 
     private val todayAndHotStoryList = mutableListOf<Story>()
+    private val perfumeIdList = mutableListOf<Int>()
+
+    private val _perfumeId = MutableLiveData<Int>()
+    val perfumeId: LiveData<Int>
+        get() = _perfumeId
 
     fun setSortOrder(sort: Sort) {
         _sortOrder.value = sort
@@ -59,13 +64,23 @@ class ScentViewModel @Inject constructor(
         _storyPosition.value = storyPosition
     }
 
+
+    fun setPerfumeId(perfumeId: Int){
+        _perfumeId.value = perfumeId
+    }
+
+    fun getPerfumeId(storyPosition: Int){
+        _perfumeId.value = perfumeIdList[storyPosition]
+    }
+
     fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet) {
         viewModelScope.launch {
             todayAndHotStoryList.clear()
-            storyIdAndPerfumeIdSet.set?.forEach {
-                storyRepository.fetchPerfumeStory(storyId = it.first)?.let { story ->
+            storyIdAndPerfumeIdSet.set?.forEach { pair ->
+                storyRepository.fetchPerfumeStory(storyId = pair.first)?.let { story ->
                     todayAndHotStoryList.add(story)
                 }
+                perfumeIdList.add(pair.second)
             }
             _perfumeStoryList.value = todayAndHotStoryList
         }
@@ -83,6 +98,7 @@ class ScentViewModel @Inject constructor(
             }
 
     fun getStorySize(perfumeId: Int) {
+        _perfumeId.value = perfumeId
         viewModelScope.launch {
             _storySize.value = storyRepository.getStoryCount(perfumeId)
         }

@@ -15,6 +15,7 @@ private typealias TodayPerfumeStoryItem = MainAdapterItem.TodayPerfumeStories.To
 class TodayPerfumeStoryAdapter(
     private val glideRequests: GlideRequests
 ) : ListAdapter<TodayPerfumeStoryItem, TodayPerfumeStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+    lateinit var listener: OnTodayPerfumeStoryClickListener
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TodayPerfumeStoryItem>() {
@@ -60,6 +61,18 @@ class TodayPerfumeStoryAdapter(
             userName = item.authorName
             setUserImage(glideRequests, item.authorProfileImage)
             setSourceImage(glideRequests, item.storyImageUrl, R.drawable.ic_story_empty_horizontal)
+            setOnClickListener {
+                listener.todayPerfumeStoryClick(bindingAdapterPosition)
+            }
         }
+    }
+
+    fun setOnTodayPerfumeStoryClickListener(listener: OnTodayPerfumeStoryClickListener) {
+        this.listener = listener
+    }
+
+    interface OnTodayPerfumeStoryClickListener {
+        fun todayPerfumeStoryClick(position: Int)
+        fun hotPerfumeStoryClick(position: Int)
     }
 }

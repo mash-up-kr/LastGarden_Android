@@ -2,9 +2,11 @@ package com.mashup.lastgarden.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +15,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.scent.MainStorySet
 import com.mashup.lastgarden.ui.upload.editor.EditorActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -20,7 +23,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListener {
+class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListener, TodayPerfumeStoryAdapter.OnTodayPerfumeStoryClickListener {
 
     private var binding by autoCleared<FragmentMainBinding>()
 
@@ -53,6 +56,8 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
             recommendAdapter = recommendAdapter,
             mainItemClickListener = this
         )
+        todayPerfumeStoryAdapter.setOnTodayPerfumeStoryClickListener(this)
+        hotStoryAdapter.setOnTodayPerfumeStoryClickListener(this)
     }
 
     override fun onCreateView(
@@ -127,4 +132,30 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
             )
         }
     }
+
+    override fun todayPerfumeStoryClick(position:Int) {
+        viewModel.getMainStorySet()
+        val todayMainSet = viewModel.perfumeStorySet.value
+        findNavController().navigate(R.id.mainFragment)
+        findNavController().navigate(
+            R.id.actionMainFragmentToScentFragment,
+            bundleOf(
+                "mainStorySet" to todayMainSet, "storyPosition" to position
+            )
+        )
+    }
+
+    override fun hotPerfumeStoryClick(position: Int) {
+        viewModel.getHotStorySet()
+        val hotStorySet = viewModel.perfumeStorySet.value
+        findNavController().navigate(R.id.mainFragment)
+        findNavController().navigate(
+            R.id.actionMainFragmentToScentFragment,
+            bundleOf(
+                "mainStorySet" to hotStorySet, "storyPosition" to position
+            )
+        )
+    }
+
+
 }
