@@ -74,7 +74,7 @@ class EditProfileViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.emit(true)
             val profileUrl = _inputProfileUrl.value
-            val multipart = profileUrl?.toMultipartBody(context, "file")
+            val multipart = profileUrl?.toMultipartBody(context, "image")
             if (multipart == null) {
                 _isLoading.emit(false)
                 _errorMessage.emit(context.getString(R.string.open_file_error))

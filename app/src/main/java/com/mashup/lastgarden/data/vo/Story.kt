@@ -13,6 +13,8 @@ import com.google.gson.annotations.SerializedName
 data class Story(
     @PrimaryKey @ColumnInfo(name = "story_id") @SerializedName("id") val storyId: Int,
     @ColumnInfo(name = "story_perfume_image_url") @SerializedName("imageUrl") val perfumeImageUrl: String? = null,
+    @Ignore val perfumeThumbnailUrl: String? = null,
+    @Ignore val perfumeName: String? = null,
     @ColumnInfo(name = "story_user_id") val userId: Int,
     @ColumnInfo(name = "story_thumbnail_url") val thumbnailUrl: String? = null,
     @ColumnInfo(name = "story_created_date") val createdAt: String,
