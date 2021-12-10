@@ -116,7 +116,7 @@ class SignViewModel @Inject constructor(
         _needUserRegister.emit(user == null)
     }
 
-    private fun getUser() = viewModelScope.launch {
+    fun getUser() = viewModelScope.launch {
         val user = userRepository.getUser()
         if (user != null && !user.isEmpty()) {
             _userState.emit(user)

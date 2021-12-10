@@ -91,6 +91,7 @@ class EditorFragment : BaseViewModelFragment(), OnPhotoEditorListener {
 
             override fun onFailure(e: Exception?) {
                 showToast(R.string.editor_failed_save_edited_image)
+                findNavController().popBackStack()
             }
         })
     }

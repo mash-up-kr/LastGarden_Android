@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 class SignInGenderFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentSignGenderBinding>()
-    private val viewModel: SignViewModel by activityViewModels()
+    private val viewModel: SignViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

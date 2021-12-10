@@ -69,6 +69,10 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
         binding.recyclerView.adapter = adapter
+
+        binding.floatingButton.setOnClickListener {
+            moveEditorActivity()
+        }
     }
 
     override fun onBindViewModelsOnCreate() {
@@ -114,5 +118,13 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onSeeMoreClick() {
         findNavController().navigate(R.id.perfumeRecommendFragment)
+    }
+
+    private fun moveEditorActivity() {
+        requireActivity().run {
+            startActivity(
+                Intent(requireContext(), EditorActivity::class.java)
+            )
+        }
     }
 }

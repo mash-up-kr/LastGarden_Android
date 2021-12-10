@@ -32,8 +32,9 @@
         app:tabIndicator="@null"
         app:tabIndicatorHeight="0dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/nextButton"
+        style="@style/Widget.SeeHyangComponents.Button"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginHorizontal="20dp"
@@ -41,7 +42,6 @@
         android:text="@string/tutorial_btn_next"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:theme="@style/Widget.SeeHyangComponents.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

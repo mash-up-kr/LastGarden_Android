@@ -10,7 +10,7 @@
         <item name="indicatorPadding">8dp</item>
     </style>
 
-    <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="cornerRadius">8dp</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@android:color/white</item>
