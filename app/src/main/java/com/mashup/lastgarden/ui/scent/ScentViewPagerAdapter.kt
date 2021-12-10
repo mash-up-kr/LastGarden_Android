@@ -8,9 +8,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.ItemScentBinding
-import com.mashup.lastgarden.utils.convertDate
-import com.mashup.lastgarden.utils.formatNumber
-import com.mashup.lastgarden.utils.formatPageCount
+import com.mashup.lastgarden.utils.Util
 
 class ScentViewPagerAdapter(
     private val list: List<Story>,
@@ -55,11 +53,12 @@ class ScentViewPagerAdapter(
     private fun ScentViewHolder.bindTextView(item: Story) {
         binding.run {
             pageCountTextView.text =
-                formatPageCount(pageCountTextView.context, bindingAdapterPosition, list.size)
+                Util.formatPageCount(pageCountTextView.context, bindingAdapterPosition, list.size)
             nicknameTextView.text = item.userNickname
-            dateTextView.text = convertDate(binding.dateTextView.context.resources, item.createdAt)
+            dateTextView.text =
+                Util.convertDate(binding.dateTextView.context.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
-            likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
+            likeCountTextView.text = item.likeCount?.let { Util.formatNumber(it) }
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)
@@ -67,9 +66,9 @@ class ScentViewPagerAdapter(
         }
     }
 
-    class ScentViewHolder(val binding: ItemScentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-    }
+    class ScentViewHolder(
+        val binding: ItemScentBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 
     interface OnClickListener {
         fun onCommentClick(scentId: Int)

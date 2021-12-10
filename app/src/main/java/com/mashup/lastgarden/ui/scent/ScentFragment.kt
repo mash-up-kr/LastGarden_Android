@@ -1,3 +1,6 @@
+
+
+
 package com.mashup.lastgarden.ui.scent
 
 import android.os.Bundle
@@ -6,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +22,7 @@ import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.FragmentScentBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.scent.comment.ScentCommentBottomSheetFragment
-import com.mashup.lastgarden.utils.convertDate
-import com.mashup.lastgarden.utils.formatNumber
+import com.mashup.lastgarden.utils.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -28,7 +30,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickListener {
     private var binding by autoCleared<FragmentScentBinding>()
-    private val viewModel: ScentViewModel by activityViewModels()
+    private val viewModel: ScentViewModel by viewModels()
 
     private lateinit var perfumeStoryAdapter: ScentPagingAdapter
 
@@ -70,14 +72,14 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
     }
 
     override fun onBindViewModelsOnCreate() {
-        val mainStorySet: MainStorySet? = requireArguments().getParcelable("mainStorySet")
-        val storyIndex = requireArguments().getInt("storyIndex")
-        val perfumeId = requireArguments().getInt("perfumeId")
-        val storyId = requireArguments().getInt("storyId")
+        val mainStorySet: MainStorySet? by lazy { requireArguments().getParcelable("mainStorySet") }
+        val storyIndex by lazy { requireArguments().getInt("storyIndex") }
+        val perfumeId by lazy { requireArguments().getInt("perfumeId") }
+        val storyId by lazy { requireArguments().getInt("storyId") }
 
         when {
             mainStorySet != null -> {
-                viewModel.getTodayAndHotStoryList(mainStorySet, storyIndex)
+                viewModel.getTodayAndHotStoryList(mainStorySet ?: MainStorySet(), storyIndex)
             }
             perfumeId != 0 -> {
                 lifecycleScope.launchWhenCreated {
@@ -100,6 +102,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             binding.detailButton.isVisible = true
             binding.sortButton.isVisible = false
         }
+
         viewModel.storyIndex.observe(viewLifecycleOwner) {
             binding.scentRecyclerView.scrollToPosition(it)
         }
@@ -148,9 +151,9 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         binding.includeScentLayout.run {
             pageCountTextView.isVisible = false
             nicknameTextView.text = item.userNickname
-            dateTextView.text = convertDate(requireActivity().resources, item.createdAt)
+            dateTextView.text = Util.convertDate(requireActivity().resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
-            likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
+            likeCountTextView.text = item.likeCount?.let { Util.formatNumber(it) }
             //TODO like 이미지 설정
         }
     }

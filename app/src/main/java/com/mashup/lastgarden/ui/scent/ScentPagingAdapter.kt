@@ -10,9 +10,7 @@ import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.ItemScentBinding
-import com.mashup.lastgarden.utils.convertDate
-import com.mashup.lastgarden.utils.formatNumber
-import com.mashup.lastgarden.utils.formatPageCount
+import com.mashup.lastgarden.utils.Util
 
 class ScentPagingAdapter(
     private val glideRequests: GlideRequests,
@@ -43,9 +41,9 @@ class ScentPagingAdapter(
         )
     }
 
-    class ScentViewHolder(val binding: ItemScentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-    }
+    class ScentViewHolder(
+        val binding: ItemScentBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(viewHolder: ScentViewHolder, position: Int) {
         getItem(position)?.let { viewHolder.bind(it) }
@@ -55,12 +53,12 @@ class ScentPagingAdapter(
         glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
         binding.run {
             pageCountTextView.text =
-                formatPageCount(pageCountTextView.context, bindingAdapterPosition, itemCount)
+                Util.formatPageCount(pageCountTextView.context, bindingAdapterPosition, itemCount)
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
             nicknameTextView.text = item.userNickname
-            dateTextView.text = convertDate(dateTextView.resources, item.createdAt)
+            dateTextView.text = Util.convertDate(dateTextView.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
-            likeCountTextView.text = item.likeCount?.let { formatNumber(it) }
+            likeCountTextView.text = item.likeCount?.let { Util.formatNumber(it) }
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)

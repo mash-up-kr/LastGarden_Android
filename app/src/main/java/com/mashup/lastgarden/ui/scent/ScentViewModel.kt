@@ -46,8 +46,8 @@ class ScentViewModel @Inject constructor(
 
     fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet, storyIndex: Int) {
         viewModelScope.launch {
-            storyIdAndPerfumeIdSet.set?.forEach {
-                storyRepository.fetchPerfumeStory(storyId = it.first)?.let { story ->
+            storyIdAndPerfumeIdSet.set?.forEach { pair ->
+                storyRepository.fetchPerfumeStory(storyId = pair.first)?.let { story ->
                     todayAndHotStoryList.add(story)
                 }
             }
