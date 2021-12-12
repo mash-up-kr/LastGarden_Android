@@ -15,7 +15,7 @@ data class PerfumeDetailItem(
 fun Story.toPerfumeDetailStoryItem(): PerfumeDetailItem =
     PerfumeDetailItem(
         id = storyId,
-        imageUrl = thumbnailUrl,
+        imageUrl = perfumeImageUrl,
         userProfileImageUrl = userProfileImage,
         userNickname = userNickname,
         likeCount = likeCount,

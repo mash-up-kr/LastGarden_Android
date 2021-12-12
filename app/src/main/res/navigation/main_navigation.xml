@@ -11,10 +11,14 @@
 
         <action
             android:id="@+id/actionMainFragmentToScentFragment"
-            app:destination="@id/scentFragment" />
+            app:destination="@id/scentFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/actionMainFragmentToPerfumeDetailFragment"
-            app:destination="@id/perfumeDetailFragment" />
+            app:destination="@id/perfumeDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     </fragment>
 
@@ -40,7 +44,9 @@
         android:label="ScentFragment">
         <action
             android:id="@+id/actionScentFragmentToPerfumeDetailFragment"
-            app:destination="@id/perfumeDetailFragment" />
+            app:destination="@id/perfumeDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment

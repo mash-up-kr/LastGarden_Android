@@ -3,7 +3,7 @@ object Versions {
         const val major = 0
         const val feature = 0
         const val regular = 0
-        const val minor = 2
+        const val minor = 3
     }
 }
 

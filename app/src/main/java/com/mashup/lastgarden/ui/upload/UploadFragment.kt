@@ -1,5 +1,7 @@
 package com.mashup.lastgarden.ui.upload
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -84,12 +86,19 @@ class UploadFragment : BaseViewModelFragment() {
                 when (uploadState) {
                     is UploadViewModel.UploadState.Success -> {
                         showToast(R.string.upload_success_story_save)
-                        requireActivity().finish()
+                        requireActivity().run {
+                            setResult(
+                                Activity.RESULT_OK,
+                                intent.putExtra("storyId", uploadState.story.storyId)
+                            )
+                            finish()
+                        }
                     }
                     UploadViewModel.UploadState.Failure -> {
                         showToast(R.string.upload_failed_story_save_success)
                     }
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
         }

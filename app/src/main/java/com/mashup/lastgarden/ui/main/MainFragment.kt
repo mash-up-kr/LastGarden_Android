@@ -1,10 +1,12 @@
 package com.mashup.lastgarden.ui.main
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -43,6 +45,21 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
     lateinit var recommendAdapter: PerfumeRecommendAdapter
 
     private lateinit var adapter: MainAdapter
+
+    private val addScentLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+//            val storyId = result.data?.getIntExtra("storyId", -1) ?: -1
+//            if (storyId >= 0) {
+//                findNavController().navigate(
+//                    R.id.actionMainFragmentToScentFragment,
+//                    bundleOf("storyId" to storyId)
+//                )
+//            }
+        }
+    }
 
     override fun onCreated(savedInstanceState: Bundle?) {
         super.onCreated(savedInstanceState)
@@ -141,11 +158,9 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
     }
 
     private fun moveEditorActivity() {
-        requireActivity().run {
-            startActivity(
-                Intent(requireContext(), EditorActivity::class.java)
-            )
-        }
+        addScentLauncher.launch(
+            Intent(requireContext(), EditorActivity::class.java)
+        )
     }
 
     override fun todayPerfumeStoryClick(position:Int) {
@@ -171,6 +186,4 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
             )
         )
     }
-
-
 }
