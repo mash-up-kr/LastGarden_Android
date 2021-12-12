@@ -73,9 +73,9 @@
         android:id="@+id/bottomButtonLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:paddingHorizontal="20dp"
         android:paddingVertical="16dp"
-        android:background="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,12 +83,12 @@
 
         <Button
             android:id="@+id/confirmButton"
+            style="@style/Widget.SeeHyangComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/common_confirm"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:theme="@style/Widget.SeeHyangComponents.Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
