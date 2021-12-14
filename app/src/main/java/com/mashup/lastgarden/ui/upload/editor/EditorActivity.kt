@@ -25,6 +25,8 @@ class EditorActivity : AppCompatActivity() {
             result.getBitmap(this)?.let { bitmap ->
                 viewModel.setEditedImage(bitmap)
             }
+        } else {
+            finish()
         }
     }
 

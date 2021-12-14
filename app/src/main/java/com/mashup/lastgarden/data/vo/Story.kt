@@ -12,7 +12,9 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "stories")
 data class Story(
     @PrimaryKey @ColumnInfo(name = "story_id") @SerializedName("id") val storyId: Int,
-    @ColumnInfo(name = "story_perfume_image_url") @SerializedName("imageUrl") val perfumeImageUrl: String? = null,
+    @ColumnInfo(name = "story_perfume_image_url") @SerializedName("imageUrl") val imageUrl: String? = null,
+    @ColumnInfo(name = "story_perfume_thumbnail_url") val perfumeThumbnailUrl: String? = null,
+    @ColumnInfo(name = "story_perfume_name") val perfumeName: String? = null,
     @ColumnInfo(name = "story_user_id") val userId: Int,
     @ColumnInfo(name = "story_thumbnail_url") val thumbnailUrl: String? = null,
     @ColumnInfo(name = "story_created_date") val createdAt: String,
@@ -24,7 +26,9 @@ data class Story(
     constructor(
         storyId: Int,
         userId: Int,
-        perfumeImageUrl: String?,
+        imageUrl: String?,
+        perfumeThumbnailUrl: String?,
+        perfumeName: String?,
         thumbnailUrl: String?,
         userProfileImage: String?,
         createdAt: String,
@@ -33,7 +37,9 @@ data class Story(
     ) : this(
         storyId = storyId,
         userId = userId,
-        perfumeImageUrl = perfumeImageUrl,
+        imageUrl = imageUrl,
+        perfumeThumbnailUrl = perfumeThumbnailUrl,
+        perfumeName = perfumeName,
         thumbnailUrl = thumbnailUrl,
         createdAt = createdAt,
         userProfileImage = userProfileImage,

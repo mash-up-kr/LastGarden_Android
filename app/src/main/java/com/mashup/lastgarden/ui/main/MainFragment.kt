@@ -68,7 +68,12 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
+        binding.toolbar.title = ""
+
         binding.recyclerView.adapter = adapter
+        binding.floatingButton.setOnClickListener {
+            moveEditorActivity()
+        }
     }
 
     override fun onBindViewModelsOnCreate() {
@@ -109,6 +114,14 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onRefreshPerfumeClick() {
         viewModel.refreshTodayPerfume()
+    }
+
+    private fun moveEditorActivity() {
+        requireActivity().run {
+            startActivity(
+                Intent(requireContext(), EditorActivity::class.java)
+            )
+        }
     }
 
     override fun onBannerClick() {

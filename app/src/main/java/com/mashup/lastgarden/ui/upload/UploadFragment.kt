@@ -75,11 +75,11 @@ class UploadFragment : BaseViewModelFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.onStorySaveSuccess.collectLatest { uploadState ->
                 when (uploadState) {
-                    UploadViewModel.UploadState.SUCCESS -> {
+                    is UploadViewModel.UploadState.Success -> {
                         showToast(R.string.upload_success_story_save)
                         requireActivity().finish()
                     }
-                    UploadViewModel.UploadState.FAILURE -> {
+                    UploadViewModel.UploadState.Failure -> {
                         showToast(R.string.upload_failed_story_save_success)
                     }
                     else -> {}
