@@ -1,6 +1,3 @@
-
-
-
 package com.mashup.lastgarden.ui.scent
 
 import android.os.Bundle
@@ -9,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +27,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickListener {
     private var binding by autoCleared<FragmentScentBinding>()
-    private val viewModel: ScentViewModel by viewModels()
+    private val viewModel: ScentViewModel by activityViewModels()
 
     private lateinit var perfumeStoryAdapter: ScentPagingAdapter
 
@@ -77,21 +74,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         val perfumeId by lazy { requireArguments().getInt("perfumeId") }
         val storyId by lazy { requireArguments().getInt("storyId") }
 
-        when {
-            mainStorySet != null -> {
-                viewModel.getTodayAndHotStoryList(mainStorySet ?: MainStorySet(), storyIndex)
-            }
-            perfumeId != 0 -> {
-                lifecycleScope.launchWhenCreated {
-                    viewModel.getPerfumeStoryLists(perfumeId).collectLatest {
-                        perfumeStoryAdapter.submitData(it)
-                    }
-                }
-            }
-            storyId != 0 -> {
-                viewModel.getPerfumeStory(storyId)
-            }
-        }
+        viewModel.setMainStoryList(mainStorySet, storyIndex)
+        viewModel.setPerfumeId(perfumeId)
+        viewModel.setStoryId(storyId)
+        viewModel.getStoryList()
     }
 
     override fun onBindViewModelsOnViewCreated() {
@@ -108,9 +94,15 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         }
 
         viewModel.perfumeStory.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.sortButton.isVisible = false
-                setPerfumeStory(it)
+            binding.sortButton.isVisible = false
+            setPerfumeStory(it)
+        }
+
+        viewModel.emitStoryList.observe(viewLifecycleOwner) {
+            lifecycleScope.launchWhenCreated {
+                viewModel.pagingStoryList.collectLatest {
+                    perfumeStoryAdapter.submitData(it)
+                }
             }
         }
 
