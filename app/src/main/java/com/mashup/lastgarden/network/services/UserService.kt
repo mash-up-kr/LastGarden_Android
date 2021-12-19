@@ -31,4 +31,7 @@ interface UserService {
 
     @PUT("user")
     suspend fun registerUser(@Body params: RequestBody): NetworkDataResponse<User>
+
+    @POST("user/profile")
+    suspend fun updateUserProfile(@Body body: RequestBody): NetworkDataResponse<Any>
 }
