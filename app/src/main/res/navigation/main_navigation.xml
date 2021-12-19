@@ -48,4 +48,10 @@
         android:id="@+id/settingsFragment"
         android:name="com.mashup.lastgarden.ui.settings.SettingsFragment"
         android:label="SettingsFragment" />
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.mashup.lastgarden.ui.account.EditProfileFragment"
+        android:label="EditProfileFragment" />
+
 </navigation>
