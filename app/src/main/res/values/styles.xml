@@ -3,6 +3,13 @@
 
     <style name="Widget.SeeHyangComponents" parent="android:Widget" />
 
+    <style name="Widget.SeeHyangComponents.LoadingView" parent="Widget.SeeHyangComponents">
+        <item name="indicator">@drawable/oval</item>
+        <item name="indicatorTint">@color/primaryColor</item>
+        <item name="indicatorRadius">6dp</item>
+        <item name="indicatorPadding">8dp</item>
+    </style>
+
     <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">8dp</item>
         <item name="android:textSize">16sp</item>

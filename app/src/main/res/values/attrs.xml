@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="loadingViewStyle" format="reference" />
     <declare-styleable name="TopBottomGradientCardView">
         <attr name="userName" format="string" />
         <attr name="showContent" format="boolean" />
@@ -10,5 +11,11 @@
         <attr name="count" format="integer" />
         <attr name="contentCardHeight" format="dimension" />
         <attr name="showPerfumeContent" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="LoadingView">
+        <attr name="indicator" format="reference" />
+        <attr name="indicatorRadius" format="dimension" />
+        <attr name="indicatorPadding" format="dimension" />
+        <attr name="indicatorTint" format="color" />
     </declare-styleable>
 </resources>
