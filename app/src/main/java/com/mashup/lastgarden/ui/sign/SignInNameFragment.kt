@@ -63,9 +63,7 @@ class SignInNameFragment : BaseViewModelFragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.snackBarStringResId.collectLatest { stringRes ->
-                stringRes?.let {
-                    showToast(stringRes)
-                }
+                showToast(stringRes)
             }
         }
     }

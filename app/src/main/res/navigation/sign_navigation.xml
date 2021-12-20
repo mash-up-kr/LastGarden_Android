@@ -9,8 +9,8 @@
         <action
             android:id="@+id/actionSignInFragmentToSignInInputNameFragment"
             app:destination="@id/signInNameFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment
@@ -19,8 +19,8 @@
         <action
             android:id="@+id/actionSignInInputNameFragmentToSignInputGenderFragment"
             app:destination="@id/signInGenderFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment
@@ -29,8 +29,8 @@
         <action
             android:id="@+id/actionSignInputGenderFragmentToSignCompleteFragment"
             app:destination="@id/signCompleteFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
 
     <fragment
