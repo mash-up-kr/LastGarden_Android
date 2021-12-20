@@ -10,13 +10,16 @@ import androidx.paging.map
 import com.mashup.lastgarden.Constant.KEY_IMAGE_FILE
 import com.mashup.lastgarden.data.repository.PerfumeRepository
 import com.mashup.lastgarden.data.repository.StoryRepository
+import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.ui.upload.perfume.PerfumeItem
 import com.mashup.lastgarden.ui.upload.perfume.PerfumeSelectedItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.launch
@@ -28,8 +31,10 @@ class UploadViewModel @Inject constructor(
     private val storyRepository: StoryRepository
 ) : ViewModel() {
 
-    enum class UploadState {
-        SUCCESS, FAILURE, NONE
+    sealed class UploadState {
+        data class Success(val story: Story) : UploadState()
+        object Failure : UploadState()
+        object None : UploadState()
     }
 
     companion object {
@@ -48,6 +53,7 @@ class UploadViewModel @Inject constructor(
     val isEnabledUploadButton: LiveData<Boolean>
         get() = _isEnabledUploadButton
 
+
     private val _queryOfPerfume = MutableStateFlow("")
     val queryOfPerfume: StateFlow<String>
         get() = _queryOfPerfume
@@ -55,11 +61,12 @@ class UploadViewModel @Inject constructor(
     private val _selectedPerfume = MutableStateFlow<PerfumeItem>(PerfumeItem.EmptyPerfume)
     val selectedPerfume: StateFlow<PerfumeItem> = _selectedPerfume
 
-    private val _onStorySaveSuccess = MutableStateFlow(UploadState.NONE)
-    val onStorySaveSuccess: StateFlow<UploadState> = _onStorySaveSuccess
+    private val _onStorySaveSuccess = MutableSharedFlow<UploadState>()
+    val onStorySaveSuccess = _onStorySaveSuccess.asSharedFlow()
+
 
     val searchedPerfumeList by lazy {
-        queryOfPerfume.flatMapConcat { query ->
+        queryOfPerfume.flatMapLatest { query ->
             if (query.isNotBlank()) {
                 perfumeRepository.getPerfumesWithName(PAGE_SIZE, query)
             } else {
@@ -124,14 +131,14 @@ class UploadViewModel @Inject constructor(
         savedImage?.let {
             val story = storyRepository.uploadStory(
                 imageId = savedImage.imageId,
-                perfumeId = (selectedPerfume.lastOrNull() as? PerfumeSelectedItem)?.id,
+                perfumeId = (selectedPerfume.value as? PerfumeSelectedItem)?.id,
                 tags = tagSet.value?.toList() ?: emptyList()
             )
             _onStorySaveSuccess.emit(
                 if (story != null) {
-                    UploadState.SUCCESS
+                    UploadState.Success(story)
                 } else {
-                    UploadState.FAILURE
+                    UploadState.Failure
                 }
             )
         }
