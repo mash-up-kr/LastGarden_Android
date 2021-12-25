@@ -74,23 +74,20 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
         binding.floatingButton.setOnClickListener {
             moveEditorActivity()
         }
+        binding.toolbar.title = ""
     }
 
     override fun onBindViewModelsOnCreate() {
         lifecycleScope.launchWhenCreated {
             viewModel.mainItems
                 .filterNotNull()
-                .collectLatest {
-                    adapter.submitList(it)
-                }
+                .collectLatest { adapter.submitList(it) }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.todayPerfumeStories
                 .filterNotNull()
-                .collectLatest {
-                    todayPerfumeStoryAdapter.submitList(it)
-                }
+                .collectLatest { todayPerfumeStoryAdapter.submitList(it) }
         }
 
         lifecycleScope.launchWhenCreated {

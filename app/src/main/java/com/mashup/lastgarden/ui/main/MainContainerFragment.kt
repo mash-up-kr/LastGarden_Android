@@ -18,14 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainContainerFragment : BaseViewModelFragment() {
 
     private lateinit var tabLayoutMediator: TabLayoutMediator
-    private lateinit var pagerAdapter: PagerAdapter
 
     private var binding by autoCleared<FragmentMainContainerBinding>()
-
-    override fun onCreated(savedInstanceState: Bundle?) {
-        super.onCreated(savedInstanceState)
-        pagerAdapter = PagerAdapter(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +37,7 @@ class MainContainerFragment : BaseViewModelFragment() {
 
     private fun setupViewPager() {
         binding.viewPager.apply {
-            adapter = pagerAdapter
+            adapter = PagerAdapter(this@MainContainerFragment)
             setCurrentItem(0, false)
             isUserInputEnabled = false
         }
@@ -69,5 +63,4 @@ class MainContainerFragment : BaseViewModelFragment() {
             else -> MainFragment()
         }
     }
-
 }

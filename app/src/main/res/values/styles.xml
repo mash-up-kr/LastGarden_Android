@@ -3,6 +3,13 @@
 
     <style name="Widget.SeeHyangComponents" parent="android:Widget" />
 
+    <style name="Widget.SeeHyangComponents.LoadingView" parent="Widget.SeeHyangComponents">
+        <item name="indicator">@drawable/oval</item>
+        <item name="indicatorTint">@color/primaryColor</item>
+        <item name="indicatorRadius">6dp</item>
+        <item name="indicatorPadding">8dp</item>
+    </style>
+
     <style name="Widget.SeeHyangComponents.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">8dp</item>
         <item name="android:textSize">16sp</item>
@@ -39,6 +46,10 @@
         <item name="lineHeight">29sp</item>
     </style>
 
+    <style name="TextAppearance.SeeHyangComponents.Headline2.Bold" parent="TextAppearance.SeeHyangComponents.Headline2">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextAppearance.SeeHyangComponents.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:fontFamily">sans-serif-medium</item>
@@ -46,6 +57,10 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">18sp</item>
         <item name="lineHeight">26sp</item>
+    </style>
+
+    <style name="TextAppearance.SeeHyangComponents.Headline3.Bold" parent="TextAppearance.SeeHyangComponents.Headline3">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.SeeHyangComponents.Headline4" parent="TextAppearance.MaterialComponents.Headline4">

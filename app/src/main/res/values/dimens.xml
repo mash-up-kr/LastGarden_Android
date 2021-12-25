@@ -2,4 +2,6 @@
 <resources>
     <dimen name="tutorial_dot_size">5dp</dimen>
     <dimen name="perfume_content_card_height">216dp</dimen>
+    <dimen name="loading_view_indicator_radius_default">6dp</dimen>
+    <dimen name="loading_view_indicator_padding_default">8dp</dimen>
 </resources>

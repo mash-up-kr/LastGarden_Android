@@ -3,7 +3,6 @@ package com.mashup.lastgarden.data.remote
 import com.mashup.base.extensions.requestBodyOf
 import com.mashup.lastgarden.data.vo.Token
 import com.mashup.lastgarden.data.vo.User
-import com.mashup.lastgarden.network.response.NetworkDataResponse
 import com.mashup.lastgarden.network.response.Response
 import com.mashup.lastgarden.network.response.onErrorReturnDataNull
 import com.mashup.lastgarden.network.services.UserService
@@ -41,4 +40,8 @@ class UserRemoteDataSource @Inject constructor(private val service: UserService)
     suspend fun loginUser(email: String) = service.loginUser(email)
 
     suspend fun checkDuplicatedUserName(name: String) = service.checkDuplicatedUserName(name)
+
+    suspend fun updateUserProfileImage(imageId: Int) = service.updateUserProfile(
+        requestBodyOf { "imageId" to imageId }
+    )
 }
