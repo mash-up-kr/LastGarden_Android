@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +19,7 @@ import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.FragmentScentBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.scent.comment.ScentCommentBottomSheetFragment
-import com.mashup.lastgarden.utils.Util
+import com.mashup.lastgarden.utils.StringFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -27,9 +27,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickListener {
     private var binding by autoCleared<FragmentScentBinding>()
-    private val viewModel: ScentViewModel by activityViewModels()
+    private val viewModel: ScentViewModel by viewModels()
 
     private lateinit var perfumeStoryAdapter: ScentPagingAdapter
+
+    val mainStorySet: MainStorySet? by lazy { arguments?.getParcelable("mainStorySet") }
+    val storyIndex by lazy { arguments?.getInt("storyIndex") ?: 0 }
+    val perfumeId by lazy { arguments?.getInt("perfumeId") ?: 0 }
+    val storyId by lazy { arguments?.getInt("storyId") ?: 0 }
 
     @Inject
     lateinit var glideRequests: GlideRequests
@@ -69,28 +74,37 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
     }
 
     override fun onBindViewModelsOnCreate() {
-        val mainStorySet: MainStorySet? by lazy { requireArguments().getParcelable("mainStorySet") }
-        val storyIndex by lazy { requireArguments().getInt("storyIndex") }
-        val perfumeId by lazy { requireArguments().getInt("perfumeId") }
-        val storyId by lazy { requireArguments().getInt("storyId") }
-
         viewModel.setMainStoryList(mainStorySet, storyIndex)
         viewModel.setPerfumeId(perfumeId)
         viewModel.setStoryId(storyId)
-        viewModel.getStoryList()
     }
 
     override fun onBindViewModelsOnViewCreated() {
         super.onBindViewModelsOnViewCreated()
 
+        viewModel.storyIdAndPerfumeIdSet.observe(viewLifecycleOwner) {
+            if (it != null) {
+                viewModel.getTodayAndHotStoryList(it)
+            }
+        }
+
+        viewModel.perfumeId.observe(viewLifecycleOwner) {
+            if (it != 0) {
+                viewModel.getPerfumeStoryList(it)
+            }
+        }
+
+        viewModel.storyId.observe(viewLifecycleOwner) {
+            if (it != 0) {
+                viewModel.getPerfumeStory(it)
+            }
+        }
+
         viewModel.perfumeStoryList.observe(viewLifecycleOwner) {
             binding.scentRecyclerView.adapter = ScentViewPagerAdapter(it, glideRequests, this)
             binding.detailButton.isVisible = true
             binding.sortButton.isVisible = false
-        }
-
-        viewModel.storyIndex.observe(viewLifecycleOwner) {
-            binding.scentRecyclerView.scrollToPosition(it)
+            binding.scentRecyclerView.scrollToPosition(storyIndex)
         }
 
         viewModel.perfumeStory.observe(viewLifecycleOwner) {
@@ -143,9 +157,10 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         binding.includeScentLayout.run {
             pageCountTextView.isVisible = false
             nicknameTextView.text = item.userNickname
-            dateTextView.text = Util.convertDate(requireActivity().resources, item.createdAt)
+            dateTextView.text =
+                StringFormatter.convertDate(requireActivity().resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
-            likeCountTextView.text = item.likeCount?.let { Util.formatNumber(it) }
+            likeCountTextView.text = item.likeCount?.let { StringFormatter.formatNumber(it) }
             //TODO like 이미지 설정
         }
     }

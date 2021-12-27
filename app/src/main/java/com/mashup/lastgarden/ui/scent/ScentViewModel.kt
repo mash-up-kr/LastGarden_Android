@@ -24,10 +24,6 @@ class ScentViewModel @Inject constructor(
         private const val PAGE_SIZE = 10
     }
 
-    private var _storyIndex = MutableLiveData<Int>()
-    val storyIndex: LiveData<Int>
-        get() = _storyIndex
-
     private var _sortOrder = MutableLiveData(Sort.LATEST)
     val sortOrder: LiveData<Sort>
         get() = _sortOrder
@@ -47,6 +43,11 @@ class ScentViewModel @Inject constructor(
     private val todayAndHotStoryList = mutableListOf<Story>()
     lateinit var pagingStoryList: Flow<PagingData<Story>>
 
+    val storyId: LiveData<Int> = savedStateHandle.getLiveData("storyId", 0)
+    val perfumeId: LiveData<Int> = savedStateHandle.getLiveData("perfumeId", 0)
+    val storyIdAndPerfumeIdSet: LiveData<MainStorySet> =
+        savedStateHandle.getLiveData("storyIdAndPerfumeIdSet", null)
+
     fun setSortOrder(sort: Sort) {
         _sortOrder.value = sort
     }
@@ -64,26 +65,7 @@ class ScentViewModel @Inject constructor(
         savedStateHandle["storyIndex"] = storyIndex
     }
 
-    fun getStoryList() {
-        val mainStorySet = savedStateHandle.get<MainStorySet>("storyIdAndPerfumeIdSet")
-        val storyIndex = savedStateHandle.get<Int>("storyIndex") ?: 0
-        val perfumeId = savedStateHandle.get<Int>("perfumeId") ?: 0
-        val storyId = savedStateHandle.get<Int>("storyId") ?: 0
-
-        when {
-            mainStorySet != null -> {
-                getTodayAndHotStoryList(mainStorySet, storyIndex)
-            }
-            perfumeId != 0 -> {
-                getPerfumeStoryList(perfumeId)
-            }
-            storyId != 0 -> {
-                getPerfumeStory(storyId)
-            }
-        }
-    }
-
-    fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet, storyIndex: Int) {
+    fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet) {
         viewModelScope.launch {
             todayAndHotStoryList.clear()
             storyIdAndPerfumeIdSet.set?.forEach { pair ->
@@ -92,7 +74,6 @@ class ScentViewModel @Inject constructor(
                 }
             }
             _perfumeStoryList.value = todayAndHotStoryList
-            _storyIndex.value = storyIndex
         }
     }
 
