@@ -1,16 +1,30 @@
 package com.mashup.lastgarden.ui.scent.comment
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.data.vo.Reply
+import com.mashup.lastgarden.ui.scent.ScentViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ScentCommentViewModel : ViewModel() {
+@HiltViewModel
+class ScentCommentViewModel @Inject constructor(
+    private val storyRepository: StoryRepository
+) : ViewModel() {
 
-    private val _commentList = MutableLiveData<List<Comment>>()
-    val commentList: LiveData<List<Comment>>
-        get() = _commentList
+    companion object {
+        private const val PAGE_SIZE = 10
+    }
+
+    lateinit var pagingCommentList: Flow<PagingData<Comment>>
 
     private val _replyList = MutableLiveData<List<Reply>>()
     val replyList: LiveData<List<Reply>>
@@ -20,18 +34,11 @@ class ScentCommentViewModel : ViewModel() {
     val commentDetail: LiveData<Comment>
         get() = _commentDetail
 
-    fun getCommentList() {
-        val replyList = listOf<Reply>()
-        _commentList.value =
-            listOf(
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, false),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, false),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, false),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true)
-            )
+    fun getCommentList(storyId: Int) {
+        pagingCommentList =
+            storyRepository
+                .fetchCommentList(storyId, PAGE_SIZE)
+                .cachedIn(viewModelScope)
     }
 
     fun getReplyList() {

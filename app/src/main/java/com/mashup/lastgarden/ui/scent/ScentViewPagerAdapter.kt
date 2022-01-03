@@ -62,6 +62,7 @@ class ScentViewPagerAdapter(
             dateTextView.text =
                 StringFormatter.convertDate(binding.dateTextView.context.resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
+            commentCountTextView.text = item.commentCount?.let { StringFormatter.formatNumber(it) }
             likeCountTextView.text = item.likeCount?.let { StringFormatter.formatNumber(it) }
             commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { listener?.onLikeClick(item.storyId) }
@@ -75,7 +76,7 @@ class ScentViewPagerAdapter(
     ) : RecyclerView.ViewHolder(binding.root)
 
     interface OnClickListener {
-        fun onCommentClick(scentId: Int)
-        fun onLikeClick(scentId: Int)
+        fun onCommentClick(storyId: Int)
+        fun onLikeClick(storyId: Int)
     }
 }
