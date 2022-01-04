@@ -167,7 +167,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     private fun bindImageView(item: Story) {
         binding.includeScentLayout.run {
-            profileImageView.setImageUrl(glideRequests, item.perfumeImageUrl)
+            profileImageView.setImageUrl(glideRequests, item.imageUrl)
             commentImageView.setOnClickListener { onCommentClick(item.storyId) }
             likeImageView.setOnClickListener { onLikeClick(item.storyId) }
             likeImageView.loadImage(glideRequests, R.drawable.ic_dislike)

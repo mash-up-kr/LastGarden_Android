@@ -50,7 +50,7 @@ class ScentPagingAdapter(
     }
 
     private fun ScentViewHolder.bind(item: Story) {
-        glideRequests.load(item.perfumeImageUrl).into(binding.scentImageView)
+        glideRequests.load(item.imageUrl).into(binding.scentImageView)
         binding.run {
             pageCountTextView.text =
                 StringFormatter.formatPageCount(
