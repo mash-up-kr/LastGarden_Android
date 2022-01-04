@@ -1,18 +1,20 @@
 package com.mashup.lastgarden.ui.scent.comment
 
-import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.showToast
 import com.mashup.base.image.GlideRequests
 import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
@@ -38,6 +40,7 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme)
         scentCommentAdapter = ScentCommentPagingAdapter(glideRequests, this)
         val storyId = arguments?.getInt("storyId")
+        viewModel.setStoryId(storyId ?: 0)
         viewModel.getCommentList(storyId ?: 0)
     }
 
@@ -51,17 +54,37 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         setupResizeScrollView()
 
         binding.commentRecyclerView.adapter = scentCommentAdapter
-        lifecycleScope.launchWhenCreated {
-            viewModel.pagingCommentList.collectLatest {
-                scentCommentAdapter.submitData(it)
-            }
-        }
+        setupView()
 
         binding.closeButton.setOnClickListener {
             dismiss()
         }
 
+        binding.applyButton.setOnClickListener {
+            val contents = binding.addCommentEditText.text.toString()
+            viewModel.storyId.value?.let { storyId -> viewModel.addComment(storyId, contents) }
+            binding.addCommentEditText.text.clear()
+            binding.addCommentEditText.clearFocus()
+        }
+
         return binding.root
+    }
+
+    private fun setupView() {
+        viewModel.commentResponse.observe(viewLifecycleOwner, {
+            if (it == ScentCommentViewModel.AddCommentState.SUCCESS) {
+                viewModel.storyId.value?.let { storyId -> viewModel.getCommentList(storyId) }
+            }
+        })
+
+        viewModel.emitCommentList.observe(viewLifecycleOwner, {
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                scentCommentAdapter.submitData(PagingData.empty())
+                viewModel.pagingCommentList.collectLatest {
+                    scentCommentAdapter.submitData(it)
+                }
+            }
+        })
     }
 
     private fun setupResizeScrollView() {

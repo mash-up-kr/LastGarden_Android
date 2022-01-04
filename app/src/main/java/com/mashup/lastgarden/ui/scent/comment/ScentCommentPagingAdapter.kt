@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.ui.scent.comment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

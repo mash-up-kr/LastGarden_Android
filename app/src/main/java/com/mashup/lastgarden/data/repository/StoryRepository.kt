@@ -37,4 +37,7 @@ class StoryRepository @Inject constructor(
         Pager(PagingConfig(pageSize)) {
             PerfumeCommentPagingSource(id, remote)
         }.flow
+
+    suspend fun addComment(storyId: Int, comment: String) =
+        remote.addComment(storyId, comment)
 }

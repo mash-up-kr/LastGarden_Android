@@ -42,4 +42,14 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
         cursor: Int? = null
     ): List<Comment> = service.getCommentList(storyId, cursor)
         .onErrorReturnDataNull() ?: emptyList()
+
+    suspend fun addComment(
+        storyId: Int,
+        comment: String,
+    ) = service.addComment(
+        storyId,
+        requestBodyOf {
+            "contents" to comment
+        }
+    ).onErrorReturnDataNull()
 }
