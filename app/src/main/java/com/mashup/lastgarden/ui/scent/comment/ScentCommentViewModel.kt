@@ -1,6 +1,5 @@
 package com.mashup.lastgarden.ui.scent.comment
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle

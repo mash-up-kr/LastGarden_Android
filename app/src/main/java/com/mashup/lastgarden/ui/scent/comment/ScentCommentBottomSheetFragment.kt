@@ -1,22 +1,22 @@
 package com.mashup.lastgarden.ui.scent.comment
 
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mashup.base.autoCleared
-import com.mashup.base.extensions.showToast
+import com.mashup.base.extensions.hideSoftInput
 import com.mashup.base.image.GlideRequests
-import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.databinding.ScentCommentBottomSheetBinding
@@ -44,14 +44,28 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         viewModel.getCommentList(storyId ?: 0)
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            setupBottomSheet(bottomSheetDialog)
+        }
+        return dialog
+    }
+
+    private fun setupBottomSheet(bottomSheetDialog: BottomSheetDialog) {
+        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.commentBottomSheet) as View
+        val behavior = BottomSheetBehavior.from(bottomSheet)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        behavior.isDraggable = false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = ScentCommentBottomSheetBinding.inflate(inflater, container, false)
-        binding.commentScrollView.updateLayoutParams { height = 510.dp }
-        setupResizeScrollView()
 
         binding.commentRecyclerView.adapter = scentCommentAdapter
         setupView()
@@ -63,8 +77,22 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         binding.applyButton.setOnClickListener {
             val contents = binding.addCommentEditText.text.toString()
             viewModel.storyId.value?.let { storyId -> viewModel.addComment(storyId, contents) }
-            binding.addCommentEditText.text.clear()
-            binding.addCommentEditText.clearFocus()
+        }
+
+        binding.commentRecyclerView.addOnItemTouchListener(object :
+            RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                binding.addCommentEditText.hideSoftInput()
+                binding.addCommentEditText.clearFocus()
+                return false
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        })
+
+        binding.addCommentEditText.setOnFocusChangeListener { _, hasFocus ->
+            binding.commentFilterView.isVisible = !hasFocus
         }
 
         return binding.root
@@ -74,6 +102,9 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
         viewModel.commentResponse.observe(viewLifecycleOwner, {
             if (it == ScentCommentViewModel.AddCommentState.SUCCESS) {
                 viewModel.storyId.value?.let { storyId -> viewModel.getCommentList(storyId) }
+                binding.addCommentEditText.text.clear()
+                binding.addCommentEditText.hideSoftInput()
+                binding.addCommentEditText.clearFocus()
             }
         })
 
@@ -85,19 +116,6 @@ class ScentCommentBottomSheetFragment : BottomSheetDialogFragment(),
                 }
             }
         })
-    }
-
-    private fun setupResizeScrollView() {
-        binding.commentRecyclerView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
-            if (bottom < oldBottom) {
-                binding.commentScrollView.updateLayoutParams { height = 510.dp }
-                binding.commentFilterView.isVisible = false
-            } else {
-                binding.commentScrollView.updateLayoutParams { height = 260.dp }
-                binding.commentFilterView.isVisible = true
-                binding.addCommentEditText.clearFocus()
-            }
-        }
     }
 
     override fun onStart() {
