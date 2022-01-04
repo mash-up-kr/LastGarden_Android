@@ -41,4 +41,5 @@
     <color name="background_gradient_light">#00FFFFFF</color>
     <color name="background_gradient_dark">#aa000000</color>
     <color name="loading_view_mask">#66565656</color>
+    <color name="opacity_white">#B3FFFFFF</color>
 </resources>

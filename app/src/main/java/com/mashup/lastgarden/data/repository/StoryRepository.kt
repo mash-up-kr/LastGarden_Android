@@ -1,8 +1,13 @@
 package com.mashup.lastgarden.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.mashup.lastgarden.data.paging.PerfumeStoryPagingSource
 import com.mashup.lastgarden.data.remote.StoryRemoteDataSource
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.LikeResponse
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,8 +17,10 @@ class StoryRepository @Inject constructor(
 ) {
     suspend fun fetchHotStory(): List<Story> = remote.fetchHotStory()
 
-    suspend fun fetchPerfumeStoryList(storyId: Int): List<Story> =
-        remote.getPerfumeStoryList(storyId)
+    fun fetchPerfumeStoryList(id: Int, pageSize: Int): Flow<PagingData<Story>> =
+        Pager(PagingConfig(pageSize)) {
+            PerfumeStoryPagingSource(id, remote)
+        }.flow
 
     suspend fun fetchPerfumeStory(storyId: Int): Story? =
         remote.getPerfumeStory(storyId)
