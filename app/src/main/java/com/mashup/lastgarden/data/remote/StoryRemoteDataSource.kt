@@ -16,13 +16,13 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
         service.getHotStories().onErrorReturnData(emptyList())
 
     suspend fun getPerfumeStoryList(storyId: Int, cursor: Int? = null): List<Story> =
-        service.getPerfumeStoryList(storyId, cursor, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWVoeWFuZ19zZXJ2ZXIiLCJpZCI6MTMsImVtYWlsIjoia2hqdnZ2N0BuYXZlci5jb20iLCJvQXV0aFR5cGUiOiJLQUtBTyJ9.-AMVqSwXgbNPnl_97Wzys6TYzXCGsMuvENOECf5_0fw").onErrorReturnData(emptyList())
+        service.getPerfumeStoryList(storyId, cursor).onErrorReturnData(emptyList())
 
     suspend fun getPerfumeStory(storyId: Int): Story? =
-        service.getPerfumeStory(storyId,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWVoeWFuZ19zZXJ2ZXIiLCJpZCI6MTMsImVtYWlsIjoia2hqdnZ2N0BuYXZlci5jb20iLCJvQXV0aFR5cGUiOiJLQUtBTyJ9.-AMVqSwXgbNPnl_97Wzys6TYzXCGsMuvENOECf5_0fw").onErrorReturnDataNull()
+        service.getPerfumeStory(storyId).onErrorReturnDataNull()
 
     suspend fun getStoryLike(storyId: Int): LikeResponse? =
-        service.getStoryLike(storyId,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzZWVoeWFuZ19zZXJ2ZXIiLCJpZCI6MTMsImVtYWlsIjoia2hqdnZ2N0BuYXZlci5jb20iLCJvQXV0aFR5cGUiOiJLQUtBTyJ9.-AMVqSwXgbNPnl_97Wzys6TYzXCGsMuvENOECf5_0fw").onErrorReturnDataNull()
+        service.getStoryLike(storyId).onErrorReturnDataNull()
 
     suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
         service.uploadStory(

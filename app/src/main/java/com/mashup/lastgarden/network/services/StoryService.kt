@@ -19,20 +19,17 @@ interface StoryService {
     @GET("perfume/{id}/story")
     suspend fun getPerfumeStoryList(
         @Path("id") storyId: Int,
-        @Query("cursor") cursor: Int? = null,
-        @Header("Authorization") token: String
+        @Query("cursor") cursor: Int? = null
     ): NetworkDataResponse<List<Story>>
 
     @GET("story/{id}")
     suspend fun getPerfumeStory(
-        @Path("id") storyId: Int,
-        @Header("Authorization") token: String
+        @Path("id") storyId: Int
     ): NetworkDataResponse<Story>
 
     @POST("story/{id}/like")
     suspend fun getStoryLike(
-        @Path("id") storyId: Int,
-        @Header("Authorization") token: String
+        @Path("id") storyId: Int
     ): NetworkDataResponse<LikeResponse>
 
     @POST("story")
