@@ -1,7 +1,7 @@
 package com.mashup.lastgarden.ui.main
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mashup.base.BaseViewModel
 import com.mashup.base.extensions.combine
 import com.mashup.lastgarden.data.PerfumeSharedPreferences
 import com.mashup.lastgarden.data.repository.PerfumeRepository
@@ -9,11 +9,9 @@ import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.PerfumeAndStories
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -27,11 +25,9 @@ class MainViewModel @Inject constructor(
     private val perfumeRepository: PerfumeRepository,
     private val storyRepository: StoryRepository,
     private val sharedPreferences: PerfumeSharedPreferences
-) : BaseViewModel() {
+) : ViewModel() {
 
     private val _isShowBanner = MutableStateFlow(true)
-    private val _moveStoryUploadScreen = MutableSharedFlow<Boolean>()
-    val moveStoryUploadScreen = _moveStoryUploadScreen.asSharedFlow()
 
     init {
         loadIsShowBanner()
@@ -147,15 +143,6 @@ class MainViewModel @Inject constructor(
             sharedPreferences.saveIsShowBanner(isShow)
         }
         loadIsShowBanner()
-    }
-
-    fun requestUploadStory() = viewModelScope.launch(Dispatchers.IO) {
-        val token = sharedPreferences.getAccessToken()
-        if (token == null) {
-            _needUserToken.emit(true)
-        } else {
-            _moveStoryUploadScreen.emit(true)
-        }
     }
 
     private fun loadIsShowBanner() {

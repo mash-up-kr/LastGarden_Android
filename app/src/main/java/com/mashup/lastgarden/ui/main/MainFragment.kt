@@ -72,7 +72,7 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
         binding.recyclerView.adapter = adapter
         binding.floatingButton.setOnClickListener {
-            viewModel.requestUploadStory()
+            moveEditorActivity()
         }
         binding.toolbar.title = ""
     }
@@ -106,24 +106,6 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
             viewModel.recommendsItem
                 .filterNotNull()
                 .collectLatest { recommendAdapter.submitList(it) }
-        }
-    }
-
-    override fun onBindViewModelsOnViewCreated() {
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.moveStoryUploadScreen.collectLatest { allowMove ->
-                if (allowMove) {
-                    moveEditorActivity()
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.needUserToken.collectLatest { isShow ->
-                if (isShow) {
-                    showAssignUserAskDialog()
-                }
-            }
         }
     }
 
