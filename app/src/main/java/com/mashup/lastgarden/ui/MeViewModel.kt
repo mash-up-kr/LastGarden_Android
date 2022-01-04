@@ -1,7 +1,7 @@
 package com.mashup.lastgarden.ui
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mashup.base.BaseViewModel
 import com.mashup.lastgarden.data.PerfumeSharedPreferences
 import com.mashup.lastgarden.data.repository.UserRepository
 import com.mashup.lastgarden.data.vo.User
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MeViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val sharedPreferences: PerfumeSharedPreferences
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _user = MutableStateFlow<User?>(null)
     val user: StateFlow<User?> = _user
@@ -26,10 +26,6 @@ class MeViewModel @Inject constructor(
     val name: Flow<String?> = user.map { it?.nickname }
 
     val profileImage: Flow<String?> = user.map { it?.profileImage }
-
-    init {
-        fetchMe()
-    }
 
     fun resetUser() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,6 +39,12 @@ class MeViewModel @Inject constructor(
 
     private fun fetchMe() {
         viewModelScope.launch(Dispatchers.IO) {
+            val token = sharedPreferences.getAccessToken()
+            if (token == null) {
+                _needUserToken.emit(true)
+                return@launch
+            }
+
             userRepository.getUser()?.let { _user.emit(it) }
         }
     }

@@ -15,6 +15,8 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentMyAccountBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.MeViewModel
+import com.mashup.lastgarden.ui.main.MainContainerFragment
+import com.mashup.lastgarden.ui.main.MainContainerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -25,6 +27,8 @@ class MyAccountFragment : BaseViewModelFragment() {
     private var binding by autoCleared<FragmentMyAccountBinding>()
 
     private val meViewModel by activityViewModels<MeViewModel>()
+    private val containerViewModel: MainContainerViewModel by activityViewModels()
+
 
     @Inject
     lateinit var glideRequests: GlideRequests
@@ -38,12 +42,17 @@ class MyAccountFragment : BaseViewModelFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        meViewModel.refresh()
+    }
+
     override fun onSetupViews(view: View) {
         binding.editProfileView.setOnClickListener {
             findNavController().navigate(R.id.editProfileFragment)
         }
         binding.toolbarSettings.setOnClickListener {
-            findNavController().navigate(R.id.settingsFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
         }
     }
 
@@ -68,6 +77,20 @@ class MyAccountFragment : BaseViewModelFragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             meViewModel.name.collectLatest { userName ->
                 binding.userNameView.text = userName
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            meViewModel.needUserToken.collectLatest { isShow ->
+                if (isShow) {
+                    showAssignUserAskDialog(
+                        onClickNegativeButton = {
+                            containerViewModel.setMainContainerPosition(
+                                MainContainerFragment.MainContainerPagerType.MAIN
+                            )
+                        }
+                    )
+                }
             }
         }
     }
