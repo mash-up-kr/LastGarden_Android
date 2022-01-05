@@ -17,6 +17,12 @@
             android:id="@+id/actionMainFragmentToPerfumeDetailFragment"
             app:destination="@id/perfumeDetailFragment" />
 
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+
     </fragment>
 
     <fragment

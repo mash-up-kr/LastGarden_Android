@@ -82,7 +82,8 @@ class UploadFragment : BaseViewModelFragment() {
                     UploadViewModel.UploadState.Failure -> {
                         showToast(R.string.upload_failed_story_save_success)
                     }
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
         }

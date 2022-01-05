@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scentListRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
     android:layout_marginTop="4dp"
-    android:nestedScrollingEnabled="true"
     android:clipToPadding="false"
+    android:nestedScrollingEnabled="true"
     android:overScrollMode="never"
     android:paddingBottom="100dp" />

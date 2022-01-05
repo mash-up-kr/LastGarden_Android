@@ -2,7 +2,6 @@ package com.mashup.lastgarden.ui.scent
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter

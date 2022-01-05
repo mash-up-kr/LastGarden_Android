@@ -35,5 +35,5 @@
 
     <fragment
         android:id="@+id/signCompleteFragment"
-        android:name="com.mashup.lastgarden.ui.sign.SignCompleteFragment"/>
+        android:name="com.mashup.lastgarden.ui.sign.SignCompleteFragment" />
 </navigation>
