@@ -29,7 +29,6 @@ class MyAccountFragment : BaseViewModelFragment() {
     private val meViewModel by activityViewModels<MeViewModel>()
     private val containerViewModel: MainContainerViewModel by activityViewModels()
 
-
     @Inject
     lateinit var glideRequests: GlideRequests
 
@@ -52,7 +51,7 @@ class MyAccountFragment : BaseViewModelFragment() {
             findNavController().navigate(R.id.editProfileFragment)
         }
         binding.toolbarSettings.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+            findNavController().navigate(R.id.action_myAccountFragment_to_settingsFragment)
         }
     }
 
