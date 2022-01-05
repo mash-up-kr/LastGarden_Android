@@ -10,7 +10,8 @@ class PerfumeRecommendViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
         glideRequests: GlideRequests,
-        item: MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem
+        item: MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem,
+        listener: MainAdapter.OnMainItemClickListener?
     ) {
         if (itemView !is PerfumeView) return
 
@@ -19,6 +20,7 @@ class PerfumeRecommendViewHolder(
             name = item.name
             count = item.likeCount
             setImageUrl(glideRequests, item.imageUrl)
+            setOnClickListener { listener?.onPerfumeRecommendClick(item.perfumeId) }
         }
     }
 }

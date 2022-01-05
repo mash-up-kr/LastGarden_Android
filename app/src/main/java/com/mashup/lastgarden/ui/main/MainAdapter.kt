@@ -54,6 +54,8 @@ class MainAdapter(
         fun onRefreshPerfumeClick()
         fun onBannerClick()
         fun onSeeMoreClick()
+        fun onPerfumeRankingClick(id: Int)
+        fun onPerfumeRecommendClick(id: Int)
     }
 
     private class TodayPerfumeHeaderViewHolder(

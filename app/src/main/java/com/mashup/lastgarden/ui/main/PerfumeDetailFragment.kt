@@ -18,17 +18,20 @@ import com.mashup.base.autoCleared
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
 import com.mashup.base.utils.dp
+import com.mashup.lastgarden.Constant.KEY_PERFUME_ID
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.utils.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeDetailBinding>()
@@ -39,6 +42,8 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
 
     @Inject
     lateinit var glideRequests: GlideRequests
+
+    private val perfumeId by lazy { arguments?.get(KEY_PERFUME_ID) ?: 1 }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +65,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnViewCreated() {
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.perfumeDetailItem
                 .filterNotNull()
                 .collectLatest {
@@ -68,14 +73,14 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                     viewModel.setPerfumeLike()
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.likeCount
                 .filterNotNull()
                 .collectLatest {
                     binding.likeCountTextView.text = it.toString()
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.isLiked
                 .filterNotNull()
                 .collectLatest { isLiked ->
@@ -83,6 +88,20 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                         binding.likeImageView.setImageResource(R.drawable.ic_like)
                     } else {
                         binding.likeImageView.setImageResource(R.drawable.ic_like_empty)
+                    }
+                }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.storyCount
+                .filterNotNull()
+                .collectLatest { count ->
+                    if (count > 0) {
+                        binding.nextButton.isEnabled = true
+                        binding.nextButton.text = getString(R.string.perfume_detail_scent_button)
+                    } else {
+                        binding.nextButton.isEnabled = false
+                        binding.nextButton.text =
+                            getString(R.string.perfume_detail_scent_button_enabled)
                     }
                 }
         }
@@ -155,12 +174,14 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private fun addListeners() {
         binding.likeButton.setOnSingleClickListener {
-            viewModel.likePerfume()
+            lifecycleScope.launchWhenCreated {
+                viewModel.likePerfume()
+            }
         }
         binding.nextButton.setOnClickListener {
             findNavController().navigate(
                 R.id.actionPerfumeDetailFragmentToScentFragment,
-                bundleOf("perfumeId" to viewModel.perfumeId)
+                bundleOf(KEY_PERFUME_ID to perfumeId)
             )
         }
     }

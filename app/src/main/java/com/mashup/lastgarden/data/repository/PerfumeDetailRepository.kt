@@ -24,4 +24,6 @@ class PerfumeDetailRepository @Inject constructor(private val remote: PerfumeDet
         }.flow
 
     suspend fun likePerfume(id: Int): PerfumeLike? = remote.likePerfume(id)
+
+    suspend fun getStoryCount(perfumeId: Int): Int = remote.getStoryCount(perfumeId)
 }

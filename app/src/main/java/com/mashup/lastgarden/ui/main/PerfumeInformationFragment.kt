@@ -14,23 +14,26 @@ import com.mashup.lastgarden.data.vo.Note
 import com.mashup.lastgarden.databinding.FragmentPerfumeInformationBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class PerfumeInformationFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeInformationBinding>()
 
-    private val viewModel by viewModels<PerfumeDetailViewModel>()
+    private val viewModel by viewModels<PerfumeDetailViewModel>(
+        ownerProducer = { parentFragment ?: this }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPerfumeInformationBinding.inflate(
-            inflater, container, false
-        )
+        binding = FragmentPerfumeInformationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,16 +43,16 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
     }
 
     override fun onBindViewModelsOnViewCreated() {
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.perfumeDetailItem
                 .filterNotNull()
                 .collectLatest {
-                    viewModel.initSelectedNote()
+                    viewModel.initSelectedNote(it)
                     setMainAccords(it.accords)
                     setPerfumePyramidVisibility()
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.selectedNote
                 .filterNotNull()
                 .collectLatest { selectedNote ->
@@ -62,7 +65,7 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
                     viewModel.setNoteContents()
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.noteContents
                 .filterNotNull()
                 .collectLatest { noteContents ->

@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.Constant.KEY_PERFUME_ID
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
@@ -146,5 +148,19 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
 
     override fun onSeeMoreClick() {
         findNavController().navigate(R.id.perfumeRecommendFragment)
+    }
+
+    override fun onPerfumeRankingClick(id: Int) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf(KEY_PERFUME_ID to id)
+        )
+    }
+
+    override fun onPerfumeRecommendClick(id: Int) {
+        findNavController().navigate(
+            R.id.perfumeDetailFragment,
+            bundleOf(KEY_PERFUME_ID to id)
+        )
     }
 }

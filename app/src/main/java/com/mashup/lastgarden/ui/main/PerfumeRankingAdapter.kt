@@ -12,7 +12,8 @@ import com.mashup.lastgarden.databinding.ItemPerfumeRankingBinding
 private typealias PerfumeRankingItem = MainAdapterItem.PerfumeRankings.PerfumeRankingItem
 
 class PerfumeRankingAdapter(
-    private val glideRequests: GlideRequests
+    private val glideRequests: GlideRequests,
+    private val listener: MainAdapter.OnMainItemClickListener? = null
 ) : ListAdapter<PerfumeRankingItem, PerfumeRankingAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -60,6 +61,7 @@ class PerfumeRankingAdapter(
             brand = item.brandName
             name = item.name
             setImageUrl(glideRequests, item.imageUrl)
+            setOnClickListener { listener?.onPerfumeRankingClick(item.perfumeId) }
         }
     }
 }

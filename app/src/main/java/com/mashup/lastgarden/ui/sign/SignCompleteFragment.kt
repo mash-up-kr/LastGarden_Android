@@ -18,7 +18,6 @@ import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignCompleteFragment : BaseViewModelFragment() {

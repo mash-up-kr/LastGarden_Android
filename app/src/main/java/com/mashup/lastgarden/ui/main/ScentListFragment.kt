@@ -15,15 +15,19 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentScentListBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class ScentListFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentScentListBinding>()
 
-    private val viewModel by viewModels<PerfumeDetailViewModel>()
+    private val viewModel by viewModels<PerfumeDetailViewModel>(
+        ownerProducer = { parentFragment ?: this }
+    )
 
     private lateinit var perfumeDetailAdapter: PerfumeDetailPagingAdapter
 
@@ -49,15 +53,6 @@ class ScentListFragment : BaseViewModelFragment() {
         addListener()
     }
 
-    override fun onBindViewModelsOnCreate() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.storyItems
-                .collectLatest {
-                    perfumeDetailAdapter.submitData(it)
-                }
-        }
-    }
-
     private fun initRecyclerView() {
         binding.scentListRecyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -74,5 +69,13 @@ class ScentListFragment : BaseViewModelFragment() {
                 )
             }
         })
+    }
+
+    override fun onBindViewModelsOnViewCreated() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.items.collectLatest {
+                perfumeDetailAdapter.submitData(it)
+            }
+        }
     }
 }
