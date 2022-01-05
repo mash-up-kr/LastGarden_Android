@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mashup.base.extensions.combine
 import com.mashup.base.extensions.toMultipartBody
+import com.mashup.lastgarden.Constant.KEY_IMAGE_FILE
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.repository.PerfumeRepository
 import com.mashup.lastgarden.data.repository.UserRepository
@@ -74,7 +75,7 @@ class EditProfileViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.emit(true)
             val profileUrl = _inputProfileUrl.value
-            val multipart = profileUrl?.toMultipartBody(context, "image")
+            val multipart = profileUrl?.toMultipartBody(context, KEY_IMAGE_FILE)
             if (multipart == null) {
                 _isLoading.emit(false)
                 _errorMessage.emit(context.getString(R.string.open_file_error))

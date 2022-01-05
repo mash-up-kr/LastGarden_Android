@@ -184,7 +184,7 @@ fun Uri.toMultipartBody(context: Context, name: String): MultipartBody.Part? =
 fun ByteArray.toMultipartBody(name: String): MultipartBody.Part =
     MultipartBody.Part.createFormData(
         name = name,
-        filename = "image",
+        filename = "image.jpg",
         body = toRequestBody(contentType = MultipartBody.FORM)
     )
 
