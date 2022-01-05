@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.mashup.base.autoCleared
 import com.mashup.lastgarden.R
@@ -14,16 +14,20 @@ import com.mashup.lastgarden.data.vo.Note
 import com.mashup.lastgarden.databinding.FragmentPerfumeInformationBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class PerfumeInformationFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeInformationBinding>()
 
-    private val viewModel by activityViewModels<PerfumeDetailViewModel>()
+    private val viewModel by viewModels<PerfumeDetailViewModel>(
+        ownerProducer = { parentFragment ?: this }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,10 +40,6 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
         addListenersOnCheckButton()
-    }
-
-    override fun onBindViewModelsOnCreate() {
-        viewModel.fetchPerfumeDetail()
     }
 
     override fun onBindViewModelsOnViewCreated() {

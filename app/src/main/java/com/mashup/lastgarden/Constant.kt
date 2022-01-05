@@ -10,4 +10,6 @@ object Constant {
     const val PREFIX_STORY_ID = "S"
 
     const val KEY_IMAGE_FILE = "image"
+    const val KEY_PERFUME_ID = "perfumeId"
+
 }

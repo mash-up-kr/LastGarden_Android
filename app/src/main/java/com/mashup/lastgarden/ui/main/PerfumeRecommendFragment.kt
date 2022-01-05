@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mashup.base.autoCleared
 import com.mashup.base.image.GlideRequests
+import com.mashup.lastgarden.Constant
+import com.mashup.lastgarden.Constant.KEY_PERFUME_ID
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentPerfumeRecommendBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
@@ -65,7 +67,7 @@ class PerfumeRecommendFragment : BaseViewModelFragment(),
     override fun onPerfumeRecommendClick(id: String) {
         findNavController().navigate(
             R.id.perfumeDetailFragment,
-            bundleOf("perfumeId" to id)
+            bundleOf(KEY_PERFUME_ID to id)
         )
     }
 }

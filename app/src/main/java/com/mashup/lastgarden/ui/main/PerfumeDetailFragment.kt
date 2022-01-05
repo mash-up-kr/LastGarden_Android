@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -18,31 +18,32 @@ import com.mashup.base.autoCleared
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
 import com.mashup.base.utils.dp
+import com.mashup.lastgarden.Constant.KEY_PERFUME_ID
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.data.vo.Perfume
 import com.mashup.lastgarden.databinding.FragmentPerfumeDetailBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.utils.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentPerfumeDetailBinding>()
 
-    private val viewModel by activityViewModels<PerfumeDetailViewModel>()
+    private val viewModel by viewModels<PerfumeDetailViewModel>()
 
     private lateinit var viewPagerAdapter: PerfumeDetailPagerAdapter
 
     @Inject
     lateinit var glideRequests: GlideRequests
 
-    private val perfumeId by lazy {
-        arguments?.get("perfumeId") ?: 1
-    }
+    private val perfumeId by lazy { arguments?.get(KEY_PERFUME_ID) ?: 1 }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,11 +62,6 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         initViewPager()
         initTabLayout()
         addListeners()
-    }
-
-    override fun onBindViewModelsOnCreate() {
-        viewModel.fetchPerfumeDetail()
-        viewModel.fetchStoryCount()
     }
 
     override fun onBindViewModelsOnViewCreated() {
@@ -178,12 +174,14 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private fun addListeners() {
         binding.likeButton.setOnSingleClickListener {
-            viewModel.likePerfume()
+            lifecycleScope.launchWhenCreated {
+                viewModel.likePerfume()
+            }
         }
         binding.nextButton.setOnClickListener {
             findNavController().navigate(
                 R.id.actionPerfumeDetailFragmentToScentFragment,
-                bundleOf("perfumeId" to perfumeId)
+                bundleOf(KEY_PERFUME_ID to perfumeId)
             )
         }
     }

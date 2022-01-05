@@ -20,7 +20,7 @@ class PerfumeRecommendViewHolder(
             name = item.name
             count = item.likeCount
             setImageUrl(glideRequests, item.imageUrl)
-            setOnClickListener { listener?.onPerfumeRecommendClick(item.id) }
+            setOnClickListener { listener?.onPerfumeRecommendClick(item.perfumeId) }
         }
     }
 }

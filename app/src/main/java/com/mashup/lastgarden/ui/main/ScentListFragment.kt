@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -15,15 +15,19 @@ import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentScentListBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class ScentListFragment : BaseViewModelFragment() {
 
     private var binding by autoCleared<FragmentScentListBinding>()
 
-    private val viewModel by activityViewModels<PerfumeDetailViewModel>()
+    private val viewModel by viewModels<PerfumeDetailViewModel>(
+        ownerProducer = { parentFragment ?: this }
+    )
 
     private lateinit var perfumeDetailAdapter: PerfumeDetailPagingAdapter
 
@@ -69,10 +73,9 @@ class ScentListFragment : BaseViewModelFragment() {
 
     override fun onBindViewModelsOnViewCreated() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.getStoryItems()
-                .collectLatest {
-                    perfumeDetailAdapter.submitData(it)
-                }
+            viewModel.items.collectLatest {
+                perfumeDetailAdapter.submitData(it)
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ class PerfumeRankingAdapter(
             brand = item.brandName
             name = item.name
             setImageUrl(glideRequests, item.imageUrl)
-            setOnClickListener { listener?.onPerfumeRankingClick(item.id) }
+            setOnClickListener { listener?.onPerfumeRankingClick(item.perfumeId) }
         }
     }
 }

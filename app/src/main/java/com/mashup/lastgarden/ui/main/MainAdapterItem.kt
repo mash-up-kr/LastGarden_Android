@@ -54,6 +54,7 @@ sealed class MainAdapterItem(val id: String) {
     ) : MainAdapterItem("RankingPerfumes") {
         data class PerfumeRankingItem(
             val id: String,
+            val perfumeId: Int,
             val rank: Int,
             val imageUrl: String?,
             val brandName: String?,
@@ -68,6 +69,7 @@ sealed class MainAdapterItem(val id: String) {
     ) : MainAdapterItem("PerfumeSuggestions") {
         data class PerfumeRecommendItem(
             val id: String,
+            val perfumeId: Int,
             val imageUrl: String? = null,
             val brandName: String?,
             val name: String?,
@@ -103,6 +105,7 @@ fun List<Perfume>.toRecommendPerfumeItems(): List<MainAdapterItem.PerfumeRecomme
 fun Perfume.toPerfumeRankingItem(): MainAdapterItem.PerfumeRankings.PerfumeRankingItem =
     MainAdapterItem.PerfumeRankings.PerfumeRankingItem(
         id = PREFIX_PERFUME_ID + perfumeId,
+        perfumeId = perfumeId,
         rank = rank ?: 0,
         imageUrl = thumbnailUrl,
         brandName = brandName,
@@ -118,6 +121,7 @@ fun Perfume.toMainAdapterItem(): MainAdapterItem = MainAdapterItem.TodayPerfume(
 fun Perfume.toRecommendPerfumeItem(): MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem =
     MainAdapterItem.PerfumeRecommends.PerfumeRecommendItem(
         id = PREFIX_PERFUME_ID + perfumeId,
+        perfumeId = perfumeId,
         imageUrl = thumbnailUrl,
         brandName = brandName,
         name = name ?: perfumeName ?: koreanName,
