@@ -93,7 +93,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         }
 
         viewModel.storySize.observe(viewLifecycleOwner) {
-            perfumeStoryAdapter.setStoryListSize(it)
+            perfumeStoryAdapter.listSize = it
         }
 
         viewModel.perfumeStory.observe(viewLifecycleOwner) {

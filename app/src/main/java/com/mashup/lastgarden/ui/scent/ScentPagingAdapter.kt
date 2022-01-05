@@ -16,6 +16,7 @@ class ScentPagingAdapter(
     private val glideRequests: GlideRequests,
     private val listener: ScentViewPagerAdapter.OnClickListener? = null
 ) : PagingDataAdapter<Story, ScentPagingAdapter.ScentViewHolder>(DIFF_CALLBACK) {
+
     var listSize: Int = 0
 
     companion object {
@@ -45,10 +46,6 @@ class ScentPagingAdapter(
     class ScentViewHolder(
         val binding: ItemScentBinding
     ) : RecyclerView.ViewHolder(binding.root)
-
-    fun setStoryListSize(size: Int) {
-        listSize = size
-    }
 
     override fun onBindViewHolder(viewHolder: ScentViewHolder, position: Int) {
         getItem(position)?.let { viewHolder.bind(it) }
