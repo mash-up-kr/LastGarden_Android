@@ -40,7 +40,9 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
     @Inject
     lateinit var glideRequests: GlideRequests
 
-    private var perfumeId = 1
+    private val perfumeId by lazy {
+        arguments?.get("perfumeId") ?: 1
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,10 +52,6 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         binding = FragmentPerfumeDetailBinding.inflate(
             inflater, container, false
         )
-        arguments?.getString("perfumeId")?.drop(1)?.let {
-            perfumeId = it.toInt()
-            viewModel.setPerfumeId(it.toInt())
-        }
         return binding.root
     }
 
@@ -65,10 +63,13 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
         addListeners()
     }
 
+    override fun onBindViewModelsOnCreate() {
+        viewModel.fetchPerfumeDetail()
+        viewModel.fetchStoryCount()
+    }
+
     override fun onBindViewModelsOnViewCreated() {
-        viewModel.fetchPerfumeDetail(perfumeId)
-        viewModel.fetchStoryCount(perfumeId)
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.perfumeDetailItem
                 .filterNotNull()
                 .collectLatest {
@@ -76,14 +77,14 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                     viewModel.setPerfumeLike()
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.likeCount
                 .filterNotNull()
                 .collectLatest {
                     binding.likeCountTextView.text = it.toString()
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.isLiked
                 .filterNotNull()
                 .collectLatest { isLiked ->
@@ -94,7 +95,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
                     }
                 }
         }
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.storyCount
                 .filterNotNull()
                 .collectLatest { count ->
@@ -177,7 +178,7 @@ class PerfumeDetailFragment : BaseViewModelFragment() {
 
     private fun addListeners() {
         binding.likeButton.setOnSingleClickListener {
-            viewModel.likePerfume(perfumeId)
+            viewModel.likePerfume()
         }
         binding.nextButton.setOnClickListener {
             findNavController().navigate(

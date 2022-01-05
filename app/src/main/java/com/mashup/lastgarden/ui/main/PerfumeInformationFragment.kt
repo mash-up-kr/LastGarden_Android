@@ -35,46 +35,46 @@ class PerfumeInformationFragment : BaseViewModelFragment() {
 
     override fun onSetupViews(view: View) {
         super.onSetupViews(view)
-        addObserver()
         addListenersOnCheckButton()
     }
 
-    private fun addObserver() {
-        viewModel.perfumeId.observe(viewLifecycleOwner) {
-            viewModel.fetchPerfumeDetail(it)
-            lifecycleScope.launch {
-                viewModel.perfumeDetailItem
-                    .filterNotNull()
-                    .collectLatest {
-                        viewModel.initSelectedNote(it)
-                        setMainAccords(it.accords)
-                        setPerfumePyramidVisibility()
+    override fun onBindViewModelsOnCreate() {
+        viewModel.fetchPerfumeDetail()
+    }
+
+    override fun onBindViewModelsOnViewCreated() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.perfumeDetailItem
+                .filterNotNull()
+                .collectLatest {
+                    viewModel.initSelectedNote(it)
+                    setMainAccords(it.accords)
+                    setPerfumePyramidVisibility()
+                }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.selectedNote
+                .filterNotNull()
+                .collectLatest { selectedNote ->
+                    binding.perfumePyramidInclude.topCheckBox.isChecked =
+                        selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.TOP
+                    binding.perfumePyramidInclude.middleCheckBox.isChecked =
+                        selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.MIDDLE
+                    binding.perfumePyramidInclude.baseCheckBox.isChecked =
+                        selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.BASE
+                    viewModel.setNoteContents()
+                }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.noteContents
+                .filterNotNull()
+                .collectLatest { noteContents ->
+                    if (viewModel.selectedNoteValue != null) {
+                        binding.perfumePyramidInclude.pyramidContentTextView.text = noteContents
+                    } else {
+                        binding.perfumePyramidInclude.noteContentTextView.text = noteContents
                     }
-            }
-            lifecycleScope.launch {
-                viewModel.selectedNote
-                    .filterNotNull()
-                    .collectLatest { selectedNote ->
-                        binding.perfumePyramidInclude.topCheckBox.isChecked =
-                            selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.TOP
-                        binding.perfumePyramidInclude.middleCheckBox.isChecked =
-                            selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.MIDDLE
-                        binding.perfumePyramidInclude.baseCheckBox.isChecked =
-                            selectedNote == PerfumeDetailViewModel.PerfumeDetailNote.BASE
-                        viewModel.setNoteContents()
-                    }
-            }
-            lifecycleScope.launch {
-                viewModel.noteContents
-                    .filterNotNull()
-                    .collectLatest { noteContents ->
-                        if (viewModel.selectedNoteValue != null) {
-                            binding.perfumePyramidInclude.pyramidContentTextView.text = noteContents
-                        } else {
-                            binding.perfumePyramidInclude.noteContentTextView.text = noteContents
-                        }
-                    }
-            }
+                }
         }
     }
 

@@ -47,7 +47,6 @@ class ScentListFragment : BaseViewModelFragment() {
         super.onSetupViews(view)
         initRecyclerView()
         addListener()
-        addObserver()
     }
 
     private fun initRecyclerView() {
@@ -68,14 +67,12 @@ class ScentListFragment : BaseViewModelFragment() {
         })
     }
 
-    private fun addObserver() {
-        viewModel.perfumeId.observe(viewLifecycleOwner) {
-            lifecycleScope.launchWhenCreated {
-                viewModel.getStoryItems(it)
-                    .collectLatest {
-                        perfumeDetailAdapter.submitData(it)
-                    }
-            }
+    override fun onBindViewModelsOnViewCreated() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.getStoryItems()
+                .collectLatest {
+                    perfumeDetailAdapter.submitData(it)
+                }
         }
     }
 }
