@@ -21,8 +21,8 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
     suspend fun getPerfumeStory(storyId: Int): Story? =
         service.getPerfumeStory(storyId).onErrorReturnDataNull()
 
-    suspend fun getStoryLike(storyId: Int): LikeResponse? =
-        service.getStoryLike(storyId).onErrorReturnDataNull()
+    suspend fun likeStory(storyId: Int): LikeResponse? =
+        service.likeStory(storyId).onErrorReturnDataNull()
 
     suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
         service.uploadStory(

@@ -11,6 +11,7 @@ import androidx.paging.map
 import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.Story
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,14 +22,14 @@ import javax.inject.Inject
 @HiltViewModel
 class ScentViewModel @Inject constructor(
     private val storyRepository: StoryRepository,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     companion object {
         private const val PAGE_SIZE = 10
     }
 
-    private var _storyPosition = MutableLiveData<Int>()
+    private var _storyPosition: MutableLiveData<Int> = savedStateHandle.getLiveData("storyIndex")
     val storyPosition: LiveData<Int>
         get() = _storyPosition
 
@@ -40,8 +41,8 @@ class ScentViewModel @Inject constructor(
     val perfumeStory: LiveData<Story>
         get() = _perfumeStory
 
-    private val _perfumeStoryList = MutableLiveData<List<Story>>()
-    val perfumeStoryList: LiveData<List<Story>>
+    private val _perfumeStoryList = MutableLiveData<List<StoryItem>>()
+    val perfumeStoryList: LiveData<List<StoryItem>>
         get() = _perfumeStoryList
 
     private val _emitStoryList = MutableLiveData<Unit>()
@@ -54,47 +55,42 @@ class ScentViewModel @Inject constructor(
     private val _storySize = MutableLiveData(0)
     val storySize: LiveData<Int> = _storySize
 
-    private val todayAndHotStoryList = mutableListOf<Story>()
     lateinit var pagingStoryList: Flow<PagingData<Story>>
 
-    val storyId: LiveData<Int> = savedStateHandle.getLiveData("storyId", 0)
-    val perfumeId: LiveData<Int> = savedStateHandle.getLiveData("perfumeId", 0)
-    val storyIdAndPerfumeIdSet: LiveData<MainStorySet> =
-        savedStateHandle.getLiveData("storyIdAndPerfumeIdSet", null)
+    private val _storyId: LiveData<Int?> = savedStateHandle.getLiveData("storyId", null)
+    private val _perfumeId: LiveData<Int?> = savedStateHandle.getLiveData("perfumeId", null)
+    private val storyIdAndPerfumeIdSet: LiveData<MainStorySet?> =
+        savedStateHandle.getLiveData("mainStorySet", null)
+
+    init {
+        getStorySize()
+        getAllStories()
+    }
 
     fun setSortOrder(sort: Sort) {
         _sortOrder.value = sort
     }
 
-    fun setStoryId(storyId: Int) {
-        savedStateHandle["storyId"] = storyId
-    }
-
-    fun setPerfumeId(perfumeId: Int) {
-        savedStateHandle["perfumeId"] = perfumeId
-    }
-
-    fun setMainStoryList(storyIdAndPerfumeIdSet: MainStorySet?) {
-        savedStateHandle["storyIdAndPerfumeIdSet"] = storyIdAndPerfumeIdSet
-    }
-
     fun setScrollPosition(position: Int) {
-        _storyPosition.value = position
-    }
-
-    fun getTodayAndHotStoryList(storyIdAndPerfumeIdSet: MainStorySet) {
-        viewModelScope.launch {
-            todayAndHotStoryList.clear()
-            storyIdAndPerfumeIdSet.set?.forEach { pair ->
-                storyRepository.fetchPerfumeStory(storyId = pair.first)?.let { story ->
-                    todayAndHotStoryList.add(story)
-                }
-            }
-            _perfumeStoryList.value = todayAndHotStoryList
+        if (_storyPosition.value != position) {
+            _storyPosition.value = position
         }
     }
 
-    fun getPerfumeStoryList(perfumeId: Int) {
+    private fun getTodayAndHotStoryList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val todayAndHotStoryList = mutableListOf<StoryItem>()
+            storyIdAndPerfumeIdSet.value?.set?.forEach { pair ->
+                storyRepository.fetchPerfumeStory(storyId = pair.first)?.let { story ->
+                    todayAndHotStoryList.add(story.toStoryItem())
+                }
+            }
+            _perfumeStoryList.postValue(todayAndHotStoryList)
+        }
+    }
+
+    private fun getPerfumeStoryList() {
+        val perfumeId = _perfumeId.value ?: return
         _emitStoryList.value = Unit
         pagingStoryList = storyRepository.fetchPerfumeStoryList(perfumeId, PAGE_SIZE)
             .cachedIn(viewModelScope)
@@ -105,24 +101,32 @@ class ScentViewModel @Inject constructor(
                     )
                 }
             }
+
     }
 
-
-    fun getStorySize(perfumeId: Int) {
-        viewModelScope.launch {
-            _storySize.value = storyRepository.getStoryCount(perfumeId)
-        }
-    }
-
-    fun getPerfumeStory(storyId: Int) {
+    private fun getPerfumeStory() {
+        val storyId = _storyId.value ?: return
         viewModelScope.launch {
             _perfumeStory.value = storyRepository.fetchPerfumeStory(storyId)
         }
     }
 
-    fun getPerfumeStoryLike(storyId: Int) {
+    private fun getAllStories() {
+        getTodayAndHotStoryList()
+        getPerfumeStoryList()
+        getPerfumeStory()
+    }
+
+    private fun getStorySize() {
+        val perfumeId = _perfumeId.value ?: return
         viewModelScope.launch {
-            storyRepository.getStoryLike(storyId)
+            _storySize.value = storyRepository.getStoryCount(perfumeId)
+        }
+    }
+
+    fun likeStory(storyId: Int) {
+        viewModelScope.launch {
+            storyRepository.likeStory(storyId)
             _likedStoryList.emit(
                 likedStoryList.value.toMutableList().apply {
                     if (contains(storyId)) {
@@ -132,6 +136,7 @@ class ScentViewModel @Inject constructor(
                     }
                 }
             )
+            getAllStories()
         }
     }
 }

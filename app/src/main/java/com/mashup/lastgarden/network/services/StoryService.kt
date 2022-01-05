@@ -28,7 +28,7 @@ interface StoryService {
     ): NetworkDataResponse<Story>
 
     @POST("story/{id}/like")
-    suspend fun getStoryLike(
+    suspend fun likeStory(
         @Path("id") storyId: Int
     ): NetworkDataResponse<LikeResponse>
 

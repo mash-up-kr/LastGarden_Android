@@ -17,16 +17,16 @@ class StoryRepository @Inject constructor(
 ) {
     suspend fun fetchHotStory(): List<Story> = remote.fetchHotStory()
 
-    fun fetchPerfumeStoryList(id: Int, pageSize: Int): Flow<PagingData<Story>> =
+    fun fetchPerfumeStoryList(perfumeId: Int, pageSize: Int): Flow<PagingData<Story>> =
         Pager(PagingConfig(pageSize)) {
-            PerfumeStoryPagingSource(id, remote)
+            PerfumeStoryPagingSource(perfumeId, remote)
         }.flow
 
     suspend fun fetchPerfumeStory(storyId: Int): Story? =
         remote.getPerfumeStory(storyId)
 
-    suspend fun getStoryLike(storyId: Int): LikeResponse? =
-        remote.getStoryLike(storyId)
+    suspend fun likeStory(storyId: Int): LikeResponse? =
+        remote.likeStory(storyId)
 
     suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
         remote.uploadStory(perfumeId, imageId, tags)
