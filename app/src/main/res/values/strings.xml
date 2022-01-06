@@ -12,11 +12,6 @@
     <string name="hint_search_edit_text">내가 사용한 향수를 검색해보세요.</string>
     <string name="result_title_searching">‘%s’ 검색 결과입니다.</string>
 
-    <string name="assign_user_ask_dialog_title">이 기능은 로그인이 필요합니다</string>
-    <string name="assign_user_ask_dialog_message">로그인으로 이동하시겠습니까?</string>
-    <string name="assign_user_ask_dialog_positive">확인</string>
-    <string name="assign_user_ask_dialog_negative">취소</string>
-
     <!-- Sign Information -->
     <string name="sign_explain_label">간편하게 씨향 시작하기</string>
     <string name="sign_google_label">Google 계정으로 로그인</string>

@@ -17,6 +17,6 @@ class MainContainerViewModel @Inject constructor() : ViewModel() {
     fun setMainContainerPosition(
         containerPagerType: MainContainerFragment.MainContainerPagerType
     ) = viewModelScope.launch {
-        _mainContainerPosition.emit(containerPagerType.position)
+        _mainContainerPosition.emit(containerPagerType.ordinal)
     }
 }

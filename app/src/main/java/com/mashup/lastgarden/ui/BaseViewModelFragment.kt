@@ -37,29 +37,6 @@ abstract class BaseViewModelFragment : Fragment() {
         onToolbarSetup(toolbar)
     }
 
-    fun showAssignUserAskDialog(
-        onClickPositiveButton: (() -> Unit)? = null,
-        onClickNegativeButton: (() -> Unit)? = null
-    ) {
-        AlertDialog.Builder(requireContext()).apply {
-            setTitle(R.string.assign_user_ask_dialog_title)
-            setMessage(R.string.assign_user_ask_dialog_message)
-            setPositiveButton(R.string.assign_user_ask_dialog_positive) { _, _ ->
-                onClickPositiveButton?.invoke()
-                requireActivity().run {
-                    startActivity(
-                        Intent(this, SignActivity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        }
-                    )
-                }
-            }
-            setNegativeButton(R.string.assign_user_ask_dialog_negative) { _, _ ->
-                onClickNegativeButton?.invoke()
-            }
-        }.show()
-    }
-
     protected open fun onToolbarSetup(toolbar: Toolbar) {}
 
     protected open fun onBindViewModelsOnViewCreated() {}
