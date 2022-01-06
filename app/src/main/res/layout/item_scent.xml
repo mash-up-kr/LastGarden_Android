@@ -21,20 +21,6 @@
         android:background="@drawable/background_gradation_top"
         tools:ignore="contentDescription" />
 
-    <TextView
-        android:id="@+id/pageCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="20dp"
-        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1/4" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -8,27 +8,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
-import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.databinding.ItemScentBinding
 import com.mashup.lastgarden.utils.StringFormatter
 
 class ScentPagingAdapter(
     private val glideRequests: GlideRequests,
     private val listener: ScentViewPagerAdapter.OnClickListener? = null
-) : PagingDataAdapter<Story, ScentPagingAdapter.ScentViewHolder>(DIFF_CALLBACK) {
-
-    var listSize: Int = 0
+) : PagingDataAdapter<StoryItem, ScentPagingAdapter.ScentViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoryItem>() {
             override fun areItemsTheSame(
-                oldItem: Story,
-                newItem: Story
-            ): Boolean = oldItem.storyId == newItem.storyId
+                oldItem: StoryItem,
+                newItem: StoryItem
+            ): Boolean = oldItem.id == newItem.id
 
             override fun areContentsTheSame(
-                oldItem: Story,
-                newItem: Story
+                oldItem: StoryItem,
+                newItem: StoryItem
             ): Boolean = oldItem == newItem
         }
     }
@@ -51,23 +48,17 @@ class ScentPagingAdapter(
         getItem(position)?.let { viewHolder.bind(it) }
     }
 
-    private fun ScentViewHolder.bind(item: Story) {
+    private fun ScentViewHolder.bind(item: StoryItem) {
         glideRequests.load(item.imageUrl).into(binding.scentImageView)
         binding.run {
-            pageCountTextView.text =
-                StringFormatter.formatPageCount(
-                    pageCountTextView.context,
-                    bindingAdapterPosition,
-                    itemCount
-                )
             profileImageView.setImageUrl(glideRequests, item.userProfileImage)
-            nicknameTextView.text = item.userNickname
+            nicknameTextView.text = item.nickname
             dateTextView.text = StringFormatter.convertDate(dateTextView.resources, item.createdAt)
-            tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
+            tagListTextView.text = item.tags.joinToString(" ") { "#" + it.contents + " " }
             likeCountTextView.text = item.likeCount?.let { StringFormatter.formatNumber(it) }
-            commentImageView.setOnClickListener { listener?.onCommentClick(item.storyId) }
+            commentImageView.setOnClickListener { listener?.onCommentClick(item.id) }
             likeImageView.setOnClickListener {
-                listener?.onLikeClick(item.storyId, bindingAdapterPosition)
+                listener?.onLikeClick(item.id, bindingAdapterPosition)
             }
             likeImageView.loadImage(
                 glideRequests,

@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,10 +53,10 @@ class ScentViewModel @Inject constructor(
     private val _likedStoryList = MutableStateFlow(emptyList<Int>())
     val likedStoryList: StateFlow<List<Int>> = _likedStoryList
 
-    private val _storySize = MutableLiveData(0)
+    private val _storySize = MutableLiveData<Int>()
     val storySize: LiveData<Int> = _storySize
 
-    lateinit var pagingStoryList: Flow<PagingData<Story>>
+    lateinit var pagingStoryList: Flow<PagingData<StoryItem>>
 
     private val _storyId: LiveData<Int?> = savedStateHandle.getLiveData("storyId", null)
     private val _perfumeId: LiveData<Int?> = savedStateHandle.getLiveData("perfumeId", null)
@@ -86,6 +87,7 @@ class ScentViewModel @Inject constructor(
                 }
             }
             _perfumeStoryList.postValue(todayAndHotStoryList)
+            _storySize.postValue(todayAndHotStoryList.size)
         }
     }
 
@@ -94,14 +96,14 @@ class ScentViewModel @Inject constructor(
         _emitStoryList.value = Unit
         pagingStoryList = storyRepository.fetchPerfumeStoryList(perfumeId, PAGE_SIZE)
             .cachedIn(viewModelScope)
+            .map { pagingData -> pagingData.map { story -> story.toStoryItem() } }
             .combine(likedStoryList) { pagingData, likedItem ->
                 pagingData.map { story ->
                     story.copy(
-                        isLiked = likedItem.contains(story.storyId)
+                        isLiked = likedItem.contains(story.id)
                     )
                 }
             }
-
     }
 
     private fun getPerfumeStory() {

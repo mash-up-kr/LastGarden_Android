@@ -95,11 +95,6 @@ class ScentViewPagerAdapter(
 
     private fun ScentViewHolder.bindTextView(item: StoryItem) {
         binding.run {
-            pageCountTextView.text = StringFormatter.formatPageCount(
-                context = pageCountTextView.context,
-                page = bindingAdapterPosition,
-                size = itemCount
-            )
             nicknameTextView.text = item.nickname
             dateTextView.text = StringFormatter.convertDate(
                 resources = binding.dateTextView.context.resources,
