@@ -180,10 +180,8 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
 
     override fun onCommentClick(storyId: Int) {
         ScentCommentBottomSheetFragment().apply {
-            val bundle = Bundle()
-            bundle.putInt("storyId", storyId)
-            arguments = bundle
-        }.show(requireActivity().supportFragmentManager, "")
+            arguments = bundleOf("storyId" to storyId)
+        }.show(requireActivity().supportFragmentManager, null)
     }
 
     override fun onLikeClick(storyId: Int) {

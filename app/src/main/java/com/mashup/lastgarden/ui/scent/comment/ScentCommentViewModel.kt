@@ -10,6 +10,7 @@ import androidx.paging.cachedIn
 import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.data.vo.Reply
+import com.mashup.lastgarden.network.ResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ScentCommentViewModel @Inject constructor(
     private val storyRepository: StoryRepository,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     companion object {
@@ -39,38 +40,41 @@ class ScentCommentViewModel @Inject constructor(
     val commentDetail: LiveData<Comment>
         get() = _commentDetail
 
-    private val _commentResponse = MutableLiveData<AddCommentState>()
-    val commentResponse: LiveData<AddCommentState>
-        get() = _commentResponse
+    private val _addCommentSuccess = MutableLiveData<AddCommentState>()
+    val addCommentSuccess: LiveData<AddCommentState>
+        get() = _addCommentSuccess
 
-    private val _emitCommentList = MutableLiveData<Unit>()
-    val emitCommentList: LiveData<Unit>
-        get() = _emitCommentList
+    private val _emittedCommentList = MutableLiveData<Unit>()
+    val emittedCommentList: LiveData<Unit>
+        get() = _emittedCommentList
 
-    val storyId: LiveData<Int> = savedStateHandle.getLiveData("storyId", 0)
+    private val _storyId: LiveData<Int> = savedStateHandle.getLiveData("storyId", null)
 
-    fun setStoryId(storyId: Int) {
-        savedStateHandle["storyId"] = storyId
+    init {
+        getCommentList()
     }
 
-    fun getCommentList(storyId: Int) {
-        _emitCommentList.value = Unit
-        pagingCommentList =
-            storyRepository
-                .fetchCommentList(storyId, PAGE_SIZE)
-                .cachedIn(viewModelScope)
+    private fun getCommentList() {
+        val storyId = _storyId.value ?: return
+        _emittedCommentList.value = Unit
+        pagingCommentList = storyRepository
+            .fetchCommentList(storyId, PAGE_SIZE)
+            .cachedIn(viewModelScope)
     }
 
-    fun addComment(storyId: Int, contents: String) {
+    fun addComment(contents: String) {
+        val storyId = _storyId.value ?: return
         viewModelScope.launch {
             if (contents.isNotEmpty()) {
-                val response = storyRepository.addComment(storyId, contents)
-                if (response == "OK") {
-                    _commentResponse.value = AddCommentState.SUCCESS
-                } else {
-                    _commentResponse.value = AddCommentState.FAILURE
+                val result = storyRepository.addComment(storyId, contents)
+                when (result.data) {
+                    ResponseData.SUCCESS ->
+                        _addCommentSuccess.value = AddCommentState.SUCCESS
+                    else ->
+                        _addCommentSuccess.value = AddCommentState.FAILURE
                 }
             }
+            getCommentList()
         }
     }
 

@@ -1,6 +1,5 @@
 package com.mashup.lastgarden.ui.scent.comment
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -42,7 +41,7 @@ class ScentCommentPagingAdapter(
     }
 
     private fun ScentCommentViewHolder.bind(item: Comment) {
-        binding.run {
+        binding.apply {
             nicknameTextView.text = item.userNickname
             dateTextView.text = StringFormatter.convertDate(dateTextView.resources, item.createdAt)
             contentTextView.text = item.contents
@@ -50,8 +49,8 @@ class ScentCommentPagingAdapter(
                 replyCountTextView.resources.getString(R.string.reply_count, item.replyCount)
             commentLikeButton.text = item.likeCount.toString()
             commentDislikeButton.text = item.dislikeCount.toString()
+            replyCountTextView.setOnClickListener { listener?.onReplyClick(item) }
         }
-        binding.replyCountTextView.setOnClickListener { listener?.onReplyClick(item) }
     }
 
     class ScentCommentViewHolder(

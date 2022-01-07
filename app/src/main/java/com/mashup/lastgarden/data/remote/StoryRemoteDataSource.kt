@@ -51,5 +51,5 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
         requestBodyOf {
             "contents" to comment
         }
-    ).onErrorReturnDataNull()
+    )
 }

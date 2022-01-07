@@ -50,12 +50,6 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
                 )
             binding.includeDetailLayout.commentLikeButton.text = it.likeCount.toString()
             binding.includeDetailLayout.commentDislikeButton.text = it.dislikeCount.toString()
-//            btnThumbsUpDownSelector(
-//                binding.includeDetailLayout.commentLikeButton,
-//                binding.includeDetailLayout.commentDislikeButton,
-//                it.likeState,
-//                requireContext()
-//            )
         })
 
         binding.closeButton.setOnClickListener {

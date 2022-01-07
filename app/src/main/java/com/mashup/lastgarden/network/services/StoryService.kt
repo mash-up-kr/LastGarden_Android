@@ -4,6 +4,7 @@ import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.LikeResponse
 import com.mashup.lastgarden.network.response.NetworkDataResponse
+import com.mashup.lastgarden.network.response.Response
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -47,5 +48,5 @@ interface StoryService {
     suspend fun addComment(
         @Path("id") storyId: Int,
         @Body body: RequestBody
-    ): NetworkDataResponse<String>
+    ): Response<String>
 }
