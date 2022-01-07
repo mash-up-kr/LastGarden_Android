@@ -47,10 +47,10 @@
         style="@style/TextAppearance.SeeHyangComponents.Body3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="5dp"
         android:layout_marginTop="11dp"
         android:background="@drawable/btn_comment_unchecked_background"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp"
         android:textColor="@color/colorGrey2"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@id/contentTextView"
@@ -67,9 +67,9 @@
         android:paddingVertical="5dp"
         android:textColor="@color/colorGrey4"
         android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_thumbs_up"
         app:layout_constraintBottom_toBottomOf="@id/replyCountTextView"
         app:layout_constraintEnd_toStartOf="@id/commentDislikeButton"
-        app:drawableStartCompat="@drawable/ic_thumbs_up"
         app:layout_constraintTop_toTopOf="@id/replyCountTextView" />
 
     <TextView
@@ -83,9 +83,9 @@
         android:paddingVertical="5dp"
         android:textColor="@color/colorGrey4"
         android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_thumbs_down"
         app:layout_constraintBottom_toBottomOf="@id/commentLikeButton"
         app:layout_constraintEnd_toEndOf="@id/contentTextView"
-        app:drawableStartCompat="@drawable/ic_thumbs_down"
         app:layout_constraintTop_toTopOf="@id/commentLikeButton" />
 
     <View

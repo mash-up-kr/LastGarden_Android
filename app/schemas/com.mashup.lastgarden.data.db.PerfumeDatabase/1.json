@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a7b68780b06d2050a2d9f7dd15ad42ff",
+    "identityHash": "eb8ee7894a965a9040f4babf9f81994b",
     "entities": [
       {
         "tableName": "users",
@@ -136,7 +136,7 @@
       },
       {
         "tableName": "stories",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`story_id` INTEGER NOT NULL, `story_perfume_image_url` TEXT, `story_perfume_thumbnail_url` TEXT, `story_perfume_name` TEXT, `story_user_id` INTEGER NOT NULL, `story_thumbnail_url` TEXT, `story_created_date` TEXT NOT NULL, `story_user_profile_image` TEXT, `story_user_nickname` TEXT NOT NULL, `story_like_count` INTEGER, PRIMARY KEY(`story_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`story_id` INTEGER NOT NULL, `story_perfume_image_url` TEXT, `story_perfume_thumbnail_url` TEXT, `story_perfume_name` TEXT, `story_user_id` INTEGER NOT NULL, `story_thumbnail_url` TEXT, `story_created_date` TEXT NOT NULL, `story_user_profile_image` TEXT, `story_user_nickname` TEXT NOT NULL, `story_like_count` INTEGER, `story_liked` INTEGER NOT NULL, PRIMARY KEY(`story_id`))",
         "fields": [
           {
             "fieldPath": "storyId",
@@ -197,6 +197,12 @@
             "columnName": "story_like_count",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "isLiked",
+            "columnName": "story_liked",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -270,7 +276,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a7b68780b06d2050a2d9f7dd15ad42ff')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb8ee7894a965a9040f4babf9f81994b')"
     ]
   }
 }

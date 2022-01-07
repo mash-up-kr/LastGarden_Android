@@ -11,27 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        tools:ignore="contentDescription"/>
+        tools:ignore="contentDescription"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <ImageView
         android:id="@+id/topGradientImageView"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:background="@drawable/background_gradation_top"
-        tools:ignore="contentDescription"/>
-
-    <TextView
-        android:id="@+id/pageCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="20dp"
-        android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="contentDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,8 +34,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@id/dateTextView"
-            app:layout_constraintStart_toStartOf="@id/tagListTextView"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/likeImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/nicknameTextView"
@@ -60,7 +49,8 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/profileImageView"
             app:layout_constraintStart_toEndOf="@id/profileImageView"
-            app:layout_constraintTop_toTopOf="@id/profileImageView" />
+            app:layout_constraintTop_toTopOf="@id/profileImageView"
+            tools:text="UserName" />
 
         <TextView
             android:id="@+id/dateTextView"
@@ -71,7 +61,8 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/tagListTextView"
-            app:layout_constraintStart_toStartOf="@id/profileImageView" />
+            app:layout_constraintStart_toStartOf="@id/profileImageView"
+            tools:text="2021.12.29" />
 
         <kr.co.prnd.readmore.ReadMoreTextView
             android:id="@+id/tagListTextView"
@@ -88,7 +79,8 @@
             app:layout_constraintStart_toStartOf="@id/likeImageView"
             app:readMoreColor="@color/white"
             app:readMoreMaxLine="2"
-            app:readMoreText="@string/tv_more" />
+            app:readMoreText="@string/tv_more"
+            tools:text="ReadMore" />
 
         <ImageView
             android:id="@+id/commentImageView"
@@ -96,11 +88,12 @@
             android:layout_height="26dp"
             android:layout_marginStart="21dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/ic_comment"
+            android:src="@drawable/ic_comment"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="contentDescription" />
+            tools:ignore="contentDescription"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/commentCountTextView"
@@ -110,8 +103,11 @@
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@color/white"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/commentImageView"
+            app:layout_constraintStart_toEndOf="@id/commentImageView"
+            app:layout_constraintTop_toTopOf="@id/commentImageView"
+            tools:text="9999+"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/likeImageView"
@@ -130,9 +126,9 @@
             android:layout_marginStart="4dp"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@color/white"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/likeImageView"
             app:layout_constraintStart_toEndOf="@id/likeImageView"
             app:layout_constraintTop_toTopOf="@id/likeImageView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

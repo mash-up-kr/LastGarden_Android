@@ -21,7 +21,8 @@ data class Story(
     @ColumnInfo(name = "story_user_profile_image") @SerializedName("userProfileImageUrl") val userProfileImage: String? = null,
     @ColumnInfo(name = "story_user_nickname") val userNickname: String,
     @ColumnInfo(name = "story_like_count") val likeCount: Long? = 0L,
-    @Ignore val tags: List<Tag>? = emptyList()
+    @Ignore val tags: List<Tag>? = emptyList(),
+    @ColumnInfo(name = "story_liked") val isLiked: Boolean
 ) {
     constructor(
         storyId: Int,
@@ -33,7 +34,8 @@ data class Story(
         userProfileImage: String?,
         createdAt: String,
         userNickname: String,
-        likeCount: Long?
+        likeCount: Long?,
+        isLiked: Boolean
     ) : this(
         storyId = storyId,
         userId = userId,
@@ -45,6 +47,7 @@ data class Story(
         userProfileImage = userProfileImage,
         userNickname = userNickname,
         likeCount = likeCount,
-        tags = emptyList()
+        tags = emptyList(),
+        isLiked = isLiked
     )
 }

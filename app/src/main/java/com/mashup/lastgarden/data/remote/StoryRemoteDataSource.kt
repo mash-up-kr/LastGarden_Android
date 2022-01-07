@@ -15,17 +15,14 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
     suspend fun fetchHotStory(): List<Story> =
         service.getHotStories().onErrorReturnData(emptyList())
 
-    suspend fun getPerfumeStoryList(
-        storyId: Int,
-        cursor: Int? = null
-    ): List<Story> = service.getPerfumeStoryList(storyId, cursor)
-        .onErrorReturnDataNull() ?: emptyList()
+    suspend fun getPerfumeStoryList(storyId: Int, cursor: Int? = null): List<Story> =
+        service.getPerfumeStoryList(storyId, cursor).onErrorReturnData(emptyList())
 
     suspend fun getPerfumeStory(storyId: Int): Story? =
         service.getPerfumeStory(storyId).onErrorReturnDataNull()
 
-    suspend fun getStoryLike(storyId: Int): LikeResponse? =
-        service.getStoryLike(storyId).onErrorReturnDataNull()
+    suspend fun likeStory(storyId: Int): LikeResponse? =
+        service.likeStory(storyId).onErrorReturnDataNull()
 
     suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
         service.uploadStory(
@@ -35,4 +32,7 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
                 "tags" to tags
             }
         ).onErrorReturnDataNull()
+
+    suspend fun getStoryCount(perfumeId: Int): Int? =
+        service.getStoryCount(perfumeId).onErrorReturnDataNull()
 }
