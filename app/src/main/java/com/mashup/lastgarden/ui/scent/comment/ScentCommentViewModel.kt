@@ -2,15 +2,35 @@ package com.mashup.lastgarden.ui.scent.comment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.mashup.lastgarden.data.repository.StoryRepository
 import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.data.vo.Reply
+import com.mashup.lastgarden.network.ResponseData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScentCommentViewModel : ViewModel() {
+@HiltViewModel
+class ScentCommentViewModel @Inject constructor(
+    private val storyRepository: StoryRepository,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    private val _commentList = MutableLiveData<List<Comment>>()
-    val commentList: LiveData<List<Comment>>
-        get() = _commentList
+    companion object {
+        private const val PAGE_SIZE = 10
+    }
+
+    enum class AddCommentState {
+        SUCCESS, FAILURE
+    }
+
+    lateinit var pagingCommentList: Flow<PagingData<Comment>>
 
     private val _replyList = MutableLiveData<List<Reply>>()
     val replyList: LiveData<List<Reply>>
@@ -20,18 +40,42 @@ class ScentCommentViewModel : ViewModel() {
     val commentDetail: LiveData<Comment>
         get() = _commentDetail
 
-    fun getCommentList() {
-        val replyList = listOf<Reply>()
-        _commentList.value =
-            listOf(
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, false),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, false),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, false),
-                Comment(0, "일이삼", "2020-12-12", "sdfsdfsdffd", replyList, 112, 11, 10, true)
-            )
+    private val _addCommentSuccess = MutableLiveData<AddCommentState>()
+    val addCommentSuccess: LiveData<AddCommentState>
+        get() = _addCommentSuccess
+
+    private val _emittedCommentList = MutableLiveData<Unit>()
+    val emittedCommentList: LiveData<Unit>
+        get() = _emittedCommentList
+
+    private val _storyId: LiveData<Int> = savedStateHandle.getLiveData("storyId", null)
+
+    init {
+        getCommentList()
+    }
+
+    private fun getCommentList() {
+        val storyId = _storyId.value ?: return
+        _emittedCommentList.value = Unit
+        pagingCommentList = storyRepository
+            .fetchCommentList(storyId, PAGE_SIZE)
+            .cachedIn(viewModelScope)
+    }
+
+    fun addComment(contents: String) {
+        val storyId = _storyId.value ?: return
+        viewModelScope.launch {
+            if (contents.isNotEmpty()) {
+                val result = storyRepository.addComment(storyId, contents)
+                when (result.data) {
+                    ResponseData.SUCCESS ->
+                        _addCommentSuccess.value = AddCommentState.SUCCESS
+                    else ->
+                        _addCommentSuccess.value = AddCommentState.FAILURE
+                }
+            }
+            getCommentList()
+        }
     }
 
     fun getReplyList() {

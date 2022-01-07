@@ -1,6 +1,7 @@
 package com.mashup.lastgarden.ui.scent
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mashup.base.autoCleared
 import com.mashup.base.extensions.loadImage
 import com.mashup.base.image.GlideRequests
@@ -160,6 +162,7 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
             dateTextView.text =
                 StringFormatter.convertDate(requireActivity().resources, item.createdAt)
             tagListTextView.text = item.tags?.joinToString(" ") { "#" + it.contents + " " }
+            commentCountTextView.text = item.commentCount?.let { StringFormatter.formatNumber(it) }
             likeCountTextView.text = item.likeCount?.let { StringFormatter.formatNumber(it) }
             //TODO like 이미지 설정
         }
@@ -175,12 +178,14 @@ class ScentFragment : BaseViewModelFragment(), ScentViewPagerAdapter.OnClickList
         }
     }
 
-    override fun onCommentClick(scentId: Int) {
-        ScentCommentBottomSheetFragment().show(requireActivity().supportFragmentManager, "")
+    override fun onCommentClick(storyId: Int) {
+        ScentCommentBottomSheetFragment().apply {
+            arguments = bundleOf("storyId" to storyId)
+        }.show(requireActivity().supportFragmentManager, null)
     }
 
-    override fun onLikeClick(scentId: Int) {
-        viewModel.getPerfumeStoryLike(scentId)
+    override fun onLikeClick(storyId: Int) {
+        viewModel.getPerfumeStoryLike(storyId)
     }
 
 }

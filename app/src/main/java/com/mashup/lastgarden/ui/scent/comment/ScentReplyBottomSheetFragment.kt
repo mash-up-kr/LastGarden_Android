@@ -13,7 +13,6 @@ import com.mashup.base.autoCleared
 import com.mashup.base.utils.dp
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.ScentReplyBottomSheetBinding
-import com.mashup.lastgarden.extensions.btnThumbsUpDownSelector
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,18 +40,16 @@ class ScentReplyBottomSheetFragment : BottomSheetDialogFragment() {
         })
 
         viewModel.commentDetail.observe(viewLifecycleOwner, {
-            binding.includeDetailLayout.nicknameTextView.text = it.nickName
-            binding.includeDetailLayout.dateTextView.text = it.date
-            binding.includeDetailLayout.contentTextView.text = it.content
-            binding.includeDetailLayout.replyCountTextView.text = "답글 " + it.replyCount.toString()
+            binding.includeDetailLayout.nicknameTextView.text = it.userNickname
+            binding.includeDetailLayout.dateTextView.text = it.createdAt
+            binding.includeDetailLayout.contentTextView.text = it.contents
+            binding.includeDetailLayout.replyCountTextView.text =
+                binding.includeDetailLayout.replyCountTextView.resources.getString(
+                    R.string.reply_count,
+                    it.replyCount
+                )
             binding.includeDetailLayout.commentLikeButton.text = it.likeCount.toString()
             binding.includeDetailLayout.commentDislikeButton.text = it.dislikeCount.toString()
-            btnThumbsUpDownSelector(
-                binding.includeDetailLayout.commentLikeButton,
-                binding.includeDetailLayout.commentDislikeButton,
-                it.likeState,
-                requireContext()
-            )
         })
 
         binding.closeButton.setOnClickListener {

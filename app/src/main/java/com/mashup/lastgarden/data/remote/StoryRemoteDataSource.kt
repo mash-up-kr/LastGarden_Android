@@ -1,6 +1,7 @@
 package com.mashup.lastgarden.data.remote
 
 import com.mashup.base.extensions.requestBodyOf
+import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.LikeResponse
 import com.mashup.lastgarden.network.response.onErrorReturnData
@@ -35,4 +36,20 @@ class StoryRemoteDataSource @Inject constructor(private val service: StoryServic
                 "tags" to tags
             }
         ).onErrorReturnDataNull()
+
+    suspend fun getCommentList(
+        storyId: Int,
+        cursor: Int? = null
+    ): List<Comment> = service.getCommentList(storyId, cursor)
+        .onErrorReturnDataNull() ?: emptyList()
+
+    suspend fun addComment(
+        storyId: Int,
+        comment: String,
+    ) = service.addComment(
+        storyId,
+        requestBodyOf {
+            "contents" to comment
+        }
+    )
 }

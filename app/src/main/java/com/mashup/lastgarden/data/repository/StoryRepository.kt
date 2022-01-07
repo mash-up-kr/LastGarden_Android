@@ -3,8 +3,10 @@ package com.mashup.lastgarden.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.mashup.lastgarden.data.paging.PerfumeCommentPagingSource
 import com.mashup.lastgarden.data.paging.PerfumeStoryPagingSource
 import com.mashup.lastgarden.data.remote.StoryRemoteDataSource
+import com.mashup.lastgarden.data.vo.Comment
 import com.mashup.lastgarden.data.vo.Story
 import com.mashup.lastgarden.network.response.LikeResponse
 import kotlinx.coroutines.flow.Flow
@@ -30,4 +32,12 @@ class StoryRepository @Inject constructor(
 
     suspend fun uploadStory(perfumeId: Int?, imageId: Int, tags: List<String>) =
         remote.uploadStory(perfumeId, imageId, tags)
+
+    fun fetchCommentList(id: Int, pageSize: Int): Flow<PagingData<Comment>> =
+        Pager(PagingConfig(pageSize)) {
+            PerfumeCommentPagingSource(id, remote)
+        }.flow
+
+    suspend fun addComment(storyId: Int, comment: String) =
+        remote.addComment(storyId, comment)
 }

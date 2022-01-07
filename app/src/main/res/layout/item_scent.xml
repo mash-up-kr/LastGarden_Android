@@ -83,9 +83,9 @@
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Body3"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/likeImageView"
+            app:layout_constraintBottom_toTopOf="@id/commentImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/likeImageView"
+            app:layout_constraintStart_toStartOf="@id/commentImageView"
             app:readMoreColor="@color/white"
             app:readMoreMaxLine="2"
             app:readMoreText="@string/tv_more" />
@@ -97,7 +97,6 @@
             android:layout_marginStart="21dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/ic_comment"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="contentDescription" />
@@ -109,18 +108,18 @@
             android:layout_marginStart="4dp"
             android:textAppearance="@style/TextAppearance.SeeHyangComponents.Headline4"
             android:textColor="@color/white"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/commentImageView"
+            app:layout_constraintStart_toEndOf="@id/commentImageView"
+            app:layout_constraintTop_toTopOf="@id/commentImageView" />
 
         <ImageView
             android:id="@+id/likeImageView"
             android:layout_width="26dp"
             android:layout_height="26dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="18dp"
+            app:layout_constraintBottom_toBottomOf="@id/commentCountTextView"
+            app:layout_constraintStart_toEndOf="@id/commentCountTextView"
+            app:layout_constraintTop_toTopOf="@id/commentCountTextView"
             tools:ignore="contentDescription" />
 
         <TextView

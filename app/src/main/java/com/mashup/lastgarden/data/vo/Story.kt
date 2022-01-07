@@ -20,6 +20,7 @@ data class Story(
     @ColumnInfo(name = "story_created_date") val createdAt: String,
     @ColumnInfo(name = "story_user_profile_image") @SerializedName("userProfileImageUrl") val userProfileImage: String? = null,
     @ColumnInfo(name = "story_user_nickname") val userNickname: String,
+    @ColumnInfo(name = "story_comment_count") val commentCount: Long? = 0L,
     @ColumnInfo(name = "story_like_count") val likeCount: Long? = 0L,
     @Ignore val tags: List<Tag>? = emptyList()
 ) {
@@ -33,6 +34,7 @@ data class Story(
         userProfileImage: String?,
         createdAt: String,
         userNickname: String,
+        commentCount: Long?,
         likeCount: Long?
     ) : this(
         storyId = storyId,
@@ -44,6 +46,7 @@ data class Story(
         createdAt = createdAt,
         userProfileImage = userProfileImage,
         userNickname = userNickname,
+        commentCount = commentCount,
         likeCount = likeCount,
         tags = emptyList()
     )
