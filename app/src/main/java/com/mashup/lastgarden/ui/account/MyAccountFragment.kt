@@ -1,5 +1,6 @@
 package com.mashup.lastgarden.ui.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.showAssignUserAskDialog
 import com.mashup.base.image.GlideRequests
 import com.mashup.base.image.transformation.RoundedTransformation
 import com.mashup.lastgarden.R
@@ -17,6 +19,7 @@ import com.mashup.lastgarden.ui.BaseViewModelFragment
 import com.mashup.lastgarden.ui.MeViewModel
 import com.mashup.lastgarden.ui.main.MainContainerFragment
 import com.mashup.lastgarden.ui.main.MainContainerViewModel
+import com.mashup.lastgarden.ui.sign.SignActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -83,6 +86,16 @@ class MyAccountFragment : BaseViewModelFragment() {
             meViewModel.needUserToken.collectLatest { isShow ->
                 if (isShow) {
                     showAssignUserAskDialog(
+                        onClickPositiveButton = {
+                            requireActivity().run {
+                                startActivity(
+                                    Intent(this, SignActivity::class.java).apply {
+                                        flags =
+                                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    }
+                                )
+                            }
+                        },
                         onClickNegativeButton = {
                             containerViewModel.setMainContainerPosition(
                                 MainContainerFragment.MainContainerPagerType.MAIN

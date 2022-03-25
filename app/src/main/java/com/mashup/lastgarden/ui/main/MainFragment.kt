@@ -9,10 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mashup.base.autoCleared
+import com.mashup.base.extensions.showAssignUserAskDialog
 import com.mashup.base.image.GlideRequests
 import com.mashup.lastgarden.R
 import com.mashup.lastgarden.databinding.FragmentMainBinding
 import com.mashup.lastgarden.ui.BaseViewModelFragment
+import com.mashup.lastgarden.ui.sign.SignActivity
 import com.mashup.lastgarden.ui.upload.editor.EditorActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -121,7 +123,18 @@ class MainFragment : BaseViewModelFragment(), MainAdapter.OnMainItemClickListene
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.needUserToken.collectLatest { isShow ->
                 if (isShow) {
-                    showAssignUserAskDialog()
+                    showAssignUserAskDialog(
+                        onClickPositiveButton = {
+                            requireActivity().run {
+                                startActivity(
+                                    Intent(this, SignActivity::class.java).apply {
+                                        flags =
+                                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    }
+                                )
+                            }
+                        }
+                    )
                 }
             }
         }

@@ -62,9 +62,7 @@ class MainContainerFragment : BaseViewModelFragment() {
     override fun onBindViewModelsOnViewCreated() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.mainContainerPosition.collectLatest { position ->
-                position.let {
-                    binding.viewPager.setCurrentItem(position, false)
-                }
+                binding.viewPager.setCurrentItem(position, false)
             }
         }
     }
@@ -74,12 +72,12 @@ class MainContainerFragment : BaseViewModelFragment() {
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment = when (position) {
-            MainContainerPagerType.ACCOUNT.position -> MyAccountFragment()
+            MainContainerPagerType.ACCOUNT.ordinal -> MyAccountFragment()
             else -> MainFragment()
         }
     }
 
-    enum class MainContainerPagerType(val position: Int) {
-        MAIN(0), ACCOUNT(1)
+    enum class MainContainerPagerType {
+        MAIN, ACCOUNT
     }
 }
